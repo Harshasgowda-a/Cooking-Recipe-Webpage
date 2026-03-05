@@ -3,9 +3,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 /* ─────────────────────────────────────────────────────────────────────────
    SUPABASE CONFIG — replace these with your real values, then set USE_MOCK to false
 ───────────────────────────────────────────────────────────────────────── */
-const SUPABASE_URL = "https://YOUR_PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = "your_anon_key_here";
-const USE_MOCK = true; // ← set to false once Supabase Edge Function is deployed
+const SUPABASE_URL = "https://mxkcxdeslrqlykwwokyu.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14a2N4ZGVzbHJxbHlrd3dva3l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2MTAyNjgsImV4cCI6MjA4ODE4NjI2OH0.2cvH0aPYExqhdQy0KL3-Zdoy9Cnowl8vOdjXnKz8aq0";
+const USE_MOCK = false; // ← set to false once Supabase Edge Function is deployed
 
 /* ─────────────────────────────────────────────────────────────────────────
    TYPES
