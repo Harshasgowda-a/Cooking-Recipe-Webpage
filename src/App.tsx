@@ -1,11 +1,15 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { createClient, type User } from "@supabase/supabase-js";
 
 /* ─────────────────────────────────────────────────────────────────────────
    SUPABASE CONFIG — replace these with your real values, then set USE_MOCK to false
 ───────────────────────────────────────────────────────────────────────── */
 const SUPABASE_URL = "https://mxkcxdeslrqlykwwokyu.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14a2N4ZGVzbHJxbHlrd3dva3l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2MTAyNjgsImV4cCI6MjA4ODE4NjI2OH0.2cvH0aPYExqhdQy0KL3-Zdoy9Cnowl8vOdjXnKz8aq0";
-const USE_MOCK = false; // ← set to false once Supabase Edge Function is deployed
+const USE_MOCK = false; // set to false for live Spoonacular results
+
+// Single shared Supabase client (auth + edge functions)
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ─────────────────────────────────────────────────────────────────────────
    TYPES
@@ -836,6 +840,910 @@ const ALL_RECIPES: Recipe[] = [
     ],
     proTip: "Squeezing all moisture from the cabbage is non-negotiable — excess water causes soggy, falling-apart gyoza.",
   },
+  // ── Extra Indian Dishes ──────────────────────────────────────────────────
+  {
+    id: 51, title: "Egg Bhurji (Indian Scrambled Eggs)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=700",
+    readyInMinutes: 15, servings: 2, difficulty: "Easy",
+    tags: ["egg bhurji", "indian eggs", "quick breakfast", "spicy eggs", "easy indian"],
+    description: "Mumbai street-style scrambled eggs loaded with onion, tomato, green chilli and spices. Ready in 15 minutes — the easiest Indian dish you can make.",
+    ingredients: ["eggs", "onion", "tomato", "green chilli", "ginger", "cumin", "turmeric", "cilantro"],
+    missingIngredients: [],
+    steps: [
+      { step: 1, title: "Sauté the base", instruction: "Heat 1 tbsp oil in a pan. Add 1 tsp cumin seeds — let them splutter. Add 1 finely chopped onion and 1 slit green chilli. Cook 3 mins until onion softens." },
+      { step: 2, title: "Add tomato & spices", instruction: "Add 1 chopped tomato, ½ tsp turmeric, ½ tsp chilli powder, salt to taste. Cook 3 mins until tomato breaks down." },
+      { step: 3, title: "Scramble the eggs", instruction: "Crack 4 eggs directly into the pan. Stir continuously on medium heat, folding the eggs through the masala. Cook 2–3 mins — keep them slightly soft. Finish with chopped cilantro and serve hot with bread or roti.", tip: "Don't overcook — remove from heat while eggs look just barely done, they continue cooking in the pan." },
+    ],
+    proTip: "A pinch of garam masala stirred in right at the end takes the flavour up a notch.",
+  },
+  {
+    id: 52, title: "Tadka Dal (Lentil Soup)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["dal", "lentils", "comfort food", "vegan indian", "easy dal", "tadka"],
+    description: "Comforting yellow lentils tempered with a sizzling tadka of ghee, cumin, garlic and dried chilli. A staple in every Indian household.",
+    ingredients: ["lentils", "onion", "tomato", "garlic", "ginger", "turmeric", "cumin", "ghee"],
+    missingIngredients: ["dried red chilli", "mustard seeds"],
+    steps: [
+      { step: 1, title: "Boil the dal", instruction: "Rinse 1 cup yellow lentils (moong or toor dal) thoroughly. Pressure cook or simmer with 3 cups water, ½ tsp turmeric and salt for 20 mins until completely soft and mushy. Whisk smooth." },
+      { step: 2, title: "Make the base", instruction: "In a separate pan, heat 1 tbsp oil. Add chopped onion, cook 5 mins. Add 1 tsp ginger-garlic paste and 1 chopped tomato. Cook until oil separates, about 5 mins. Stir into the cooked dal." },
+      { step: 3, title: "Make the tadka", instruction: "In a small pan, heat 2 tbsp ghee until very hot. Add 1 tsp cumin seeds, 2 dried red chillies and 3 minced garlic cloves. They will sizzle and turn golden in 30 seconds. Pour this sizzling tadka directly over the dal and cover immediately to trap the aroma.", tip: "The ghee must be really hot when you add the spices — that's what creates the signature nutty flavour." },
+    ],
+    proTip: "Dal thickens as it cools. Add hot water to loosen and simmer for 2 mins before serving.",
+  },
+  {
+    id: 53, title: "Aloo Paratha", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 40, servings: 3, difficulty: "Medium",
+    tags: ["paratha", "aloo paratha", "stuffed bread", "punjabi", "breakfast", "flatbread"],
+    description: "Punjab's favourite stuffed flatbread — wheat dough filled with spiced mashed potato and cooked with butter until golden. Served with yogurt and pickle.",
+    ingredients: ["potato", "flour", "cumin", "ginger", "cilantro", "butter", "chilli powder"],
+    missingIngredients: ["carom seeds", "amchur powder"],
+    steps: [
+      { step: 1, title: "Make the dough", instruction: "Mix 2 cups whole wheat flour with water and a pinch of salt. Knead into a soft, smooth dough. Cover and rest 20 mins." },
+      { step: 2, title: "Make the filling", instruction: "Boil and mash 3 potatoes. Mix with 1 tsp cumin, 1 tsp ginger (grated), ½ tsp chilli powder, ½ tsp amchur (dry mango powder), fresh cilantro, and salt." },
+      { step: 3, title: "Stuff and cook", instruction: "Roll a dough ball flat. Place 2 tbsp filling in the centre. Gather edges and seal. Gently roll into a flat disc, being careful not to break the filling through. Cook on a hot tawa with butter for 2 mins each side until golden brown spots appear.", tip: "Roll gently with even pressure from the centre outward to keep the filling intact." },
+    ],
+    proTip: "Serve immediately with cold yogurt and a dollop of butter on top — this is non-negotiable.",
+  },
+  {
+    id: 54, title: "Chana Masala", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Easy",
+    tags: ["chana masala", "chickpea curry", "vegan", "protein rich", "north indian"],
+    description: "Bold, tangy chickpea curry with a deep spiced tomato-onion gravy. One of India's most popular street foods — hearty, vegan, and packed with protein.",
+    ingredients: ["chickpeas", "onion", "tomato", "garlic", "ginger", "cumin", "garam masala", "coriander powder"],
+    missingIngredients: ["anardana", "kashmiri chili"],
+    steps: [
+      { step: 1, title: "Build the masala", instruction: "Heat 2 tbsp oil. Add 1 tsp cumin seeds. Add 2 finely chopped onions and cook 8 mins until deeply golden. Add 1 tbsp ginger-garlic paste, cook 2 mins. Add 2 chopped tomatoes and all dry spices: 1 tsp coriander, ½ tsp chilli powder, 1 tsp cumin powder. Cook until oil separates, about 8 mins." },
+      { step: 2, title: "Add chickpeas", instruction: "Add 2 cans drained chickpeas (or 400g cooked). Add ½ cup water, stir well. Simmer 15 mins to let chickpeas absorb the masala." },
+      { step: 3, title: "Finish and serve", instruction: "Add 1 tsp garam masala, 1 tsp amchur (or a squeeze of lemon), and salt. Crush a few chickpeas against the side of the pan to thicken the gravy. Garnish with cilantro, sliced ginger and green chilli.", tip: "Crushing some chickpeas naturally thickens the curry without any flour or cornstarch." },
+    ],
+    proTip: "The longer you simmer, the better the flavour. Tastes even better the next day.",
+  },
+  {
+    id: 55, title: "Vegetable Pulao", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["pulao", "rice", "vegetable rice", "one pot", "easy indian", "vegan"],
+    description: "Fragrant basmati rice cooked with whole spices and mixed vegetables. A lighter, simpler cousin of biryani that's perfect for a weeknight dinner.",
+    ingredients: ["basmati rice", "onion", "carrot", "peas", "potato", "cumin", "bay leaves", "ghee"],
+    missingIngredients: ["cloves", "cardamom", "cinnamon"],
+    steps: [
+      { step: 1, title: "Fry the aromatics", instruction: "Heat 2 tbsp ghee in a heavy pot. Add whole spices: 1 bay leaf, 2 cloves, 1 cardamom, 1 inch cinnamon, 1 tsp cumin seeds. Let splutter 30 sec. Add sliced onion and cook 6 mins until golden." },
+      { step: 2, title: "Add vegetables", instruction: "Add 1 diced carrot, 1 diced potato, ½ cup peas, 1 tsp ginger-garlic paste. Stir-fry 3 mins. Season with salt and ½ tsp garam masala." },
+      { step: 3, title: "Cook the rice", instruction: "Add 1.5 cups rinsed basmati rice. Stir to coat in the ghee. Add 2.5 cups hot water. Bring to boil, then cover tightly and cook on lowest heat for 15 mins. Rest covered for 5 mins, then fluff with a fork.", tip: "Never open the lid during the 15-minute cook — the steam is what cooks the rice perfectly." },
+    ],
+    proTip: "Rinsing the rice until water runs clear removes excess starch and keeps grains fluffy and separate.",
+  },
+  {
+    id: 56, title: "Paneer Tikka", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Medium",
+    tags: ["paneer tikka", "tandoori", "starter", "grilled paneer", "vegetarian"],
+    description: "Chunks of paneer and peppers marinated in spiced yogurt and chargrilled until smoky. The classic Indian starter that doubles as a main.",
+    ingredients: ["paneer", "yogurt", "bell pepper", "onion", "garam masala", "kashmiri chili", "ginger", "garlic"],
+    missingIngredients: ["chaat masala", "carom seeds"],
+    steps: [
+      { step: 1, title: "Marinate the paneer", instruction: "Mix 4 tbsp thick yogurt with 1 tbsp ginger-garlic paste, 1 tsp Kashmiri chilli powder (for colour), 1 tsp garam masala, 1 tsp cumin powder, 1 tbsp lemon juice, 1 tbsp oil, and salt. Add 300g paneer cubes and bell pepper chunks. Marinate at least 30 mins (overnight is better)." },
+      { step: 2, title: "Grill", instruction: "Thread paneer and peppers onto skewers alternating with onion chunks. Cook on a very hot griddle pan or grill for 3–4 mins each side until charred spots appear. Brush with butter halfway through." },
+      { step: 3, title: "Serve", instruction: "Sprinkle with chaat masala and a squeeze of lemon. Serve with mint chutney and sliced raw onion.", tip: "The marinade must coat every surface — massage it in well for maximum flavour." },
+    ],
+    proTip: "A squeeze of lemon and pinch of chaat masala right before serving brings the whole dish alive.",
+  },
+  // ── Simple / Quick Dishes ─────────────────────────────────────────────────
+  {
+    id: 57, title: "Classic Omelette", cuisine: "American",
+    image: "https://images.unsplash.com/photo-1510693206972-df098062cb71?w=700",
+    readyInMinutes: 10, servings: 1, difficulty: "Easy",
+    tags: ["omelette", "eggs", "quick", "breakfast", "simple", "easy"],
+    description: "A perfectly folded French-style omelette with a silky interior and golden exterior. The simplest egg dish done properly.",
+    ingredients: ["eggs", "butter", "salt", "black pepper"],
+    missingIngredients: ["chives"],
+    steps: [
+      { step: 1, title: "Beat the eggs", instruction: "Crack 3 eggs into a bowl. Season with salt and pepper. Beat vigorously with a fork until completely combined — no streaks of white." },
+      { step: 2, title: "Cook", instruction: "Heat a non-stick pan over medium heat. Add 1 tbsp butter — it should foam but not brown. Pour in eggs. Stir constantly with a rubber spatula for 30 seconds while shaking the pan." },
+      { step: 3, title: "Fold and serve", instruction: "When the eggs are just barely set but still glossy on top, add any fillings (cheese, herbs) to the centre. Tilt the pan and fold the omelette in thirds using the spatula. Slide onto a plate seam-side down. It should be pale yellow with no brown.", tip: "The pan must be hot enough that butter foams immediately but cool enough that it doesn't brown." },
+    ],
+    proTip: "Pull the pan off heat a moment too early — residual heat finishes the cooking perfectly.",
+  },
+  {
+    id: 58, title: "Tomato Pasta (5 ingredients)", cuisine: "Italian",
+    image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=700",
+    readyInMinutes: 20, servings: 2, difficulty: "Easy",
+    tags: ["pasta", "tomato pasta", "quick pasta", "easy dinner", "5 ingredients", "simple"],
+    description: "The simplest pasta you can make — just pasta, canned tomatoes, garlic, olive oil and parmesan. Ready in 20 minutes and endlessly satisfying.",
+    ingredients: ["pasta", "tomato paste", "garlic", "olive oil", "parmesan"],
+    missingIngredients: ["canned tomatoes", "basil"],
+    steps: [
+      { step: 1, title: "Cook pasta", instruction: "Boil heavily salted water. Cook 200g pasta (spaghetti or penne) 1 minute less than packet says — it will finish in the sauce. Reserve 1 cup pasta water before draining." },
+      { step: 2, title: "Make the sauce", instruction: "While pasta cooks, sauté 3 sliced garlic cloves in 3 tbsp olive oil on medium heat for 2 mins until fragrant (not brown). Add 1 can crushed tomatoes and a pinch of chilli flakes. Simmer 8 mins, season with salt." },
+      { step: 3, title: "Marry the pasta", instruction: "Add drained pasta to the sauce. Toss vigorously, adding pasta water a splash at a time until sauce is glossy and clings to the pasta. Finish with parmesan and fresh basil.", tip: "Pasta water is starchy and acts as a sauce binder — it's the secret to restaurant-quality pasta." },
+    ],
+    proTip: "Heavily salted pasta water (it should taste like the sea) is what seasons the pasta from the inside.",
+  },
+  {
+    id: 59, title: "Garlic Fried Rice", cuisine: "Chinese",
+    image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=700",
+    readyInMinutes: 15, servings: 2, difficulty: "Easy",
+    tags: ["fried rice", "leftover rice", "quick", "easy", "garlic rice", "simple"],
+    description: "The ultimate use for leftover rice — tossed with garlic, egg and soy sauce in a screaming hot wok in under 15 minutes.",
+    ingredients: ["rice", "garlic", "eggs", "soy sauce", "sesame oil", "green onion", "vegetable oil"],
+    missingIngredients: [],
+    steps: [
+      { step: 1, title: "Prep", instruction: "Use day-old cold rice — fresh rice is too wet and will clump. Break up any clumps with your hands. Mince 6 garlic cloves. Beat 2 eggs. Have everything ready before you start — this cooks fast." },
+      { step: 2, title: "High-heat fry", instruction: "Heat a wok or large pan on maximum heat until smoking. Add 2 tbsp oil. Add garlic and fry 30 seconds. Push to side, add eggs and scramble quickly. Add rice immediately — spread across the whole pan." },
+      { step: 3, title: "Season and serve", instruction: "Let rice sit 1 min to get some crust. Toss everything together. Add 2 tbsp soy sauce and 1 tsp sesame oil around the edges of the pan. Toss and finish with chopped green onion.", tip: "Maximum heat is essential — low heat steams the rice instead of frying it." },
+    ],
+    proTip: "Day-old rice is drier and fries properly. Freshly cooked rice turns into mush.",
+  },
+  {
+    id: 60, title: "Avocado Toast", cuisine: "American",
+    image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=700",
+    readyInMinutes: 10, servings: 1, difficulty: "Easy",
+    tags: ["avocado toast", "breakfast", "quick", "healthy", "simple", "easy"],
+    description: "Creamy smashed avocado on crispy toast with lemon, chilli flakes and a perfectly fried egg. Simple, fast, and genuinely delicious.",
+    ingredients: ["avocado", "bread", "lemon", "chili flakes", "eggs", "olive oil", "salt", "black pepper"],
+    missingIngredients: [],
+    steps: [
+      { step: 1, title: "Toast and prep", instruction: "Toast 2 thick slices of sourdough or bread until deeply golden and crispy. While toasting, halve 1 ripe avocado, remove stone, scoop flesh into a bowl." },
+      { step: 2, title: "Smash the avocado", instruction: "Add a squeeze of lemon juice, a pinch of salt, pinch of chilli flakes to the avocado. Smash with a fork — leave it chunky, not smooth. Taste and adjust seasoning." },
+      { step: 3, title: "Assemble", instruction: "Spread avocado generously over toast. Top with a fried egg if desired. Drizzle with a little olive oil. Finish with flaky salt, extra chilli flakes, and a squeeze of lemon.", tip: "Salt the avocado more than you think you need — it brings out the flavour significantly." },
+    ],
+    proTip: "Use flaky sea salt for finishing — it gives little bursts of seasoning that make each bite interesting.",
+  },
+
+  // ── 50 New Indian Recipes (ids 61–110) ───────────────────────────────────
+  {
+    id: 61, title: "Chicken Curry (Dhaba Style)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Medium",
+    tags: ["chicken curry", "dhaba", "north indian", "spicy chicken"],
+    description: "Bold, rustic chicken curry the way roadside dhabas make it — loads of whole spices, onion-tomato masala and chicken on the bone for maximum flavour.",
+    ingredients: ["chicken", "onion", "tomato", "garlic", "ginger", "garam masala", "cumin", "coriander powder", "yogurt"],
+    missingIngredients: ["kashmiri chili", "bay leaves"],
+    steps: [
+      { step: 1, title: "Brown the chicken", instruction: "Heat 3 tbsp oil in a heavy pot. Add chicken pieces (bone-in) and sear on high heat until golden brown on all sides, about 8 mins. Remove and set aside." },
+      { step: 2, title: "Build the masala", instruction: "In the same oil, add 2 bay leaves, 1 tsp cumin seeds. Add 2 sliced onions and cook 10 mins until deep golden. Add 2 tbsp ginger-garlic paste, cook 3 mins. Add 3 chopped tomatoes and all dry spices. Cook until oil separates." },
+      { step: 3, title: "Simmer the chicken", instruction: "Return chicken to pot. Add ½ cup yogurt (stirred in gradually), 1 cup water. Simmer covered 25 mins until chicken is cooked through. Finish with garam masala and cilantro.", tip: "Cooking chicken on the bone gives much richer flavour than boneless." },
+    ],
+    proTip: "A piece of coal lit and placed in a small bowl inside the pot for 2 minutes gives authentic smoky dhaba flavour.",
+  },
+  {
+    id: 62, title: "Fish Curry (Goan Style)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Medium",
+    tags: ["fish curry", "goan", "coconut curry", "seafood indian"],
+    description: "Goa's famous tangy-spicy fish curry with a creamy coconut milk base, tempered with mustard seeds and curry leaves.",
+    ingredients: ["salmon", "coconut milk", "onion", "tomato", "garlic", "ginger", "turmeric", "cumin"],
+    missingIngredients: ["kokum", "mustard seeds", "curry leaves"],
+    steps: [
+      { step: 1, title: "Make the base", instruction: "Grind 1 cup grated coconut, 4 dried red chillies, 1 tsp cumin, ½ tsp turmeric and 4 garlic cloves with a little water into a smooth paste." },
+      { step: 2, title: "Cook the curry", instruction: "Temper mustard seeds and curry leaves in oil. Add sliced onion, cook 5 mins. Add ground paste and tomatoes. Cook 8 mins. Add coconut milk and kokum (or tamarind), simmer 5 mins." },
+      { step: 3, title: "Add fish", instruction: "Add fish pieces gently. Simmer 8–10 mins on low heat — do not stir vigorously or the fish will break. Season with salt and serve with steamed rice.", tip: "Add fish right at the end and cook gently — overcooked fish becomes rubbery." },
+    ],
+    proTip: "Kokum is what gives authentic Goan curry its distinctive tang. Tamarind is a good substitute.",
+  },
+  {
+    id: 63, title: "Lamb Rogan Josh", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 75, servings: 4, difficulty: "Hard",
+    tags: ["rogan josh", "lamb curry", "kashmiri", "slow cooked"],
+    description: "Kashmir's most celebrated dish — slow-cooked lamb in a deeply fragrant sauce of Kashmiri chillies, yogurt and whole spices. Rich, warming and complex.",
+    ingredients: ["chicken", "yogurt", "onion", "garlic", "ginger", "kashmiri chili", "garam masala", "cardamom", "cloves"],
+    missingIngredients: ["lamb", "fennel powder", "dry ginger powder"],
+    steps: [
+      { step: 1, title: "Sear the lamb", instruction: "Heat 4 tbsp oil until smoking. Add lamb pieces (bone-in shoulder or leg), sear in batches until deep brown, about 4 mins per side. Remove." },
+      { step: 2, title: "Build the sauce", instruction: "Add whole spices to the oil: cardamom, cloves, cinnamon, bay leaves. Add sliced onions and cook 15 mins until golden. Add ginger-garlic paste. Add Kashmiri chilli paste (soaked dried chillies blended) — this gives colour without extreme heat." },
+      { step: 3, title: "Slow cook", instruction: "Add lamb back. Whisk yogurt and add gradually. Add ½ cup water. Cook covered on very low heat for 50–60 mins until lamb is falling-off-the-bone tender. Finish with fennel powder and dry ginger powder.", tip: "Patience is key — slow cooking on low heat is what makes the lamb tender and deepens the sauce." },
+    ],
+    proTip: "Kashmiri chilli gives vibrant red colour with mild heat. Don't substitute regular chilli powder.",
+  },
+  {
+    id: 64, title: "Prawn Masala", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 25, servings: 3, difficulty: "Easy",
+    tags: ["prawn masala", "shrimp curry", "quick seafood", "coastal indian"],
+    description: "Juicy prawns cooked in a bold onion-tomato masala with coastal spices. Quick enough for a weeknight, impressive enough for guests.",
+    ingredients: ["shrimp", "onion", "tomato", "garlic", "ginger", "turmeric", "coriander powder", "garam masala"],
+    missingIngredients: ["curry leaves", "tamarind"],
+    steps: [
+      { step: 1, title: "Prep prawns", instruction: "Clean and devein 500g prawns. Marinate with ½ tsp turmeric, ½ tsp chilli powder and salt for 10 mins." },
+      { step: 2, title: "Make the masala", instruction: "Heat oil, add curry leaves and sliced onion. Cook 8 mins until golden. Add ginger-garlic paste, chopped tomatoes, coriander powder, chilli powder. Cook until oil separates, about 8 mins." },
+      { step: 3, title: "Cook prawns", instruction: "Add prawns to the masala and toss to coat. Cook 4–5 mins on medium heat — prawns are done when they curl and turn pink. Do not overcook. Finish with garam masala and lemon juice.", tip: "Prawns cook in minutes — the moment they curl and turn fully pink, take them off heat." },
+    ],
+    proTip: "Squeeze fresh lemon right before serving to brighten all the flavours.",
+  },
+  {
+    id: 65, title: "Methi Chicken", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["methi chicken", "fenugreek chicken", "healthy", "north indian"],
+    description: "Succulent chicken cooked with fresh fenugreek leaves — slightly bitter, aromatic and incredibly fragrant. One of North India's most beloved home-cooked dishes.",
+    ingredients: ["chicken", "onion", "tomato", "garlic", "ginger", "yogurt", "cumin", "turmeric"],
+    missingIngredients: ["fenugreek leaves", "kasuri methi"],
+    steps: [
+      { step: 1, title: "Marinate chicken", instruction: "Mix chicken with ½ cup yogurt, 1 tsp turmeric, 1 tsp chilli powder, 1 tbsp ginger-garlic paste, salt. Marinate 30 mins minimum." },
+      { step: 2, title: "Build the base", instruction: "Cook onions in oil until golden. Add ginger-garlic paste, tomatoes and dry spices. Cook until thick and oil surfaces." },
+      { step: 3, title: "Add chicken & methi", instruction: "Add marinated chicken and cook 5 mins. Add washed, chopped fresh methi leaves (or 2 tbsp dried kasuri methi). Add ½ cup water and simmer 20 mins until chicken is cooked. Crush kasuri methi between palms before adding for extra aroma.", tip: "Crushing dried kasuri methi between your palms releases its essential oils and multiplies the aroma." },
+    ],
+    proTip: "Fresh methi is more intense than dried. If using dried kasuri methi, use only 2 tbsp.",
+  },
+  {
+    id: 66, title: "Baingan Bharta", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 40, servings: 3, difficulty: "Easy",
+    tags: ["baingan bharta", "roasted eggplant", "vegan", "punjabi", "smoky"],
+    description: "Whole eggplant charred directly over flame until smoky, then mashed and cooked with onion, tomato and spices. The smokiness is the soul of this dish.",
+    ingredients: ["eggplant", "onion", "tomato", "garlic", "ginger", "cumin", "turmeric", "cilantro"],
+    missingIngredients: ["mustard oil"],
+    steps: [
+      { step: 1, title: "Char the eggplant", instruction: "Pierce 1 large eggplant all over with a fork. Place directly on a gas flame, turning every 2–3 mins until completely charred and collapsed, about 15 mins. The skin should be black and crispy. Let cool slightly, then peel off all the charred skin." },
+      { step: 2, title: "Mash the eggplant", instruction: "Roughly mash the roasted flesh with a fork. Keep it slightly chunky. Mix in 1 tbsp mustard oil for authentic flavour." },
+      { step: 3, title: "Cook the bharta", instruction: "Cook onions in oil until golden. Add ginger-garlic paste, tomatoes and spices. Cook until thick. Add mashed eggplant, mix well and cook 5 mins. Garnish with cilantro and green chilli.", tip: "Holding the eggplant on an open flame gives irreplaceable smokiness. Do not use an oven for this step." },
+    ],
+    proTip: "The more charred the skin, the smokier the bharta. Don't rush this step.",
+  },
+  {
+    id: 67, title: "Kadai Paneer", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Medium",
+    tags: ["kadai paneer", "bell pepper", "restaurant style", "punjabi paneer"],
+    description: "Paneer and bell peppers cooked in a robust tomato-based gravy with freshly ground kadai masala. A restaurant staple that's easy to make at home.",
+    ingredients: ["paneer", "bell pepper", "onion", "tomato", "garlic", "ginger", "cumin", "coriander powder", "garam masala"],
+    missingIngredients: ["kashmiri chili", "dried fenugreek"],
+    steps: [
+      { step: 1, title: "Make kadai masala", instruction: "Dry roast 2 tbsp coriander seeds, 1 tsp cumin seeds, 3 dried red chillies, ½ tsp black pepper until fragrant. Cool and grind coarsely." },
+      { step: 2, title: "Build the gravy", instruction: "Cook onion paste in oil until golden. Add ginger-garlic paste, then blended tomato puree. Add half the kadai masala. Cook until oil separates." },
+      { step: 3, title: "Add paneer and peppers", instruction: "Add cubed paneer and sliced bell peppers. Cook 5 mins — keep peppers slightly crunchy. Add remaining kadai masala, kasuri methi and cream. Simmer 3 mins. Garnish with julienned ginger.", tip: "Don't cook bell peppers until fully soft — some crunch is essential to this dish's character." },
+    ],
+    proTip: "Freshly grinding the kadai masala just before cooking makes a huge difference to the aroma.",
+  },
+  {
+    id: 68, title: "Dum Aloo", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Medium",
+    tags: ["dum aloo", "potato curry", "kashmiri", "vegetarian"],
+    description: "Baby potatoes slow-cooked under steam (dum) in a fragrant yogurt-based sauce. A Kashmiri classic that transforms humble potatoes into something extraordinary.",
+    ingredients: ["potato", "yogurt", "onion", "garlic", "ginger", "cumin", "turmeric", "kashmiri chili", "garam masala"],
+    missingIngredients: ["fennel powder", "dry ginger powder"],
+    steps: [
+      { step: 1, title: "Fry the potatoes", instruction: "Boil 500g baby potatoes until just tender. Prick all over with a fork. Deep fry or shallow fry in oil until golden and slightly crispy on the outside." },
+      { step: 2, title: "Make yogurt sauce", instruction: "Whisk 1 cup yogurt with Kashmiri chilli powder, fennel powder, dry ginger powder and salt. In a separate pan, fry sliced onions until deep golden. Add the yogurt mixture and cook, stirring constantly, until oil separates." },
+      { step: 3, title: "Dum cook", instruction: "Add potatoes to the gravy. Cover tightly and cook on lowest heat for 15 mins. The potatoes absorb the sauce. Finish with garam masala and fresh mint.", tip: "Seal the lid with dough or a tight foil to trap the steam — this is the 'dum' technique." },
+    ],
+    proTip: "Pricking the potatoes helps the sauce penetrate deep inside, flavouring every bite.",
+  },
+  {
+    id: 69, title: "Keema Matar", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Easy",
+    tags: ["keema matar", "minced meat", "peas", "quick curry", "north indian"],
+    description: "Spiced minced lamb or beef with sweet green peas — a humble, hearty Indian classic that's quick, cheap and deeply satisfying.",
+    ingredients: ["ground beef", "peas", "onion", "tomato", "garlic", "ginger", "cumin", "garam masala", "turmeric"],
+    missingIngredients: ["coriander powder"],
+    steps: [
+      { step: 1, title: "Brown the mince", instruction: "Heat 2 tbsp oil. Add sliced onions and cook 8 mins until golden. Add 1 tbsp ginger-garlic paste. Add 500g minced meat and cook on high heat, breaking it up, until all moisture evaporates and meat is browned, about 10 mins." },
+      { step: 2, title: "Add spices and tomato", instruction: "Add chopped tomatoes and all dry spices. Cook until tomatoes break down and oil surfaces. Season with salt." },
+      { step: 3, title: "Add peas and simmer", instruction: "Add 1 cup green peas. Add ¼ cup water if needed. Cook 8 mins until peas are tender. Finish with garam masala and chopped cilantro. Serve with warm roti.", tip: "Cook the mince until completely dry before adding spices — wet mince steams instead of frying and tastes bland." },
+    ],
+    proTip: "A squeeze of lemon juice at the end brightens the flavour of the whole dish.",
+  },
+  {
+    id: 70, title: "Saag (Mustard Greens)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["saag", "sarson ka saag", "mustard greens", "punjabi", "winter"],
+    description: "Punjab's iconic winter dish — slow-cooked mustard greens with spinach, finished with a generous tadka of ghee and garlic. Served with makki di roti.",
+    ingredients: ["spinach", "garlic", "ginger", "onion", "ghee", "cumin", "turmeric", "butter"],
+    missingIngredients: ["mustard greens", "cornmeal", "makki flour"],
+    steps: [
+      { step: 1, title: "Boil the greens", instruction: "Wash and roughly chop 500g mustard greens and 250g spinach. Boil in a little water with ½ tsp turmeric, chopped ginger and green chillies for 20 mins until very soft. Cool and blend to a coarse puree." },
+      { step: 2, title: "Cook the saag", instruction: "Heat ghee in a pan. Cook chopped onion until golden. Add the blended greens, 2 tbsp maize flour (cornmeal) to thicken, salt and a generous pinch of sugar. Stir and cook 15 mins on low heat." },
+      { step: 3, title: "Make the tadka", instruction: "Heat 2 tbsp ghee until very hot. Add sliced garlic and cook until golden and crispy. Pour this sizzling garlic-ghee over the saag. Top with a large knob of butter and serve.", tip: "The maize flour thickens the saag authentically — don't skip it." },
+    ],
+    proTip: "Traditionally cooked for hours in a clay pot. The longer you cook it, the richer it gets.",
+  },
+  {
+    id: 71, title: "Malai Kofta", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=700",
+    readyInMinutes: 60, servings: 4, difficulty: "Hard",
+    tags: ["malai kofta", "dumplings", "restaurant style", "celebration"],
+    description: "Soft, creamy paneer and potato dumplings in a rich, mildly spiced tomato-cream sauce. The ultimate Indian celebration dish.",
+    ingredients: ["paneer", "potato", "onion", "tomato", "garlic", "ginger", "heavy cream", "cashews", "garam masala"],
+    missingIngredients: ["khoya", "raisins", "cardamom"],
+    steps: [
+      { step: 1, title: "Make the koftas", instruction: "Mash 200g paneer and 2 boiled potatoes together. Add 2 tbsp cornflour, salt, cardamom powder and a few raisins as stuffing. Shape into smooth balls and deep fry until golden." },
+      { step: 2, title: "Make the sauce", instruction: "Blend soaked cashews, onion, tomatoes and ginger-garlic into a smooth paste. Cook in oil until deeply coloured. Add spices and cook until thick." },
+      { step: 3, title: "Combine", instruction: "Add cream to the sauce, simmer 5 mins. Add koftas just before serving — they become soggy if left in the gravy. Pour sauce around or gently over koftas at the table.", tip: "Add koftas to the gravy only right before serving to keep them from absorbing too much sauce and falling apart." },
+    ],
+    proTip: "Fry koftas at medium heat — too hot and they brown before cooking through, too cool and they absorb oil.",
+  },
+  {
+    id: 72, title: "Chicken Handi", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["chicken handi", "clay pot", "restaurant", "creamy chicken"],
+    description: "Tender chicken slow-cooked in a handi (clay pot) with aromatic spices, yogurt and cream. Rich, fragrant and deeply satisfying.",
+    ingredients: ["chicken", "yogurt", "onion", "garlic", "ginger", "heavy cream", "garam masala", "cardamom"],
+    missingIngredients: ["mace", "rose water"],
+    steps: [
+      { step: 1, title: "Marinate", instruction: "Mix chicken with yogurt, ginger-garlic paste, chilli powder, turmeric and salt. Marinate 2 hours or overnight." },
+      { step: 2, title: "Cook the base", instruction: "In a heavy pot, fry onion paste in oil until golden. Add marinated chicken. Cook on high 5 mins to seal. Add tomato puree and spices." },
+      { step: 3, title: "Handi style finish", instruction: "Add cream and a pinch of saffron in warm milk. Cover and cook on lowest heat 25 mins. The chicken steams in its own juices. Finish with mace, cardamom and rose water for authenticity.", tip: "Cooking covered on lowest heat traps steam and makes the chicken extremely tender." },
+    ],
+    proTip: "The longer the marinade, the more tender and flavourful the chicken.",
+  },
+  {
+    id: 73, title: "Dhokla", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 40, servings: 6, difficulty: "Medium",
+    tags: ["dhokla", "gujarati", "steamed snack", "healthy snack", "fermented"],
+    description: "Gujarat's famous steamed fermented chickpea flour cake — soft, spongy, tangy and topped with a mustard-sesame tempering. Light, healthy and delicious.",
+    ingredients: ["chickpeas", "yogurt", "ginger", "lemon", "cumin", "mustard seeds", "cilantro"],
+    missingIngredients: ["besan", "fruit salt", "curry leaves"],
+    steps: [
+      { step: 1, title: "Make the batter", instruction: "Mix 2 cups besan (chickpea flour) with 1 cup yogurt, 1 tsp ginger paste, 1 tbsp lemon juice, turmeric, and salt. Add water to make a smooth, thick but pourable batter. Rest 30 mins." },
+      { step: 2, title: "Steam", instruction: "Add 1 tsp fruit salt (Eno) to the batter, mix gently — it will foam. Immediately pour into a greased plate. Steam in a steamer for 20 mins until a toothpick comes out clean." },
+      { step: 3, title: "Add the tempering", instruction: "Let dhokla cool slightly, cut into squares. Heat 2 tbsp oil, add mustard seeds, curry leaves, green chilli, 1 tbsp sugar dissolved in 2 tbsp water. Pour over dhokla. Garnish with coconut and cilantro.", tip: "Add the Eno and pour immediately — the moment you see foam, the leavening is active and must go into the steamer." },
+    ],
+    proTip: "The sugar-water tempering is what makes dhokla moist and gives it the characteristic sweet-savoury balance.",
+  },
+  {
+    id: 74, title: "Poha (Flattened Rice)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=700",
+    readyInMinutes: 20, servings: 2, difficulty: "Easy",
+    tags: ["poha", "breakfast", "flattened rice", "quick", "maharashtrian"],
+    description: "Maharashtra's beloved breakfast — lightly spiced flattened rice with onion, peas and mustard seeds. Ready in 20 minutes, light yet filling.",
+    ingredients: ["onion", "peas", "mustard seeds", "cumin", "turmeric", "lemon", "cilantro", "peanuts"],
+    missingIngredients: ["poha", "curry leaves"],
+    steps: [
+      { step: 1, title: "Prep the poha", instruction: "Rinse 2 cups thick poha in a colander under running water for 30 seconds. Drain. Sprinkle with turmeric and salt, toss gently. Let it sit — it will soften on its own in 5 mins." },
+      { step: 2, title: "Temper", instruction: "Heat 2 tbsp oil. Add mustard seeds — wait for them to pop. Add curry leaves, green chilli, roasted peanuts, and diced onion. Cook 4 mins until onion softens." },
+      { step: 3, title: "Combine", instruction: "Add peas and cook 2 mins. Add the soaked poha and toss gently on low heat for 2 mins. Squeeze lemon juice, garnish with cilantro and sev (crunchy chickpea noodles).", tip: "Don't soak poha for too long — it should be soft but hold its shape, not mushy." },
+    ],
+    proTip: "A squeeze of lemon and fresh cilantro right before serving is essential for the bright, fresh flavour.",
+  },
+  {
+    id: 75, title: "Upma", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 25, servings: 3, difficulty: "Easy",
+    tags: ["upma", "semolina", "south indian breakfast", "quick", "healthy"],
+    description: "South India's staple breakfast — semolina cooked with vegetables, mustard seeds and curry leaves. Simple, nutritious and deeply comforting.",
+    ingredients: ["onion", "tomato", "peas", "carrot", "mustard seeds", "cumin", "ginger", "ghee"],
+    missingIngredients: ["semolina", "urad dal", "curry leaves"],
+    steps: [
+      { step: 1, title: "Roast semolina", instruction: "Dry roast 1 cup semolina in a pan on medium heat, stirring continuously, until it turns slightly golden and aromatic, about 4 mins. Set aside." },
+      { step: 2, title: "Temper and cook vegetables", instruction: "Heat 2 tbsp ghee. Add mustard seeds, urad dal, curry leaves, dried red chilli. Add grated ginger and onions. Cook 5 mins. Add mixed vegetables and salt." },
+      { step: 3, title: "Cook the upma", instruction: "Add 2.5 cups boiling water — it will splatter. Stir immediately. Add roasted semolina gradually while stirring to prevent lumps. Cook 4 mins on low heat, stirring, until upma leaves the sides of the pan. Serve with coconut chutney.", tip: "Use boiling water, not cold — it prevents lumps from forming." },
+    ],
+    proTip: "Roasting the semolina before cooking prevents it from becoming sticky and gives nutty depth.",
+  },
+  {
+    id: 76, title: "Pav Bhaji (Mumbai Style)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Easy",
+    tags: ["pav bhaji", "street food", "mumbai", "butter", "mashed vegetables"],
+    description: "Mumbai's most iconic street food — a thick, buttery mash of vegetables cooked with pav bhaji masala, served with toasted buttered dinner rolls.",
+    ingredients: ["potato", "peas", "cauliflower", "bell pepper", "tomato", "onion", "butter", "garlic"],
+    missingIngredients: ["pav bhaji masala", "pav bread"],
+    steps: [
+      { step: 1, title: "Boil and mash vegetables", instruction: "Boil potatoes, cauliflower and peas until very soft. Mash roughly — the bhaji should have some texture." },
+      { step: 2, title: "Cook the bhaji", instruction: "Heat 3 tbsp butter in a flat pan. Cook onions until golden. Add ginger-garlic paste, bell peppers, tomatoes. Cook until soft. Add mashed vegetables and 2 tbsp pav bhaji masala. Mix and mash everything together. Cook 10 mins, adding water for consistency. Finish with a large knob of butter." },
+      { step: 3, title: "Toast the pav", instruction: "Slice dinner rolls (pav) in half. Spread generous butter on cut sides. Toast on the flat pan until golden. Serve bhaji topped with raw onion, lemon and cilantro alongside the buttered pav.", tip: "Press the pav onto the pan in the leftover bhaji for the best buttery, masala-infused toast." },
+    ],
+    proTip: "The butter quantity is not a mistake — Mumbai pav bhaji is gloriously rich and buttery.",
+  },
+  {
+    id: 77, title: "Rasam", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 25, servings: 4, difficulty: "Easy",
+    tags: ["rasam", "south indian soup", "pepper", "digestive", "comfort food"],
+    description: "South India's beloved thin peppery soup — tangy, spicy and deeply warming. Sipped as a digestive, served over rice, or drunk when sick.",
+    ingredients: ["tomato", "garlic", "cumin", "black pepper", "turmeric", "mustard seeds", "cilantro"],
+    missingIngredients: ["tamarind", "toor dal", "curry leaves", "rasam powder"],
+    steps: [
+      { step: 1, title: "Make tamarind water", instruction: "Soak 1 tbsp tamarind in 2 cups warm water for 10 mins. Squeeze and strain to extract the liquid. Discard pulp." },
+      { step: 2, title: "Cook the rasam", instruction: "Heat tamarind water with 2 chopped tomatoes, ½ tsp turmeric, salt and rasam powder. Simmer 10 mins. Add 2 cups thinned dal water (or plain water). Simmer 5 mins." },
+      { step: 3, title: "Temper", instruction: "Heat 1 tsp ghee. Add mustard seeds, cumin, dried red chilli, curry leaves and crushed garlic. When fragrant, pour into rasam. Garnish with cilantro and a generous crack of black pepper.", tip: "The tadka must go in right before serving to keep the aromatics fresh and pungent." },
+    ],
+    proTip: "Rasam should be watery and thin — it's a broth, not a curry. If it's thick, add more water.",
+  },
+  {
+    id: 78, title: "Curd Rice (Thayir Sadam)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Easy",
+    tags: ["curd rice", "thayir sadam", "south indian", "comfort", "cooling"],
+    description: "Tamil Nadu's ultimate comfort food — soft cooked rice mixed with yogurt and tempered with mustard seeds, curry leaves and green chilli. Cooling and soothing.",
+    ingredients: ["rice", "yogurt", "milk", "ginger", "mustard seeds", "cilantro"],
+    missingIngredients: ["urad dal", "curry leaves", "dried red chilli"],
+    steps: [
+      { step: 1, title: "Prepare rice", instruction: "Cook 1 cup rice until very soft (more water than usual — about 1:3 ratio). While still warm, mash slightly with the back of a spoon. Let cool to room temperature." },
+      { step: 2, title: "Mix with curd", instruction: "Mix cooled rice with 1.5 cups yogurt and ¼ cup milk. The milk prevents the yogurt from turning too sour. Add salt, mix well. Consistency should be soft and flowing." },
+      { step: 3, title: "Temper", instruction: "Heat 1 tbsp oil. Add mustard seeds, urad dal, dried red chilli, curry leaves and finely grated ginger. Pour over the curd rice and mix. Garnish with pomegranate seeds and cilantro.", tip: "Rest for 10 mins after making — the rice absorbs the yogurt and flavours meld beautifully." },
+    ],
+    proTip: "Serving slightly chilled is traditional and particularly refreshing in summer.",
+  },
+  {
+    id: 79, title: "Idli with Sambar", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["idli", "sambar", "south indian", "healthy", "steamed", "breakfast"],
+    description: "South India's most iconic breakfast — fluffy steamed rice cakes with a tangy, spiced lentil and vegetable soup. Light, nutritious and beloved across India.",
+    ingredients: ["lentils", "onion", "tomato", "carrot", "mustard seeds", "cumin", "turmeric", "tamarind"],
+    missingIngredients: ["idli batter", "sambar powder", "curry leaves"],
+    steps: [
+      { step: 1, title: "Steam idlis", instruction: "Use ready-made idli batter (or fermented overnight). Fill greased idli moulds. Steam 12–15 mins until a toothpick comes out clean. Rest 2 mins before removing." },
+      { step: 2, title: "Make sambar", instruction: "Boil ½ cup toor dal until mushy. In another pan, temper mustard seeds, curry leaves in oil. Add onion, tomato, carrot, drumstick. Add tamarind water and sambar powder. Simmer 15 mins. Add cooked dal and simmer 5 mins more." },
+      { step: 3, title: "Serve", instruction: "Serve hot idlis alongside sambar and coconut chutney. Dip idlis into sambar for the traditional experience.", tip: "Idli mould must be well-greased — use oil or ghee to prevent sticking." },
+    ],
+    proTip: "Idlis are done when they start to pull away from the mould edges slightly.",
+  },
+  {
+    id: 80, title: "Dosa (Plain)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Medium",
+    tags: ["dosa", "south indian", "crispy crepe", "breakfast", "gluten free"],
+    description: "South India's famous thin, crispy fermented rice crepe. The batter must be fermented overnight, but the actual cooking is a satisfying skill to master.",
+    ingredients: ["rice", "lentils", "salt"],
+    missingIngredients: ["dosa batter", "ghee"],
+    steps: [
+      { step: 1, title: "Prep the pan", instruction: "Heat a cast iron or non-stick pan until very hot. Sprinkle a few drops of water — they should sizzle and evaporate immediately. Rub the pan with half an onion dipped in oil to season it." },
+      { step: 2, title: "Spread the batter", instruction: "Pour a ladle of dosa batter in the centre. Immediately spread it in concentric circles using the bottom of the ladle, moving outward. Make it thin. Drizzle a tsp of oil around the edges." },
+      { step: 3, title: "Cook until crispy", instruction: "Cook on medium-high heat until edges turn golden and the dosa lifts easily, about 2 mins. Fold in half or roll and serve with coconut chutney and sambar.", tip: "Only spread on one side — never flip a dosa. The steam cooks the top while the bottom crisps." },
+    ],
+    proTip: "The first dosa often sticks — it's the pan calibration dosa. The second one will be perfect.",
+  },
+  {
+    id: 81, title: "Chicken 65", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Medium",
+    tags: ["chicken 65", "fried chicken", "south indian", "starter", "crispy"],
+    description: "Chennai's iconic deep-fried chicken — marinated in yogurt and spices, fried crispy then tossed in a tangy curry leaf tempering. Addictively good.",
+    ingredients: ["chicken", "yogurt", "garlic", "ginger", "lemon", "cumin", "coriander powder", "turmeric"],
+    missingIngredients: ["curry leaves", "kashmiri chili", "corn flour"],
+    steps: [
+      { step: 1, title: "Marinate", instruction: "Mix 500g boneless chicken pieces with yogurt, ginger-garlic paste, Kashmiri chilli powder, cumin powder, lemon juice, cornflour and salt. Marinate 30 mins." },
+      { step: 2, title: "Deep fry", instruction: "Heat oil to 175°C. Fry chicken in batches until crispy golden, about 4–5 mins. Don't crowd the pan. Drain on paper towel." },
+      { step: 3, title: "Toss and serve", instruction: "In a pan, heat 1 tbsp oil. Add curry leaves (they will splutter), green chillies, a pinch of food colour if using. Add fried chicken and toss 1 min. Squeeze lemon and serve immediately.", tip: "Frying in batches keeps the oil temperature stable — crowded pan = soggy chicken." },
+    ],
+    proTip: "The curry leaf toss at the end is what makes Chicken 65 taste authentic — don't skip it.",
+  },
+  {
+    id: 82, title: "Vada Pav", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["vada pav", "mumbai street food", "potato fritter", "spicy"],
+    description: "Mumbai's favourite street food — a spiced potato fritter in a crispy chickpea batter, stuffed inside a bread roll with three chutneys. India's best burger.",
+    ingredients: ["potato", "garlic", "ginger", "mustard seeds", "turmeric", "lemon", "cilantro"],
+    missingIngredients: ["besan", "pav bread", "curry leaves"],
+    steps: [
+      { step: 1, title: "Make the vada filling", instruction: "Boil and mash 4 potatoes. Temper mustard seeds and curry leaves in oil. Add grated ginger-garlic, turmeric and mashed potato. Mix well. Add lemon juice and cilantro. Cool and shape into balls." },
+      { step: 2, title: "Make batter and fry", instruction: "Mix besan with turmeric, chilli powder, salt and water to thick batter. Dip potato balls in batter and deep fry until golden and crispy, about 3 mins." },
+      { step: 3, title: "Assemble", instruction: "Slice pav rolls but don't fully separate. Spread green garlic chutney on one side, sweet tamarind chutney on the other. Place hot vada inside. Press together. Eat immediately.", tip: "Both chutneys together are essential — the heat, sweetness and tang are what make vada pav legendary." },
+    ],
+    proTip: "The garlic chutney (dry coconut, garlic, chilli, salt) is the heart of vada pav. Make extra.",
+  },
+  {
+    id: 83, title: "Aloo Tikki", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["aloo tikki", "potato patty", "street food", "chaat", "crispy"],
+    description: "Crispy-on-the-outside, soft-on-the-inside spiced potato patties — the base of countless Indian chaat dishes and irresistible on their own.",
+    ingredients: ["potato", "cumin", "coriander powder", "ginger", "lemon", "cilantro", "bread crumbs"],
+    missingIngredients: ["amchur powder", "chaat masala"],
+    steps: [
+      { step: 1, title: "Make the mixture", instruction: "Boil and completely cool 4 potatoes. Cold potatoes are important — warm ones absorb too much oil. Mash thoroughly. Mix with grated ginger, cumin, coriander powder, amchur, green chilli, cilantro and salt." },
+      { step: 2, title: "Shape and coat", instruction: "Divide into equal balls. Flatten into patties. Coat lightly with breadcrumbs or poha (beaten rice) for extra crunch." },
+      { step: 3, title: "Pan fry", instruction: "Heat a flat pan with 2 tbsp oil on medium-high. Cook tikkis 3–4 mins each side without moving until deeply golden and crispy. Resist the urge to press them down — let them develop a crust naturally.", tip: "Don't flip too early — the tikki needs time to form a crust, otherwise it will stick and break." },
+    ],
+    proTip: "Using cold cooked potatoes (not warm) makes tikkis that hold shape and don't absorb excess oil.",
+  },
+  {
+    id: 84, title: "Lassi (Sweet & Salted)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 5, servings: 2, difficulty: "Easy",
+    tags: ["lassi", "yogurt drink", "punjabi", "summer", "sweet lassi"],
+    description: "Punjab's cooling yogurt drink — thick, creamy and refreshing. Made sweet with sugar and cardamom or salted with cumin. Perfect for any time of day.",
+    ingredients: ["yogurt", "milk", "sugar", "cardamom"],
+    missingIngredients: ["rose water"],
+    steps: [
+      { step: 1, title: "Sweet lassi", instruction: "Blend 2 cups full-fat yogurt, ½ cup cold milk, 3 tbsp sugar, a pinch of cardamom powder and a few drops of rose water for 1 minute until frothy." },
+      { step: 2, title: "Salted lassi", instruction: "For the salted version: blend yogurt, milk, ½ tsp roasted cumin powder, black salt and a pinch of chilli powder." },
+      { step: 3, title: "Serve", instruction: "Pour into tall glasses over ice. Top sweet lassi with clotted cream (malai). Sprinkle cardamom on top. Serve immediately.", tip: "Blend vigorously for a frothy top — the foam is part of the authentic experience." },
+    ],
+    proTip: "Use full-fat yogurt and whole milk for the authentic rich, creamy Punjab lassi experience.",
+  },
+  {
+    id: 85, title: "Paneer Bhurji", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Easy",
+    tags: ["paneer bhurji", "scrambled paneer", "quick", "breakfast", "protein"],
+    description: "Crumbled paneer scrambled with onion, tomato and spices — the vegetarian version of egg bhurji. Quick, protein-rich and incredibly satisfying.",
+    ingredients: ["paneer", "onion", "tomato", "garlic", "ginger", "cumin", "turmeric", "cilantro", "bell pepper"],
+    missingIngredients: ["kasuri methi"],
+    steps: [
+      { step: 1, title: "Sauté the base", instruction: "Heat 1 tbsp oil. Add cumin seeds, then diced onion and green chilli. Cook 4 mins. Add ginger-garlic paste and bell pepper, cook 3 mins." },
+      { step: 2, title: "Add tomato and spices", instruction: "Add chopped tomato, turmeric, chilli powder, coriander powder, salt. Cook until tomatoes break down, about 5 mins." },
+      { step: 3, title: "Scramble the paneer", instruction: "Crumble paneer directly into the pan. Toss and cook 3 mins on medium-high heat. Add a pinch of garam masala and crushed kasuri methi. Garnish with cilantro. Serve with roti or toast.", tip: "Crumble paneer by hand into uneven pieces — irregular pieces hold the masala better than uniform cubes." },
+    ],
+    proTip: "Add a squeeze of lemon juice right before serving — it brightens the paneer's flavour significantly.",
+  },
+  {
+    id: 86, title: "Chicken Xacuti", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 55, servings: 4, difficulty: "Hard",
+    tags: ["chicken xacuti", "goan", "coconut spice", "complex"],
+    description: "Goa's most complex and layered chicken curry — toasted coconut, poppy seeds and a long list of whole spices create a uniquely aromatic gravy.",
+    ingredients: ["chicken", "onion", "garlic", "ginger", "coconut milk", "cumin", "coriander powder", "turmeric"],
+    missingIngredients: ["dried red chillies", "poppy seeds", "star anise", "stone flower"],
+    steps: [
+      { step: 1, title: "Make xacuti paste", instruction: "Dry roast until fragrant: grated coconut, poppy seeds, coriander seeds, cumin, dried chillies, cloves, peppercorns, star anise. Blend with a little water to a smooth paste." },
+      { step: 2, title: "Build the curry", instruction: "Fry onion in oil until golden. Add ginger-garlic paste. Add the xacuti paste and cook 10 mins stirring frequently until oil surfaces." },
+      { step: 3, title: "Cook the chicken", instruction: "Add chicken pieces. Coat with the masala. Add 1 cup water or thin coconut milk. Simmer covered 30 mins. The gravy should be thick and dark. Finish with tamarind and a touch of jaggery for balance.", tip: "Dry roasting the spices is the most critical step — this activates all their essential oils and is what makes xacuti uniquely fragrant." },
+    ],
+    proTip: "Stone flower (dagad phool) is what gives xacuti its distinctive forest-like aroma. Worth seeking out.",
+  },
+  {
+    id: 87, title: "Bread Pakoda", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 20, servings: 4, difficulty: "Easy",
+    tags: ["bread pakoda", "fritter", "street food", "snack", "monsoon food"],
+    description: "The ultimate Indian monsoon snack — bread stuffed with spiced potato, dipped in chickpea batter and fried until crispy. Best with chai.",
+    ingredients: ["bread", "potato", "cumin", "turmeric", "ginger", "cilantro", "lemon"],
+    missingIngredients: ["besan", "ajwain", "green chutney"],
+    steps: [
+      { step: 1, title: "Make potato filling", instruction: "Boil and mash 2 potatoes. Mix with cumin, green chilli, grated ginger, cilantro, lemon juice, salt and amchur powder." },
+      { step: 2, title: "Stuff the bread", instruction: "Spread green chutney on one slice of bread. Spread potato filling on the other. Press together to make a sandwich. Cut diagonally." },
+      { step: 3, title: "Batter and fry", instruction: "Make a thick batter with besan, turmeric, chilli powder, ajwain (carom seeds) and water. Dip stuffed bread in batter, coating all sides. Deep fry until golden and crispy. Serve immediately with chutney and ketchup.", tip: "Fry at medium heat — the bread must heat through and the batter must cook properly without burning." },
+    ],
+    proTip: "Eat immediately — bread pakodas lose their crunch within minutes of frying.",
+  },
+  {
+    id: 88, title: "Chicken Cafreal", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["chicken cafreal", "goan", "green masala", "grilled", "portuguese"],
+    description: "Goa's vibrant green chicken — marinated in a bold herb and spice paste, then pan-fried until dark and charred at the edges. A Goan Indo-Portuguese classic.",
+    ingredients: ["chicken", "garlic", "ginger", "cilantro", "lemon", "cumin", "black pepper", "vegetable oil"],
+    missingIngredients: ["kashmiri chili", "star anise", "cinnamon"],
+    steps: [
+      { step: 1, title: "Make cafreal masala", instruction: "Blend to smooth paste: 1 cup cilantro, 6 garlic cloves, 1 inch ginger, 4 green chillies, 1 tsp cumin, ½ tsp black pepper, 1 tsp vinegar, juice of 1 lemon, salt." },
+      { step: 2, title: "Marinate", instruction: "Make deep slashes in chicken pieces. Apply cafreal paste, pressing into the cuts. Marinate minimum 2 hours, preferably overnight in the fridge." },
+      { step: 3, title: "Pan fry", instruction: "Heat 3 tbsp oil in a flat pan on medium-high. Cook chicken pieces, pressing down occasionally, until charred on both sides and cooked through, about 8 mins per side. The green paste will char and darken — that's the flavour.", tip: "Don't be alarmed by the blackening — the charred bits are where all the flavour is." },
+    ],
+    proTip: "Overnight marinating makes a dramatic difference — the paste penetrates deep into the chicken.",
+  },
+  {
+    id: 89, title: "Dal Makhani", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 90, servings: 6, difficulty: "Medium",
+    tags: ["dal makhani", "black lentil", "slow cooked", "restaurant", "butter"],
+    description: "The king of all dals — black lentils slow-cooked overnight with butter, cream and whole spices until silky smooth and deeply flavourful. A true restaurant classic.",
+    ingredients: ["lentils", "butter", "heavy cream", "onion", "tomato", "garlic", "ginger", "garam masala", "cumin"],
+    missingIngredients: ["black lentils", "kidney beans"],
+    steps: [
+      { step: 1, title: "Slow cook the lentils", instruction: "Soak 1 cup whole black lentils (urad) and ¼ cup kidney beans overnight. Pressure cook 45 mins with salt and a knob of butter until lentils are completely soft and starting to break down." },
+      { step: 2, title: "Make the makhani base", instruction: "Char 4 tomatoes over flame or broil in oven. Blend with onion, ginger-garlic. Cook this paste in 4 tbsp butter until deeply coloured and thick, about 20 mins." },
+      { step: 3, title: "Combine and simmer", instruction: "Add cooked lentils to the tomato-butter base. Simmer on the lowest possible heat for 30+ mins, stirring often. Add cream and garam masala. The dal should be thick, velvety and buttery. Finish with a generous dollop of butter.", tip: "The secret to restaurant-quality dal makhani is time — the longer it simmers, the creamier it becomes." },
+    ],
+    proTip: "Traditional dal makhani simmers for 8+ hours on a tandoor. Even 2–3 hours on your stovetop makes a dramatic difference.",
+  },
+  {
+    id: 90, title: "Murgh Musallam", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 90, servings: 6, difficulty: "Hard",
+    tags: ["murgh musallam", "whole chicken", "mughal", "celebration", "stuffed"],
+    description: "The Mughal imperial dish — a whole chicken marinated in a saffron-cream paste, stuffed with spiced egg and meat, then slow-roasted in an aromatic gravy.",
+    ingredients: ["chicken", "yogurt", "onion", "garlic", "ginger", "heavy cream", "garam masala", "cashews", "eggs"],
+    missingIngredients: ["saffron", "mace", "kewra water"],
+    steps: [
+      { step: 1, title: "Marinate whole chicken", instruction: "Score a whole chicken all over. Marinate in a paste of yogurt, ginger-garlic, Kashmiri chilli, garam masala and saffron milk for 4 hours." },
+      { step: 2, title: "Stuff and seal", instruction: "Make a filling with hard-boiled eggs, fried minced meat, fried onion and garam masala. Stuff inside the chicken cavity. Truss the chicken to hold shape." },
+      { step: 3, title: "Cook in gravy", instruction: "Brown the whole chicken in ghee on all sides. Build a cashew-onion gravy. Place chicken in gravy, cover and cook 45 mins basting often. Finish in oven at 200°C for 15 mins to crisp the skin. Garnish with saffron cream and kewra water.", tip: "Basting frequently is crucial to keep the chicken moist and to develop a lacquered, flavourful crust." },
+    ],
+    proTip: "This is a show-stopping party dish — worth the effort for special occasions.",
+  },
+  {
+    id: 91, title: "Misal Pav", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["misal pav", "maharashtrian", "spicy", "street food", "sprouted lentils"],
+    description: "Maharashtra's fiery, crunchy street food — spicy sprouted moth bean curry topped with crunchy farsan, raw onion and lemon, served with buttered rolls.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "cumin", "turmeric", "coriander powder", "coconut"],
+    missingIngredients: ["sprouted moth beans", "farsan", "pav bread"],
+    steps: [
+      { step: 1, title: "Cook the usal", instruction: "Sprout moth beans overnight. Cook them soft in water with salt and turmeric. In a pan, make masala with onion, tomato, coconut paste, ginger-garlic and Kolhapuri masala. Add sprouted beans and simmer 15 mins. The gravy should be thin and spicy." },
+      { step: 2, title: "Make kat (thin spicy broth)", instruction: "The thin spicy liquid floating on top of the usal is the 'kat'. Add extra water and more masala to make it thinner and hotter. This is poured over the top." },
+      { step: 3, title: "Assemble misal", instruction: "In a bowl, place usal. Pour kat over it. Top generously with farsan (crunchy mix), diced onion, chopped cilantro, lemon juice. Serve with buttered pav. Eat while the farsan is still crunchy.", tip: "The farsan must be added right before eating — it loses its crunch quickly." },
+    ],
+    proTip: "The Pune and Kolhapur styles vary wildly in spice level. Kolhapuri misal is notoriously fiery.",
+  },
+  {
+    id: 92, title: "Shahi Paneer", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["shahi paneer", "mughlai", "rich", "cream", "nuts"],
+    description: "Mughal-inspired royal paneer — soft paneer in a rich, mildly sweet cashew and onion gravy with cream and whole spices. Elegant and luxurious.",
+    ingredients: ["paneer", "onion", "heavy cream", "cashews", "garlic", "ginger", "cardamom", "garam masala"],
+    missingIngredients: ["saffron", "rose water", "mace"],
+    steps: [
+      { step: 1, title: "Make the royal base", instruction: "Boil onion, cashews, garlic and ginger in ½ cup water until soft. Cool and blend to a very smooth paste." },
+      { step: 2, title: "Cook the sauce", instruction: "Fry the paste in ghee over medium heat, stirring constantly, until it turns a deep golden colour, about 12 mins. Add whole spices (cardamom, mace, bay leaf), white pepper and salt." },
+      { step: 3, title: "Finish with paneer and cream", instruction: "Add cream, saffron milk and a touch of sugar. Simmer 5 mins. Gently fold in paneer cubes. Cook 3 mins. Finish with rose water and a garnish of slivered almonds and cream swirled on top.", tip: "Don't skip the browning step — it transforms a raw paste into a deeply flavourful, complex sauce." },
+    ],
+    proTip: "Use warm saffron milk rather than dry saffron — it distributes the colour and aroma more evenly.",
+  },
+  {
+    id: 93, title: "Aloo Chaat", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 25, servings: 3, difficulty: "Easy",
+    tags: ["aloo chaat", "potato snack", "street food", "tangy", "chaat"],
+    description: "Delhi's favourite street snack — crispy fried potatoes tossed with tangy-sweet chutneys, yogurt, chaat masala and crunchy toppings. Explosion of flavours.",
+    ingredients: ["potato", "yogurt", "lemon", "cumin", "cilantro", "onion"],
+    missingIngredients: ["tamarind chutney", "mint chutney", "chaat masala", "sev"],
+    steps: [
+      { step: 1, title: "Fry the potatoes", instruction: "Cut potatoes into small cubes or wedges. Deep fry or air fry until golden and crispy. Season with salt immediately." },
+      { step: 2, title: "Season with chaat masala", instruction: "While still hot, toss with chaat masala, roasted cumin powder, black salt and chilli powder." },
+      { step: 3, title: "Assemble chaat", instruction: "Place potatoes in a bowl. Drizzle generously with whisked yogurt, tamarind chutney and green mint chutney. Top with chopped onion, tomato, cilantro and sev. Eat immediately before it gets soggy.", tip: "All the elements must be assembled right before eating — aloo chaat waits for no one." },
+    ],
+    proTip: "The holy trinity is chaat masala + tamarind chutney + green chutney — these three together create the authentic chaat flavour.",
+  },
+  {
+    id: 94, title: "Nihari", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 180, servings: 6, difficulty: "Hard",
+    tags: ["nihari", "slow cooked", "mughal", "delhi", "lamb shank"],
+    description: "Delhi and Lucknow's famous slow-cooked lamb shank stew — traditionally simmered overnight until the meat falls off the bone. Rich, unctuous and deeply spiced.",
+    ingredients: ["onion", "garlic", "ginger", "ghee", "garam masala", "cumin", "coriander powder", "flour"],
+    missingIngredients: ["lamb shanks", "nihari masala", "bone marrow"],
+    steps: [
+      { step: 1, title: "Start the slow cook", instruction: "Brown onions in generous ghee until deeply caramelised, 20 mins. Add lamb shanks and brown all sides. Add ginger-garlic paste, nihari masala, whole spices. Cover with water — ratio should be generous." },
+      { step: 2, title: "Simmer for hours", instruction: "Cook on the lowest possible heat for 2.5–3 hours until lamb is pulling away from the bone. The broth should be deeply coloured and fragrant." },
+      { step: 3, title: "Thicken and finish", instruction: "Mix 2 tbsp flour with water, add to nihari while stirring to thicken. Adjust salt. The consistency should be like a thin gravy — not too thick. Garnish with julienned ginger, fried onions, green chilli, cilantro and a squeeze of lemon.", tip: "This dish's soul is in long, patient cooking. There are no shortcuts." },
+    ],
+    proTip: "Nihari means 'morning' — traditionally eaten at dawn after simmering all night. Leftovers taste even better the next day.",
+  },
+  {
+    id: 95, title: "Chicken Sukkha", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["chicken sukkha", "mangalore", "dry curry", "coastal", "coconut"],
+    description: "Mangalore's famous dry chicken roast — coated in a thick, almost-dry coconut and spice masala. Intensely flavoured and perfect with rice and dal.",
+    ingredients: ["chicken", "onion", "garlic", "ginger", "cumin", "coriander powder", "turmeric", "coconut"],
+    missingIngredients: ["byadagi chillies", "curry leaves"],
+    steps: [
+      { step: 1, title: "Make the masala paste", instruction: "Grind 1 cup grated coconut, 6 dried Byadagi chillies, 2 tsp coriander seeds, 1 tsp cumin, 6 peppercorns, 3 garlic cloves and turmeric with a little water to a thick paste." },
+      { step: 2, title: "Cook the chicken", instruction: "Sauté onion and curry leaves in oil until golden. Add ginger-garlic paste. Add chicken pieces, cook on high heat 5 mins. Add ground masala paste and mix to coat." },
+      { step: 3, title: "Dry roast", instruction: "Cook on medium heat, stirring frequently. Add water in small splashes only to prevent burning. Cook until all water evaporates and the masala coats the chicken like a dry crust. The chicken should be almost dry, not saucy.", tip: "Stirring continuously prevents burning while the masala dries out around the chicken." },
+    ],
+    proTip: "The sukkha (dry) texture is its defining characteristic — resist adding too much water.",
+  },
+  {
+    id: 96, title: "Pesarattu", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Easy",
+    tags: ["pesarattu", "andhra", "moong dal crepe", "protein", "healthy breakfast"],
+    description: "Andhra's protein-packed green moong dal crepe — crispy, earthy and deeply nutritious. Served with ginger chutney, it's one of India's healthiest breakfasts.",
+    ingredients: ["lentils", "ginger", "cumin", "green chilli", "cilantro", "onion"],
+    missingIngredients: ["whole moong dal"],
+    steps: [
+      { step: 1, title: "Soak and blend", instruction: "Soak 1 cup whole green moong dal in water for 6+ hours. Drain. Blend with ¼ cup water, grated ginger, green chillies, cumin and salt to a coarse batter — not completely smooth." },
+      { step: 2, title: "Make the crepes", instruction: "Heat a flat pan over medium-high. Spread a ladle of batter in a circle. Sprinkle diced onion and cilantro. Drizzle oil around edges. Cook 2 mins until edges brown and crisp." },
+      { step: 3, title: "Serve", instruction: "Fold and serve with allam pachadi (ginger-tamarind chutney). Eat immediately for maximum crunch.", tip: "The batter should be slightly coarse — the texture is part of what makes pesarattu unique." },
+    ],
+    proTip: "No fermentation needed — pesarattu batter is used fresh, making it ideal for breakfast without overnight prep.",
+  },
+  {
+    id: 97, title: "Hyderabadi Haleem", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 180, servings: 8, difficulty: "Hard",
+    tags: ["haleem", "hyderabadi", "slow cooked", "wheat", "lamb", "ramadan"],
+    description: "Hyderabad's Ramadan staple and world-famous dish — slow-cooked lamb blended with wheat, lentils and aromatic spices into a thick, porridge-like stew. GI-tagged for authenticity.",
+    ingredients: ["onion", "garlic", "ginger", "ghee", "garam masala", "lemon", "cilantro"],
+    missingIngredients: ["lamb", "broken wheat", "haleem masala", "fried onions"],
+    steps: [
+      { step: 1, title: "Cook the wheat and dal", instruction: "Soak broken wheat and mixed lentils overnight. Boil until very soft. Mash together." },
+      { step: 2, title: "Cook the lamb", instruction: "Cook lamb with ginger-garlic, onion, haleem masala and ghee until very tender — about 2 hours. Shred the meat completely." },
+      { step: 3, title: "Blend and simmer", instruction: "Mix shredded lamb into the wheat-dal mixture. Stir vigorously on low heat — the mixture should become homogeneous and thick like porridge. Cook 30 more mins. Garnish with fried onions, lemon, ginger and cilantro.", tip: "The constant stirring during the final stage is what creates the characteristic smooth yet textured consistency." },
+    ],
+    proTip: "Haleem must be a labour of love — this dish cannot be rushed. The minimum cooking time is 3 hours.",
+  },
+  {
+    id: 98, title: "Thepla", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["thepla", "gujarati flatbread", "travel food", "healthy", "fenugreek"],
+    description: "Gujarat's famous travel flatbread — whole wheat flour kneaded with fresh fenugreek leaves and spices. Stays fresh for days, making it the perfect food for journeys.",
+    ingredients: ["flour", "yogurt", "cumin", "turmeric", "ginger", "garlic", "sesame oil"],
+    missingIngredients: ["fenugreek leaves", "ajwain", "besan"],
+    steps: [
+      { step: 1, title: "Make the dough", instruction: "Mix 2 cups whole wheat flour with ¼ cup besan, 1 cup finely chopped fresh methi, 1 tsp turmeric, 1 tsp cumin, 1 tsp chilli powder, ginger-garlic paste, 2 tbsp yogurt, 1 tbsp oil, salt. Knead to soft dough using water as needed." },
+      { step: 2, title: "Roll and cook", instruction: "Divide into balls. Roll into thin circles. Cook on a hot tawa with oil, pressing and rotating, until golden spots appear on both sides, about 2 mins per side." },
+      { step: 3, title: "Store or serve", instruction: "Theplas can be stored at room temperature for 2–3 days or refrigerated for up to a week. Serve with yogurt, pickle or just on their own.", tip: "The theplas should be thin — thick ones take longer to cook and don't stay as fresh." },
+    ],
+    proTip: "Smearing with ghee right off the tawa makes them extra soft and improves shelf life.",
+  },
+  {
+    id: 99, title: "Chicken Chettinad", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 60, servings: 4, difficulty: "Hard",
+    tags: ["chicken chettinad", "tamil", "spicy", "complex", "black pepper"],
+    description: "One of India's most complex spice profiles — Chettinad chicken uses kalpasi (stone flower), marathi mokku (dried flower pods) and Chettinad masala for an unforgettable curry.",
+    ingredients: ["chicken", "onion", "tomato", "garlic", "ginger", "black pepper", "cumin", "coconut"],
+    missingIngredients: ["kalpasi", "marathi mokku", "kunjikkal", "curry leaves"],
+    steps: [
+      { step: 1, title: "Make Chettinad masala", instruction: "Dry roast and grind: black pepper, cumin, coriander, kalpasi (stone flower), marathi mokku (dried kapok flowers), cloves, cinnamon, star anise, fennel seeds. This ground masala is the heart of the dish." },
+      { step: 2, title: "Build the curry", instruction: "Fry onion in gingelly oil until golden. Add ginger-garlic paste. Add tomatoes and fresh coconut paste. Cook until thick. Add Chettinad masala and a generous amount of curry leaves." },
+      { step: 3, title: "Cook the chicken", instruction: "Add chicken and toss to coat. Add water, cook covered 30 mins. Remove lid and cook on high heat to thicken. The curry should be thick and deeply coloured.", tip: "The gingelly (sesame) oil is traditional and contributes a unique nutty flavour that cannot be replicated." },
+    ],
+    proTip: "Chettinad cuisine uses the most complex spice profile in India. Seek out the specialty spices — they make all the difference.",
+  },
+  {
+    id: 100, title: "Pani Puri", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Medium",
+    tags: ["pani puri", "gol gappa", "street food", "chaat", "water balls"],
+    description: "India's most beloved street food — hollow crispy shells filled with spiced potato and chickpeas, then dunked in an icy cold, tangy-spicy mint water. Pure joy in one bite.",
+    ingredients: ["potato", "chickpeas", "cumin", "cilantro", "lemon", "black pepper", "ginger"],
+    missingIngredients: ["puri shells", "tamarind", "mint", "black salt", "kala namak"],
+    steps: [
+      { step: 1, title: "Make pani (spiced water)", instruction: "Blend 1 cup mint, ½ cup cilantro, 2 green chillies, 1 tbsp tamarind paste, 1 tsp roasted cumin powder, black salt, regular salt and 3 cups cold water. Strain. Chill in fridge." },
+      { step: 2, title: "Make the filling", instruction: "Mix boiled potato cubes with boiled chickpeas, finely diced onion, salt, cumin powder, chilli powder and chaat masala." },
+      { step: 3, title: "Assemble and eat", instruction: "Crack a small hole in the top of a puri. Fill with potato-chickpea mixture. Dunk fully in the icy green pani. Pop the whole thing in your mouth in one go. Never bite halfway.", tip: "The entire puri must be eaten in one bite — this is not optional. The explosion of cold tangy water inside is the whole point." },
+    ],
+    proTip: "The pani must be ice cold. Serve with ice cubes floating in the bowl for the full street food experience.",
+  },
+  {
+    id: 101, title: "Momos (Tibetan Dumplings)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["momos", "tibetan", "dumplings", "north east india", "steamed"],
+    description: "The beloved dumplings from India's Northeast and Tibetan communities — stuffed with spiced meat or vegetables, steamed and served with fiery red chutney.",
+    ingredients: ["flour", "onion", "garlic", "ginger", "soy sauce", "sesame oil", "cilantro"],
+    missingIngredients: ["cabbage", "chicken mince"],
+    steps: [
+      { step: 1, title: "Make the dough and filling", instruction: "Knead plain flour with water to stiff dough. Rest 30 mins. For filling: mix finely minced chicken (or vegetables), cabbage, spring onion, garlic, ginger, soy sauce, sesame oil, salt, pepper. Mix well." },
+      { step: 2, title: "Shape the momos", instruction: "Roll dough into thin circles. Place 1 tbsp filling in centre. Fold edges and pleat repeatedly to make a half-moon or round parcel. The pleating seals and shapes the momo." },
+      { step: 3, title: "Steam and serve", instruction: "Steam in a greased steamer for 12–15 mins until dough looks slightly translucent. Serve immediately with momo chutney (tomato-chilli-garlic).", tip: "Don't leave gaps in the pleating — steam enters unsealed momos and the filling gets watery." },
+    ],
+    proTip: "Chilling the filling before using makes it firmer and easier to wrap.",
+  },
+  {
+    id: 102, title: "Sindhi Curry", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["sindhi curry", "chickpea flour", "vegetables", "tangy", "north indian"],
+    description: "Sindhi cuisine's unique gram flour-based curry — tangy, nutty and full of vegetables. Unlike any other Indian curry, it's thickened with roasted besan for a unique flavour.",
+    ingredients: ["potato", "tomato", "onion", "carrot", "mustard seeds", "turmeric", "lemon", "cilantro"],
+    missingIngredients: ["besan", "drumstick", "tamarind", "curry leaves"],
+    steps: [
+      { step: 1, title: "Roast the besan", instruction: "Dry roast 3 tbsp besan (chickpea flour) in oil, stirring constantly until golden brown and fragrant. This is the base that gives Sindhi curry its unique character." },
+      { step: 2, title: "Build the curry", instruction: "Temper mustard seeds and curry leaves. Add onion, tomatoes. Add the roasted besan and mix. Add water gradually to prevent lumps, whisking until smooth. Add tamarind, turmeric, chilli." },
+      { step: 3, title: "Add vegetables and simmer", instruction: "Add potato, drumstick pieces, cluster beans, tomatoes. Simmer 20 mins until all vegetables are tender. Season with salt, sugar (a pinch) and lemon. Serve over rice with papad.", tip: "The besan must be well-roasted — raw besan has a bitter, floury taste." },
+    ],
+    proTip: "Adding a small piece of jaggery balances the tamarind and gives Sindhi curry its characteristic sweet-sour-tangy taste.",
+  },
+  {
+    id: 103, title: "Kakori Kebab", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Hard",
+    tags: ["kakori kebab", "lucknawi", "seekh kebab", "minced lamb", "mughal"],
+    description: "Lucknow's legendary melt-in-the-mouth kebab — minced lamb kneaded with raw papaya and exotic spices until so fine it almost becomes a paste, then grilled on skewers.",
+    ingredients: ["ground beef", "onion", "garlic", "ginger", "garam masala", "cumin", "cardamom", "cashews"],
+    missingIngredients: ["raw papaya", "charcoal", "mace", "ittar"],
+    steps: [
+      { step: 1, title: "Prepare the mince", instruction: "Pass minced lamb through a food processor twice to make it extremely fine — almost a paste. This is essential for the smooth texture. Mix in grated raw papaya (tenderiser), cashew paste, and all ground spices." },
+      { step: 2, title: "Rest and shape", instruction: "Rest the mixture 2 hours in the fridge. Wet your hands and mould portions onto flat skewers, pressing firmly. The mixture should stick without gaps." },
+      { step: 3, title: "Grill", instruction: "Grill over charcoal (or gas flame), turning slowly, until cooked through and lightly charred, 8–10 mins. Serve with mint chutney, onion rings and a squeeze of lemon.", tip: "If the mixture is too wet to hold shape, add a tbsp of roasted chickpea flour as binder." },
+    ],
+    proTip: "Raw papaya enzymes tenderise the meat to the characteristic silky texture. Don't skip it.",
+  },
+  {
+    id: 104, title: "Kosha Mangsho", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 90, servings: 4, difficulty: "Hard",
+    tags: ["kosha mangsho", "bengali", "slow cooked mutton", "kolkata"],
+    description: "Kolkata's most celebrated dish — mutton slow-cooked with an intense onion-ginger-garlic masala until the oil surfaces and the meat is fall-apart tender. Served at all Bengali celebrations.",
+    ingredients: ["onion", "garlic", "ginger", "yogurt", "mustard oil", "cumin", "coriander powder", "garam masala"],
+    missingIngredients: ["mutton", "bay leaves", "mustard oil"],
+    steps: [
+      { step: 1, title: "Marinate mutton", instruction: "Marinate mutton pieces with yogurt, ginger-garlic paste, turmeric, chilli powder and salt for at least 2 hours." },
+      { step: 2, title: "The 'kosha' process", instruction: "Heat mustard oil until smoking, reduce heat. Add whole spices. Add onion paste and cook 20 mins stirring constantly until deep golden. Add marinated mutton. The key: cook on medium heat WITHOUT covering, stirring every few minutes, letting the moisture evaporate continuously." },
+      { step: 3, title: "Low and slow", instruction: "After 30 mins the oil should be surfacing. Add ½ cup warm water, cover, and cook on lowest heat 40 mins until mutton is tender. The gravy should be thick and the oil should have separated. Finish with garam masala.", tip: "The 'kosha' technique means cooking on low-medium heat without covering, which is opposite to most curries." },
+    ],
+    proTip: "Mustard oil is essential for authentic flavour. The smoking of mustard oil before use (called 'kadai') removes its raw pungency.",
+  },
+  {
+    id: 105, title: "Avial", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Easy",
+    tags: ["avial", "kerala", "mixed vegetables", "coconut", "yogurt"],
+    description: "Kerala's iconic mixed vegetable dish — drumstick, yam, raw banana and other vegetables cooked in a thick coconut-cumin sauce with yogurt. A staple at every Kerala sadya.",
+    ingredients: ["carrot", "potato", "peas", "yogurt", "coconut", "cumin", "turmeric", "garlic"],
+    missingIngredients: ["drumstick", "raw banana", "yam", "curry leaves", "coconut oil"],
+    steps: [
+      { step: 1, title: "Cook the vegetables", instruction: "Cut 5–6 different vegetables into finger-length pieces (raw banana, drumstick, carrot, yam, raw mango, beans). Cook in just enough water with turmeric and salt until tender." },
+      { step: 2, title: "Make coconut paste", instruction: "Grind 1 cup grated coconut, 3 green chillies, 1 tsp cumin and 3 garlic cloves to a coarse paste — not smooth." },
+      { step: 3, title: "Combine", instruction: "Add coconut paste to vegetables. Stir and cook 3 mins. Remove from heat. Add whisked yogurt and mix — do not cook after adding yogurt or it will split. Finish with coconut oil and curry leaves.", tip: "Add yogurt off heat — avial should never be cooked after the yogurt is added." },
+    ],
+    proTip: "The more variety of vegetables, the better the avial. Aim for at least 5 different ones.",
+  },
+  {
+    id: 106, title: "Chhole Puri", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["chhole puri", "fried bread", "north indian", "sunday breakfast", "chickpeas"],
+    description: "North India's favourite Sunday breakfast — spicy chickpea curry paired with hot, puffed fried bread. The combination is greater than the sum of its parts.",
+    ingredients: ["chickpeas", "onion", "tomato", "garlic", "ginger", "flour", "cumin", "garam masala"],
+    missingIngredients: ["anardana", "tea bags"],
+    steps: [
+      { step: 1, title: "Make dark chhole", instruction: "Soak chickpeas overnight. Cook with tea bags — this turns the chickpeas deep brown. Make masala with onion, tomato, whole and ground spices. Add chickpeas. Add anardana (dry pomegranate) for tang. Simmer 20 mins. Mash some chickpeas to thicken." },
+      { step: 2, title: "Make puri dough", instruction: "Mix 2 cups flour, 1 tbsp semolina, salt, a pinch of ajwain and water to stiff dough. Knead well. Rest 20 mins. Divide into balls." },
+      { step: 3, title: "Fry puris", instruction: "Roll each ball into a small disc. Deep fry in medium-hot oil, pressing gently with a spoon to help them puff. They should balloon up in 30 seconds. Drain. Serve immediately with hot chhole.", tip: "Stiff dough and right oil temperature (not too hot) are both needed for properly puffed puris." },
+    ],
+    proTip: "Tea bags during cooking give authentic dark colour to the chickpeas without using artificial colour.",
+  },
+  {
+    id: 107, title: "Stuffed Karela (Bitter Gourd)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 45, servings: 3, difficulty: "Medium",
+    tags: ["karela", "bitter gourd", "stuffed", "healthy", "north indian", "diabetic friendly"],
+    description: "Whole bitter gourds stuffed with a tangy onion-spice filling and pan-fried until caramelised. A dish that converts bitter gourd sceptics.",
+    ingredients: ["onion", "cumin", "coriander powder", "turmeric", "lemon", "mustard seeds"],
+    missingIngredients: ["bitter gourd", "amchur powder", "fennel seeds"],
+    steps: [
+      { step: 1, title: "Prep the karela", instruction: "Scrape the karela skin lightly and make a slit down the length of each one. Rub generously with salt inside and out. Rest 30 mins. Squeeze out all the water — this removes bitterness." },
+      { step: 2, title: "Make the filling", instruction: "Sauté finely chopped onion until golden. Add all spices — cumin, fennel, amchur, chilli, salt. Add scraped karela flesh mixed with the onion. Cook 5 mins." },
+      { step: 3, title: "Stuff and pan fry", instruction: "Fill each karela with the stuffing and tie with kitchen string. Pan fry in oil on medium heat, turning every 5 mins until caramelised and tender all over, about 25 mins. Serve with dal and rice.", tip: "Tying with string keeps the filling inside during frying. Remove strings before serving." },
+    ],
+    proTip: "Salting and squeezing is the key step — properly treated karela is nowhere near as bitter as untreated.",
+  },
+  {
+    id: 108, title: "Chicken Rezala", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=700",
+    readyInMinutes: 55, servings: 4, difficulty: "Medium",
+    tags: ["chicken rezala", "bengali", "white curry", "mughal", "mild", "yogurt"],
+    description: "Kolkata's aristocratic white chicken curry — pale, aromatic and mildly spiced with white pepper, cardamom and rose water. Subtle yet deeply complex.",
+    ingredients: ["chicken", "yogurt", "onion", "garlic", "ginger", "cardamom", "heavy cream"],
+    missingIngredients: ["white pepper", "kewra water", "rose water", "mace", "poppy seeds"],
+    steps: [
+      { step: 1, title: "Marinate", instruction: "Marinate chicken in yogurt, white pepper, cardamom powder, mace, poppy seed paste, ginger-garlic paste and salt for 2 hours." },
+      { step: 2, title: "Cook in white gravy", instruction: "Fry onion paste in ghee until golden (not brown — this dish must remain pale). Add marinated chicken. Cook on medium heat without browning." },
+      { step: 3, title: "Finish", instruction: "Add ½ cup cream, reduce heat. Cook 20 mins until chicken is done. The gravy should be pale and creamy. Add kewra water and rose water only at the end — these aromatics evaporate if added early.", tip: "This dish must never brown — keep heat medium and use ghee, not oil, for the authentic pale colour." },
+    ],
+    proTip: "Kewra water is the defining flavour of rezala — it gives the curry its unique floral, pandanus aroma.",
+  },
+  {
+    id: 109, title: "Gajar Halwa (Carrot Pudding)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 60, servings: 6, difficulty: "Easy",
+    tags: ["gajar halwa", "carrot halwa", "dessert", "winter", "milk dessert"],
+    description: "North India's beloved winter dessert — grated carrots slow-cooked in full-fat milk with sugar and cardamom until thick and fudgy. Pure sweet comfort.",
+    ingredients: ["carrot", "milk", "sugar", "ghee", "cardamom", "cashews"],
+    missingIngredients: ["khoya", "saffron"],
+    steps: [
+      { step: 1, title: "Cook carrots in milk", instruction: "Grate 1 kg red carrots (the sweeter variety). Cook in 1 litre full-fat milk on medium heat, stirring every few minutes, until all milk is absorbed, about 40 mins." },
+      { step: 2, title: "Add sugar and ghee", instruction: "Add ¾ cup sugar — it will make the halwa liquid again. Continue cooking. Add 3 tbsp ghee. Cook until the mixture leaves the sides of the pan and thickens." },
+      { step: 3, title: "Finish and serve", instruction: "Add khoya (optional but makes it richer), cardamom powder and saffron. Fry cashews and raisins in ghee and mix in. Serve warm. Heavenly with a scoop of vanilla ice cream.", tip: "Red carrots give sweeter halwa than orange ones. If only orange available, add slightly more sugar." },
+    ],
+    proTip: "Patience is the only ingredient you cannot substitute — gajar halwa cannot be rushed.",
+  },
+  {
+    id: 110, title: "Gulab Jamun", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 45, servings: 8, difficulty: "Medium",
+    tags: ["gulab jamun", "dessert", "sweet", "celebration", "rose syrup"],
+    description: "India's most beloved sweet — soft milk-solid dumplings fried golden then soaked in fragrant rose-cardamom sugar syrup until they absorb it completely.",
+    ingredients: ["milk", "sugar", "ghee", "cardamom"],
+    missingIngredients: ["khoya", "rose water", "maida"],
+    steps: [
+      { step: 1, title: "Make the dough", instruction: "Knead khoya (evaporated milk solids) with a little maida (plain flour) and a pinch of baking soda to a smooth, soft dough. Do not over-knead. Rest 10 mins. Roll into smooth balls with no cracks." },
+      { step: 2, title: "Make the syrup", instruction: "Make 1-string sugar syrup (1 cup sugar, 1 cup water). Add cardamom pods, a few saffron strands and 1 tbsp rose water. Keep warm." },
+      { step: 3, title: "Fry and soak", instruction: "Deep fry the balls in oil or ghee on the lowest heat — they must colour slowly and evenly (this takes 8–10 mins). They should become deep golden-brown. Drop hot into warm syrup immediately. Soak 2 hours minimum before serving.", tip: "Frying on low heat ensures the inside cooks before the outside browns — medium or high heat gives a raw centre." },
+    ],
+    proTip: "The syrup must be warm when you add the fried jamuns — cold syrup causes them to harden instead of soaking.",
+  },
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1205,6 +2113,170 @@ function RecipeCard({ recipe, onClick, delay = 0 }: { recipe: Recipe; onClick: (
 /* ─────────────────────────────────────────────────────────────────────────
    SHARED FOOTER
 ───────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+   AUTH PAGE  (Login + Sign Up)
+─────────────────────────────────────────────────────────────────────────── */
+function AuthPage({ onAuth }: { onAuth: (user: User) => void }) {
+  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const BG = "https://lh3.googleusercontent.com/aida-public/AB6AXuBNUBKI4ZqPgz2pvWXpdks1PTs_3fXmbH2_l3tylO8i6LyJ7Xbe26vlK_hgBLqESkkvjRByK9MjZPCpyAePP6brbmGc3_Oob_vojLe_RE0zNkV37o0NBxAD63a2gWnE3yN6vTIpJKwZ4AS2dpKLqsg_JUnShhfHQ2nFiLE_XocDkwyaxd5OgsiDNbsKkh-Gj95aCqClVqDgkmbtOpfuu4uCXMGRNKXQ7p8AeFjHpdWT29iTO1FCKCcbf5ZjHYl0rAaofMscO3CJsgM";
+
+  const handleSubmit = async () => {
+    setError(null); setSuccess(null);
+    if (mode === "signup" && !fullName.trim()) { setError("Please enter your full name."); return; }
+    if (!email.trim() || !password.trim()) { setError("Please fill in all fields."); return; }
+    if (!/\S+@\S+\.\S+/.test(email)) { setError("Please enter a valid email address."); return; }
+    if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
+    if (mode === "signup" && password !== confirmPassword) { setError("Passwords don't match."); return; }
+    setLoading(true);
+    try {
+      if (mode === "login") {
+        const { data, error: e } = await supabase.auth.signInWithPassword({ email, password });
+        if (e) throw e;
+        if (data.user) onAuth(data.user);
+      } else {
+        const { data, error: e } = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName.trim() } } });
+        if (e) throw e;
+        if (data.user && data.session) { onAuth(data.user); }
+        else { setSuccess("Account created! Check your email to confirm, then sign in."); setMode("login"); setPassword(""); setConfirmPassword(""); }
+      }
+    } catch (err: any) {
+      const m = err?.message || "Something went wrong.";
+      if (m.includes("Invalid login credentials")) setError("Incorrect email or password.");
+      else if (m.includes("User already registered")) setError("An account with this email already exists. Please sign in.");
+      else if (m.includes("Email not confirmed")) setError("Please confirm your email before signing in.");
+      else setError(m);
+    } finally { setLoading(false); }
+  };
+
+  const switchMode = () => { setMode(p => p === "login" ? "signup" : "login"); setError(null); setSuccess(null); setFullName(""); setEmail(""); setPassword(""); setConfirmPassword(""); };
+  const inputStyle: React.CSSProperties = { width: "100%", height: 52, background: "#f6f8f6", border: "1.5px solid #e2e8f0", borderRadius: 12, fontSize: 14, color: "#0f172a", fontFamily: "inherit", outline: "none", boxSizing: "border-box", transition: "border-color 0.18s" };
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", fontFamily: "inherit" }}>
+      <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.42)", zIndex: 1 }} />
+        <img src={BG} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "blur(6px)", transform: "scale(1.06)" }} />
+      </div>
+      <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: 480, padding: "24px 20px" }}>
+        <div style={{ background: "rgba(255,255,255,0.97)", borderRadius: 20, boxShadow: "0 24px 80px rgba(0,0,0,0.28)", overflow: "hidden" }}>
+          {/* Logo */}
+          <div style={{ paddingTop: 36, paddingBottom: 18, display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
+            <div style={{ width: 64, height: 64, background: "#33c738", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 24px rgba(51,199,56,0.32)" }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 34, color: "#fff" }}>restaurant</span>
+            </div>
+            <h1 style={{ fontSize: 22, fontWeight: 900, color: "#0f172a", margin: "14px 0 4px", letterSpacing: -0.5 }}>What's for Dinner?</h1>
+            <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>{mode === "login" ? "Welcome back to your kitchen companion" : "Create your free account"}</p>
+          </div>
+          {/* Form */}
+          <div style={{ padding: "4px 32px 32px" }}>
+            <h2 style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", margin: "0 0 3px" }}>{mode === "login" ? "Sign In" : "Sign Up"}</h2>
+            <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 20px" }}>{mode === "login" ? "Enter your credentials to continue" : "Fill in the details below to get started"}</p>
+            {error && (
+              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "11px 14px", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, marginBottom: 16, fontSize: 13, color: "#dc2626" }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 17, flexShrink: 0 }}>error</span>{error}
+              </div>
+            )}
+            {success && (
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 8, padding: "11px 14px", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 10, marginBottom: 16, fontSize: 13, color: "#15803d" }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 17, flexShrink: 0, marginTop: 1 }}>check_circle</span>{success}
+              </div>
+            )}
+            {/* Full Name — signup only */}
+            {mode === "signup" && (
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, color: "#374151", display: "block", marginBottom: 7 }}>Full Name</label>
+                <div style={{ position: "relative" }}>
+                  <span className="material-symbols-outlined" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontSize: 20, color: "#94a3b8" }}>person</span>
+                  <input type="text" value={fullName} onChange={e => { setFullName(e.target.value); setError(null); }} onKeyDown={e => e.key === "Enter" && handleSubmit()} placeholder="Your full name"
+                    style={{ ...inputStyle, paddingLeft: 44, paddingRight: 16 }}
+                    onFocus={e => (e.target.style.borderColor = "#33c738")} onBlur={e => (e.target.style.borderColor = "#e2e8f0")} />
+                </div>
+              </div>
+            )}
+            {/* Email */}
+            <div style={{ marginBottom: 14 }}>
+              <label style={{ fontSize: 13, fontWeight: 700, color: "#374151", display: "block", marginBottom: 7 }}>Email Address</label>
+              <div style={{ position: "relative" }}>
+                <span className="material-symbols-outlined" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontSize: 20, color: "#94a3b8" }}>mail</span>
+                <input type="email" value={email} onChange={e => { setEmail(e.target.value); setError(null); }} onKeyDown={e => e.key === "Enter" && handleSubmit()} placeholder="example@mail.com"
+                  style={{ ...inputStyle, paddingLeft: 44, paddingRight: 16 }}
+                  onFocus={e => (e.target.style.borderColor = "#33c738")} onBlur={e => (e.target.style.borderColor = "#e2e8f0")} />
+              </div>
+            </div>
+            {/* Password */}
+            <div style={{ marginBottom: mode === "signup" ? 14 : 6 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 7 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, color: "#374151" }}>Password</label>
+                {mode === "login" && <button onClick={() => alert("Go to your Supabase dashboard → Auth → Users to send a password reset email.")} style={{ background: "none", border: "none", color: "#33c738", fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Forgot Password?</button>}
+              </div>
+              <div style={{ position: "relative" }}>
+                <span className="material-symbols-outlined" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontSize: 20, color: "#94a3b8" }}>lock</span>
+                <input type={showPass ? "text" : "password"} value={password} onChange={e => { setPassword(e.target.value); setError(null); }} onKeyDown={e => e.key === "Enter" && handleSubmit()} placeholder="Enter your password"
+                  style={{ ...inputStyle, paddingLeft: 44, paddingRight: 48 }}
+                  onFocus={e => (e.target.style.borderColor = "#33c738")} onBlur={e => (e.target.style.borderColor = "#e2e8f0")} />
+                <button onClick={() => setShowPass(p => !p)} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#94a3b8", display: "flex", padding: 0 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 20 }}>{showPass ? "visibility_off" : "visibility"}</span>
+                </button>
+              </div>
+            </div>
+            {/* Confirm Password */}
+            {mode === "signup" && (
+              <div style={{ marginBottom: 6 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, color: "#374151", display: "block", marginBottom: 7 }}>Confirm Password</label>
+                <div style={{ position: "relative" }}>
+                  <span className="material-symbols-outlined" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontSize: 20, color: "#94a3b8" }}>lock</span>
+                  <input type={showConfirm ? "text" : "password"} value={confirmPassword} onChange={e => { setConfirmPassword(e.target.value); setError(null); }} onKeyDown={e => e.key === "Enter" && handleSubmit()} placeholder="Re-enter your password"
+                    style={{ ...inputStyle, paddingLeft: 44, paddingRight: 48 }}
+                    onFocus={e => (e.target.style.borderColor = "#33c738")} onBlur={e => (e.target.style.borderColor = "#e2e8f0")} />
+                  <button onClick={() => setShowConfirm(p => !p)} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#94a3b8", display: "flex", padding: 0 }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 20 }}>{showConfirm ? "visibility_off" : "visibility"}</span>
+                  </button>
+                </div>
+              </div>
+            )}
+            {mode === "signup" && password.length > 0 && password.length < 6 && (
+              <p style={{ fontSize: 12, color: "#f59e0b", margin: "4px 0 10px", display: "flex", alignItems: "center", gap: 4 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 14 }}>info</span>Password must be at least 6 characters
+              </p>
+            )}
+            {/* Submit */}
+            <button onClick={handleSubmit} disabled={loading}
+              style={{ width: "100%", height: 52, background: loading ? "#86efac" : "#33c738", color: "#fff", border: "none", borderRadius: 12, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "inherit", marginTop: 18, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, boxShadow: "0 8px 24px rgba(51,199,56,0.26)", transition: "background 0.2s" }}>
+              {loading
+                ? <><span className="material-symbols-outlined" style={{ fontSize: 18, animation: "spin 1s linear infinite" }}>progress_activity</span>{mode === "login" ? "Signing in…" : "Creating account…"}</>
+                : <>{mode === "login" ? "Sign In" : "Create Account"}<span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span></>}
+            </button>
+            {/* Toggle */}
+            <p style={{ textAlign: "center", fontSize: 13.5, color: "#64748b", marginTop: 18, marginBottom: 0 }}>
+              {mode === "login" ? "Don't have an account? " : "Already have an account? "}
+              <button onClick={switchMode} style={{ background: "none", border: "none", color: "#33c738", fontWeight: 800, fontSize: 13.5, cursor: "pointer", fontFamily: "inherit" }}>
+                {mode === "login" ? "Sign Up" : "Sign In"}
+              </button>
+            </p>
+          </div>
+        </div>
+        {/* Footer links */}
+        <div style={{ marginTop: 22, display: "flex", justifyContent: "center", gap: 24 }}>
+          {["Privacy Policy", "Terms of Service", "Contact Us"].map(l => (
+            <a key={l} href="#" style={{ color: "rgba(255,255,255,0.72)", fontSize: 12, fontWeight: 500, textDecoration: "none" }}>{l}</a>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer style={{ background: "#0f172a", color: "#94a3b8", padding: "48px 40px 0" }}>
@@ -1290,7 +2362,16 @@ function PageTransition({ visible, children }: { visible: boolean; children: Rea
 /* ─────────────────────────────────────────────────────────────────────────
    SHARED NAV BAR
 ───────────────────────────────────────────────────────────────────────── */
-function NavBar({ view, setView }: { view: ViewName; setView: (v: ViewName) => void }) {
+function NavBar({ view, setView, user, onSignOut }: { view: ViewName; setView: (v: ViewName) => void; user: User | null; onSignOut: () => void }) {
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const close = (e: MouseEvent) => { if (menuRef.current && !menuRef.current.contains(e.target as Node)) setShowUserMenu(false); };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, []);
+
   return (
     <header style={{
       position: "sticky", top: 0, zIndex: 200,
@@ -1318,6 +2399,38 @@ function NavBar({ view, setView }: { view: ViewName; setView: (v: ViewName) => v
             </button>
           ))}
           <a href="#" style={{ fontSize: 13, fontWeight: 600, color: "#475569", textDecoration: "none" }}>My Cookbook</a>
+
+          {/* User avatar + dropdown */}
+          {user && (
+            <div ref={menuRef} style={{ position: "relative" }}>
+              <button onClick={() => setShowUserMenu(p => !p)}
+                style={{ display: "flex", alignItems: "center", gap: 8, background: showUserMenu ? "#f0fdf4" : "#f6f8f6", border: "1.5px solid #e2e8f0", borderRadius: 99, padding: "5px 12px 5px 6px", cursor: "pointer", transition: "background 0.18s" }}>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#33c738", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "#fff" }}>{(user.user_metadata?.full_name?.[0] || user.email?.[0] || "U").toUpperCase()}</span>
+                </div>
+                <span style={{ fontSize: 12.5, fontWeight: 600, color: "#374151", maxWidth: 130, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                </span>
+                <Icon n={showUserMenu ? "keyboard_arrow_up" : "keyboard_arrow_down"} size={16} color="#94a3b8" />
+              </button>
+              {showUserMenu && (
+                <div style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", background: "#fff", border: "1px solid #e2e8f0", borderRadius: 14, boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: 200, zIndex: 9999, overflow: "hidden" }}>
+                  <div style={{ padding: "14px 16px 12px", borderBottom: "1px solid #f1f5f9" }}>
+                    <p style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 4px" }}>Signed in as</p>
+                    {user.user_metadata?.full_name && <p style={{ fontSize: 14, fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>{user.user_metadata.full_name}</p>}
+                    <p style={{ fontSize: 12, fontWeight: 500, color: "#64748b", margin: 0, wordBreak: "break-all" }}>{user.email}</p>
+                  </div>
+                  <button onClick={() => { setShowUserMenu(false); onSignOut(); }}
+                    style={{ width: "100%", padding: "12px 16px", background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, fontWeight: 600, color: "#dc2626", fontFamily: "inherit", textAlign: "left" }}
+                    onMouseEnter={e => (e.currentTarget.style.background = "#fef2f2")}
+                    onMouseLeave={e => (e.currentTarget.style.background = "none")}>
+                    <Icon n="logout" size={17} color="#dc2626" />
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </nav>
       </div>
     </header>
@@ -1520,7 +2633,7 @@ function ResultsPage({ chips, onAddChip, onRemoveChip, onViewRecipe, cuisine, on
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Authorization": `Bearer ${(await supabase.auth.getSession()).data.session?.access_token ?? SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ ingredients: ings }),
       });
@@ -1588,8 +2701,8 @@ function ResultsPage({ chips, onAddChip, onRemoveChip, onViewRecipe, cuisine, on
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "12px 16px", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, fontSize: 13, color: "#dc2626", marginBottom: 12 }}>
               <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0, marginTop: 1 }}>error</span>
               <div>
-                <strong>API error:</strong> {apiError}
-                <div style={{ marginTop: 4, fontSize: 12, color: "#b91c1c" }}>Showing your local recipe library instead. Check your Spoonacular key and Supabase secrets.</div>
+                <span style={{ fontWeight: 600 }}>Showing from local recipe library</span>
+                <div style={{ marginTop: 3, fontSize: 12, color: "#b91c1c", opacity: 0.8 }}>{apiError}</div>
               </div>
             </div>
           )}
@@ -1635,11 +2748,34 @@ function ResultsPage({ chips, onAddChip, onRemoveChip, onViewRecipe, cuisine, on
    ROOT APP
 ───────────────────────────────────────────────────────────────────────── */
 export default function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true); // checking session on load
+
   const [view, setView] = useState<ViewName>("home");
   const [chips, setChips] = useState<string[]>([]);
   const [activeRecipe, setActiveRecipe] = useState<Recipe | null>(null);
-  const [browseCuisine, setBrowseCuisine] = useState<Cuisine>("All");   // persists on Recipes page
-  const [resultsCuisine, setResultsCuisine] = useState<Cuisine>("All"); // persists on Results page
+  const [browseCuisine, setBrowseCuisine] = useState<Cuisine>("All");
+  const [resultsCuisine, setResultsCuisine] = useState<Cuisine>("All");
+
+  // ── Check for existing Supabase session on first load ──────────────────
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setAuthLoading(false);
+    });
+    // Listen for login / logout events (e.g. email confirmation redirect)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setView("home");
+    setChips([]);
+  };
 
   const handleSearch = (ings: string[]) => { setChips(ings); setView("results"); };
   const handleAddChip = (v: string) => { if (!chips.includes(v)) setChips(p => [...p, v]); };
@@ -1649,25 +2785,50 @@ export default function App() {
     if (next.length === 0 && view === "results") setView("home");
   };
 
-  const changeView = (v: ViewName) => { setView(v); };
+  const GLOBAL_STYLES = `
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; user-select: none; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  `;
 
+  // ── 1. Still checking session → subtle full-screen loader ──────────────
+  if (authLoading) {
+    return (
+      <div style={{ fontFamily: "'Plus Jakarta Sans', 'Segoe UI', sans-serif" }}>
+        <style>{GLOBAL_STYLES}</style>
+        <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#f6f8f6", gap: 16 }}>
+          <div style={{ width: 56, height: 56, background: "#33c738", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 24px rgba(51,199,56,0.3)" }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 30, color: "#fff", animation: "spin 1.2s linear infinite" }}>progress_activity</span>
+          </div>
+          <p style={{ fontSize: 14, color: "#64748b", fontWeight: 600 }}>Loading…</p>
+        </div>
+      </div>
+    );
+  }
+
+  // ── 2. Not logged in → show Auth page ─────────────────────────────────
+  if (!user) {
+    return (
+      <div style={{ fontFamily: "'Plus Jakarta Sans', 'Segoe UI', sans-serif" }}>
+        <style>{GLOBAL_STYLES}</style>
+        <AuthPage onAuth={setUser} />
+      </div>
+    );
+  }
+
+  // ── 3. Logged in → show full app ───────────────────────────────────────
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', 'Segoe UI', sans-serif", minHeight: "100vh", background: "#f6f8f6", margin: 0, padding: 0 }}>
-      {/* Inject font from Google */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
-        * { box-sizing: border-box; }
-        body { margin: 0; padding: 0; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; user-select: none; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-      `}</style>
+      <style>{GLOBAL_STYLES}</style>
 
-      <NavBar view={view} setView={changeView} />
+      <NavBar view={view} setView={setView} user={user} onSignOut={handleSignOut} />
 
-      {/* Modal */}
       {activeRecipe && <RecipeModal recipe={activeRecipe} onClose={() => setActiveRecipe(null)} />}
 
-      {/* Pages with smooth transitions */}
       <PageTransition visible={view === "home"}>
         <HomePage onSearch={handleSearch} />
         <Footer />
