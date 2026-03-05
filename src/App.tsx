@@ -1859,8 +1859,8 @@ function CuisineBar({ selected, onChange }: { selected: Cuisine; onChange: (c: C
 /* ─────────────────────────────────────────────────────────────────────────
    INGREDIENT AUTOCOMPLETE INPUT
 ───────────────────────────────────────────────────────────────────────── */
-function IngInput({ chips, onAdd, onRemove, onSearch, placeholder = "Type an ingredient..." }:
-  { chips: string[]; onAdd: (v: string) => void; onRemove: (v: string) => void; onSearch?: () => void; placeholder?: string }) {
+function IngInput({ chips, onAdd, onRemove, onSearch, placeholder = "Type an ingredient...", hideChips = false }:
+  { chips: string[]; onAdd: (v: string) => void; onRemove: (v: string) => void; onSearch?: () => void; placeholder?: string; hideChips?: boolean }) {
   const [val, setVal] = useState("");
   const [sugg, setSugg] = useState<string[]>([]);
   const [hi, setHi] = useState(-1);
@@ -1898,7 +1898,7 @@ function IngInput({ chips, onAdd, onRemove, onSearch, placeholder = "Type an ing
     <div ref={wrapRef} style={{ position: "relative", flex: 1 }}>
       <div onClick={() => inputRef.current?.focus()}
         style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 5, padding: "6px 10px", minHeight: 40, cursor: "text" }}>
-        {chips.map(c => (
+        {!hideChips && chips.map(c => (
           <span key={c} style={{ display: "inline-flex", alignItems: "center", gap: 3, background: "#33c738", color: "#fff", fontSize: 11.5, fontWeight: 600, padding: "3px 7px 3px 10px", borderRadius: 99 }}>
             {c}
             <button onMouseDown={e => { e.preventDefault(); onRemove(c); }}
@@ -2066,44 +2066,51 @@ function RecipeModal({ recipe, onClose }: { recipe: Recipe; onClose: () => void 
 ───────────────────────────────────────────────────────────────────────── */
 function RecipeCard({ recipe, onClick }: { recipe: Recipe; onClick: () => void; delay?: number }) {
   const [hov, setHov] = useState(false);
-  const cuisineEntry = CUISINES.find(c => c.label === recipe.cuisine);
+  const [fav, setFav] = useState(false);
   return (
     <div onClick={onClick}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{
-        background: "#fff", borderRadius: 14, overflow: "hidden", border: "1px solid #e8edf2", cursor: "pointer",
-        display: "flex", flexDirection: "column",
+        background: "rgba(255,255,255,0.92)", borderRadius: 16, overflow: "hidden",
+        border: hov ? "1.5px solid rgba(51,199,56,0.5)" : "1.5px solid rgba(51,199,56,0.18)",
+        cursor: "pointer", display: "flex", flexDirection: "column",
+        boxShadow: hov ? "0 20px 48px rgba(0,0,0,0.14)" : "0 2px 12px rgba(0,0,0,0.06)",
+        transition: "transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease",
         transform: hov ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hov ? "0 16px 40px rgba(0,0,0,0.13)" : "0 2px 8px rgba(0,0,0,0.06)",
-        transition: "transform 0.22s ease, box-shadow 0.22s ease",
-        opacity: 1,
+        backdropFilter: "blur(8px)",
       }}>
+      {/* Image */}
       <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden", flexShrink: 0 }}>
         <SafeImg src={recipe.image} alt={recipe.title} id={recipe.id}
-          style={{ transform: hov ? "scale(1.05)" : "scale(1)", transition: "transform 0.35s ease" }} />
-        <div style={{ position: "absolute", top: 9, left: 9, background: "rgba(0,0,0,0.5)", color: "#fff", padding: "3px 9px", borderRadius: 99, fontSize: 11, fontWeight: 600, backdropFilter: "blur(6px)" }}>
-          {cuisineEntry?.emoji} {recipe.cuisine}
-        </div>
-        <div style={{ position: "absolute", bottom: 9, left: 9 }}>
-          <span style={{ background: "rgba(0,0,0,0.45)", color: "#fff", fontSize: 10, padding: "2px 8px", borderRadius: 99 }}>Tap to view</span>
-        </div>
+          style={{ transform: hov ? "scale(1.08)" : "scale(1)", transition: "transform 0.5s ease" }} />
+        {/* Favourite button */}
+        <button onClick={e => { e.stopPropagation(); setFav(f => !f); }}
+          style={{ position: "absolute", top: 10, right: 10, width: 34, height: 34, borderRadius: "50%", background: "rgba(255,255,255,0.92)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.12)", transition: "transform 0.15s", transform: fav ? "scale(1.15)" : "scale(1)" }}>
+          <span className="material-symbols-outlined" style={{ fontSize: 18, color: fav ? "#ef4444" : "#94a3b8", fontVariationSettings: fav ? "'FILL' 1" : "'FILL' 0" }}>favorite</span>
+        </button>
       </div>
-      <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
-        <h3 style={{ fontSize: 13.5, fontWeight: 700, color: "#0f172a", margin: 0, lineHeight: 1.3, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical" }}>
+      {/* Info */}
+      <div style={{ padding: "14px 14px 14px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+        <h3 style={{ fontSize: 14, fontWeight: 800, color: "#0f172a", margin: 0, lineHeight: 1.3, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical" }}>
           {recipe.title}
         </h3>
-        <p style={{ fontSize: 12, color: "#64748b", margin: 0, lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
-          {recipe.description}
-        </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: "auto", paddingTop: 4 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, padding: "3px 9px", borderRadius: 6, background: "#f1f5f9", color: "#475569", fontSize: 11, fontWeight: 600 }}>
-            <Icon n="schedule" size={13} /> {recipe.readyInMinutes} min
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: "auto" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px", borderRadius: 8, background: "#f1f5f9", color: "#475569", fontSize: 11.5, fontWeight: 600 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 14 }}>schedule</span>
+            {recipe.readyInMinutes} mins
           </span>
+          {recipe.missingIngredients.length === 0 ? (
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px", borderRadius: 8, background: "rgba(51,199,56,0.12)", color: "#16a34a", fontSize: 11.5, fontWeight: 700 }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 14 }}>check_circle</span>
+              0 missing
+            </span>
+          ) : (
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px", borderRadius: 8, background: "rgba(234,88,12,0.08)", color: "#ea580c", fontSize: 11.5, fontWeight: 700 }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 14 }}>inventory_2</span>
+              {recipe.missingIngredients.length} missing
+            </span>
+          )}
           <DiffBadge level={recipe.difficulty} />
-          {recipe.missingIngredients.length === 0
-            ? <span style={{ display: "inline-flex", alignItems: "center", gap: 3, padding: "3px 9px", borderRadius: 6, background: "#f0fdf4", color: "#16a34a", fontSize: 11, fontWeight: 600 }}><Icon n="check_circle" size={13} /> All in</span>
-            : <span style={{ display: "inline-flex", alignItems: "center", gap: 3, padding: "3px 9px", borderRadius: 6, background: "#fff7ed", color: "#ea580c", fontSize: 11, fontWeight: 600 }}><Icon n="shopping_bag" size={13} /> {recipe.missingIngredients.length} missing</span>
-          }
         </div>
       </div>
     </div>
@@ -2372,53 +2379,65 @@ function NavBar({ view, setView, user, onSignOut }: { view: ViewName; setView: (
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  const navLinks = [
+    { label: "Recipes", v: "recipes" as ViewName },
+  ];
+
   return (
     <header style={{
       position: "sticky", top: 0, zIndex: 200,
-      background: "rgba(255,255,255,0.88)", backdropFilter: "blur(14px)",
-      borderBottom: "1px solid rgba(51,199,56,0.12)", padding: "11px 40px",
+      background: "rgba(255,255,255,0.80)", backdropFilter: "blur(16px)",
+      borderBottom: "1px solid rgba(226,232,240,0.8)",
+      padding: "12px 16px",
     }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <button onClick={() => setView("home")} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, padding: 0 }}>
-          <div style={{ background: "#33c738", borderRadius: 9, padding: "5px 7px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Icon n="restaurant" size={20} color="#fff" />
-          </div>
-          <span style={{ fontSize: 16, fontWeight: 800, color: "#0f172a" }}>What's for Dinner?</span>
-        </button>
-        <nav style={{ display: "flex", gap: 28, alignItems: "center" }}>
-          {(["home", "recipes"] as ViewName[]).map(v => (
-            <button key={v} onClick={() => setView(v)}
-              style={{
-                background: "none", border: "none", cursor: "pointer", fontFamily: "inherit",
-                fontSize: 13, fontWeight: 600, padding: "5px 0",
-                color: view === v ? "#33c738" : "#475569",
-                borderBottom: view === v ? "2px solid #33c738" : "2px solid transparent",
-                transition: "color 0.18s, border-color 0.18s",
-              }}>
-              {v === "home" ? "Home" : "Recipes"}
-            </button>
-          ))}
-          <a href="#" style={{ fontSize: 13, fontWeight: 600, color: "#475569", textDecoration: "none" }}>My Cookbook</a>
+      <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+        {/* Left: Logo + Nav links */}
+        <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
+          <button onClick={() => setView("home")} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, padding: 0 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 30, color: "#33c738", fontVariationSettings: "'wght' 600" }}>restaurant_menu</span>
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", letterSpacing: -0.3 }}>What's for Dinner?</span>
+          </button>
+          {/* Desktop nav links */}
+          <nav style={{ display: "flex", gap: 24, alignItems: "center" }}>
+            {navLinks.map(({ label, v }) => (
+              <button key={label} onClick={() => setView(v)}
+                style={{
+                  background: "none", border: "none", cursor: "pointer", fontFamily: "inherit",
+                  fontSize: 13.5, fontWeight: 500, padding: "4px 0",
+                  color: (label === "Recipes" && view === "recipes") ? "#33c738" : "#475569",
+                  transition: "color 0.18s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#33c738")}
+                onMouseLeave={e => { if (!((label === "Recipes" && view === "recipes"))) e.currentTarget.style.color = "#475569"; }}>
+                {label}
+              </button>
+            ))}
+          </nav>
+        </div>
 
+        {/* Right: Search + User */}
+        <div style={{ display: "flex", flex: 1, justifyContent: "flex-end", alignItems: "center", gap: 12 }}>
           {/* User avatar + dropdown */}
           {user && (
             <div ref={menuRef} style={{ position: "relative" }}>
               <button onClick={() => setShowUserMenu(p => !p)}
-                style={{ display: "flex", alignItems: "center", gap: 8, background: showUserMenu ? "#f0fdf4" : "#f6f8f6", border: "1.5px solid #e2e8f0", borderRadius: 99, padding: "5px 12px 5px 6px", cursor: "pointer", transition: "background 0.18s" }}>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#33c738", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                style={{ display: "flex", alignItems: "center", gap: 8, background: "none", border: "1.5px solid #e2e8f0", borderRadius: 99, padding: "4px 12px 4px 5px", cursor: "pointer", transition: "border-color 0.18s, background 0.18s" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "#33c738"; e.currentTarget.style.background = "#f0fdf4"; }}
+                onMouseLeave={e => { if (!showUserMenu) { e.currentTarget.style.borderColor = "#e2e8f0"; e.currentTarget.style.background = "none"; } }}>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#33c738", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <span style={{ fontSize: 12, fontWeight: 800, color: "#fff" }}>{(user.user_metadata?.full_name?.[0] || user.email?.[0] || "U").toUpperCase()}</span>
                 </div>
-                <span style={{ fontSize: 12.5, fontWeight: 600, color: "#374151", maxWidth: 130, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#374151", maxWidth: 110, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {user.user_metadata?.full_name || user.email?.split("@")[0]}
                 </span>
-                <Icon n={showUserMenu ? "keyboard_arrow_up" : "keyboard_arrow_down"} size={16} color="#94a3b8" />
+                <span className="material-symbols-outlined" style={{ fontSize: 16, color: "#94a3b8" }}>{showUserMenu ? "keyboard_arrow_up" : "keyboard_arrow_down"}</span>
               </button>
               {showUserMenu && (
-                <div style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", background: "#fff", border: "1px solid #e2e8f0", borderRadius: 14, boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: 200, zIndex: 9999, overflow: "hidden" }}>
+                <div style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", background: "#fff", border: "1px solid #e2e8f0", borderRadius: 14, boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: 210, zIndex: 9999, overflow: "hidden" }}>
                   <div style={{ padding: "14px 16px 12px", borderBottom: "1px solid #f1f5f9" }}>
                     <p style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 4px" }}>Signed in as</p>
                     {user.user_metadata?.full_name && <p style={{ fontSize: 14, fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>{user.user_metadata.full_name}</p>}
-                    <p style={{ fontSize: 12, fontWeight: 500, color: "#64748b", margin: 0, wordBreak: "break-all" }}>{user.email}</p>
+                    <p style={{ fontSize: 12, color: "#64748b", margin: 0, wordBreak: "break-all" }}>{user.email}</p>
                   </div>
                   <button onClick={() => { setShowUserMenu(false); onSignOut(); }}
                     style={{ width: "100%", padding: "12px 16px", background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, fontWeight: 600, color: "#dc2626", fontFamily: "inherit", textAlign: "left" }}
@@ -2431,7 +2450,7 @@ function NavBar({ view, setView, user, onSignOut }: { view: ViewName; setView: (
               )}
             </div>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );
@@ -2534,43 +2553,33 @@ function RecipesPage({ onViewRecipe, cuisine, onCuisineChange }: { onViewRecipe:
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  const [visibleCount, setVisibleCount] = useState(12);
+  const visibleRecipes = displayed.slice(0, visibleCount);
+
   return (
-    <div style={{ minHeight: "calc(100vh - 54px)", background: "#f6f8f6" }}>
-      {/* Page header with search */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #e2e8f0", padding: "22px 40px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 18 }}>
+    <div style={{ padding: "32px 32px 40px" }}>
+
+          {/* Header + search */}
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
             <div>
-              <h1 style={{ fontSize: 24, fontWeight: 900, color: "#0f172a", margin: "0 0 4px" }}>Browse Recipes</h1>
+              <h1 style={{ fontSize: 26, fontWeight: 900, color: "#0f172a", margin: "0 0 4px" }}>Browse Recipes</h1>
               <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>{displayed.length} recipes · click any to see the full cooking guide</p>
             </div>
-            {/* Recipe search bar with suggestions */}
-            <div ref={searchRef} style={{ position: "relative", width: 320 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "#f1f5f9", borderRadius: 13, border: `1.5px solid ${showSugg && query ? "#33c738" : "transparent"}`, transition: "border-color 0.18s" }}>
-                <Icon n="search" size={18} color="#94a3b8" />
-                <input
-                  value={query}
-                  onChange={e => { setQuery(e.target.value); setShowSugg(true); }}
-                  onFocus={() => setShowSugg(true)}
+            <div ref={searchRef} style={{ position: "relative", width: 300 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "rgba(255,255,255,0.8)", borderRadius: 13, border: `1.5px solid ${showSugg && query ? "#33c738" : "rgba(51,199,56,0.2)"}`, transition: "border-color 0.18s", backdropFilter: "blur(8px)" }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 18, color: "#94a3b8" }}>search</span>
+                <input value={query} onChange={e => { setQuery(e.target.value); setShowSugg(true); }} onFocus={() => setShowSugg(true)}
                   placeholder="Search recipes, e.g. biryani..."
-                  style={{ flex: 1, border: "none", outline: "none", background: "transparent", fontFamily: "inherit", fontSize: 13.5, color: "#1e293b" }}
-                />
-                {query && (
-                  <button onClick={() => { setQuery(""); setSuggestions([]); }}
-                    style={{ background: "none", border: "none", cursor: "pointer", display: "flex", padding: 0, color: "#94a3b8" }}>
-                    <Icon n="close" size={16} />
-                  </button>
-                )}
+                  style={{ flex: 1, border: "none", outline: "none", background: "transparent", fontFamily: "inherit", fontSize: 13.5, color: "#1e293b" }} />
+                {query && <button onClick={() => { setQuery(""); setSuggestions([]); }} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", padding: 0, color: "#94a3b8" }}><Icon n="close" size={16} /></button>}
               </div>
-              {/* Autocomplete dropdown */}
               {showSugg && suggestions.length > 0 && (
                 <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 0, right: 0, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 14, boxShadow: "0 12px 36px rgba(0,0,0,0.13)", zIndex: 9999, overflow: "hidden" }}>
                   {suggestions.map(r => {
                     const ce = CUISINES.find(c => c.label === r.cuisine);
                     return (
-                      <div key={r.id}
-                        onMouseDown={() => { onViewRecipe(r); setShowSugg(false); setQuery(r.title); }}
-                        style={{ padding: "10px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: 11, transition: "background 0.12s" }}
+                      <div key={r.id} onMouseDown={() => { onViewRecipe(r); setShowSugg(false); setQuery(r.title); }}
+                        style={{ padding: "10px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: 11 }}
                         onMouseEnter={e => (e.currentTarget.style.background = "#f0fdf4")}
                         onMouseLeave={e => (e.currentTarget.style.background = "#fff")}>
                         <div style={{ width: 42, height: 42, borderRadius: 9, overflow: "hidden", flexShrink: 0, border: "1px solid #f1f5f9" }}>
@@ -2583,33 +2592,40 @@ function RecipesPage({ onViewRecipe, cuisine, onCuisineChange }: { onViewRecipe:
                       </div>
                     );
                   })}
-                  <div style={{ padding: "8px 14px", fontSize: 11.5, color: "#94a3b8", borderTop: "1px solid #f1f5f9", background: "#fafafa" }}>
-                    Press Enter or click to open recipe
-                  </div>
+                  <div style={{ padding: "8px 14px", fontSize: 11.5, color: "#94a3b8", borderTop: "1px solid #f1f5f9", background: "#fafafa" }}>Click to open recipe</div>
                 </div>
               )}
             </div>
           </div>
-          <CuisineBar selected={cuisine} onChange={c => { onCuisineChange(c); setQuery(""); }} />
-        </div>
-      </div>
 
-      {/* Grid */}
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 40px 60px" }}>
-        {displayed.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "80px 20px", color: "#94a3b8" }}>
-            <Icon n="search_off" size={52} color="#cbd5e1" />
-            <h3 style={{ fontSize: 18, fontWeight: 700, color: "#475569", margin: "14px 0 6px" }}>No recipes found</h3>
-            <p style={{ fontSize: 13 }}>Try a different search or switch to "All" cuisines.</p>
+          <CuisineBar selected={cuisine} onChange={c => { onCuisineChange(c); setQuery(""); setVisibleCount(12); }} />
+
+          {/* Grid */}
+          <div style={{ marginTop: 24 }}>
+            {displayed.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "64px 20px", color: "#94a3b8" }}>
+                <Icon n="search_off" size={52} color="#cbd5e1" />
+                <h3 style={{ fontSize: 18, fontWeight: 700, color: "#475569", margin: "14px 0 6px" }}>No recipes found</h3>
+                <p style={{ fontSize: 13 }}>Try a different search or switch to "All" cuisines.</p>
+              </div>
+            ) : (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 18 }}>
+                  {visibleRecipes.map((r, i) => <RecipeCard key={r.id} recipe={r} onClick={() => onViewRecipe(r)} delay={i * 30} />)}
+                </div>
+                {visibleCount < displayed.length && (
+                  <div style={{ marginTop: 36, display: "flex", justifyContent: "center" }}>
+                    <button onClick={() => setVisibleCount(v => v + 12)}
+                      style={{ padding: "12px 32px", background: "#fff", border: "1.5px solid #e2e8f0", borderRadius: 14, color: "#374151", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit", boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = "#33c738"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(51,199,56,0.15)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = "#e2e8f0"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.07)"; }}>
+                      View more recipes
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
-        ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 20 }}>
-            {displayed.map((r, i) => (
-              <RecipeCard key={r.id} recipe={r} onClick={() => onViewRecipe(r)} delay={i * 30} />
-            ))}
-          </div>
-        )}
-      </div>
     </div>
   );
 }
@@ -2681,65 +2697,93 @@ function ResultsPage({ chips, onAddChip, onRemoveChip, onViewRecipe, cuisine, on
     ? matchByIngredients(chips, cuisine)
     : (filteredLive ?? matchByIngredients(chips, cuisine));
 
+  const [visibleCount, setVisibleCount] = useState(12);
+  const visibleRecipes = recipes.slice(0, visibleCount);
+
   return (
-    <div style={{ minHeight: "calc(100vh - 54px)", background: "#f6f8f6" }}>
-      <div style={{ background: "#fff", borderBottom: "1px solid #e2e8f0", padding: "18px 40px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <h1 style={{ fontSize: 22, fontWeight: 900, color: "#0f172a", margin: "0 0 3px" }}>Search Results</h1>
-          <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 14px" }}>
-            {loading ? "Searching recipes…" : `${recipes.length} recipe${recipes.length !== 1 ? "s" : ""} matched · ${cuisine === "All" ? "All cuisines" : cuisine}`}
-          </p>
-          {/* API mode badge */}
-          {!USE_MOCK && (
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: "rgba(51,199,56,0.1)", border: "1px solid rgba(51,199,56,0.25)", borderRadius: 99, fontSize: 11, fontWeight: 700, color: "#15803d", marginBottom: 10 }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 13 }}>wifi</span>
-              Live API mode
-            </div>
-          )}
-          {/* Error banner */}
-          {apiError && (
-            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "12px 16px", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, fontSize: 13, color: "#dc2626", marginBottom: 12 }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0, marginTop: 1 }}>error</span>
-              <div>
-                <span style={{ fontWeight: 600 }}>Showing from local recipe library</span>
-                <div style={{ marginTop: 3, fontSize: 12, color: "#b91c1c", opacity: 0.8 }}>{apiError}</div>
-              </div>
-            </div>
-          )}
-          {/* Editable ingredient chips */}
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 7, padding: "10px 14px", background: "#f8fafc", borderRadius: 12, border: "1px solid #e2e8f0", marginBottom: 16 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>Your ingredients:</span>
-            <IngInput chips={chips} onAdd={onAddChip} onRemove={onRemoveChip} placeholder="+ Add ingredient..." />
+    <div style={{ padding: "32px 32px 40px" }}>
+
+          {/* Header row */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 20 }}>
+            <h1 style={{ fontSize: 26, fontWeight: 900, color: "#0f172a", margin: 0 }}>Search Results</h1>
+            <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>
+              {loading ? "Searching recipes…" : `Found ${recipes.length} recipes matching your pantry`}
+            </p>
           </div>
-          <CuisineBar selected={cuisine} onChange={onCuisineChange} />
-        </div>
-      </div>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 40px 60px" }}>
-        {loading ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 20 }}>
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} style={{ background: "#fff", borderRadius: 16, overflow: "hidden", border: "1px solid #e2e8f0" }}>
-                <div style={{ aspectRatio: "4/3", background: "linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.4s infinite" }} />
-                <div style={{ padding: 14 }}>
-                  <div style={{ height: 14, background: "linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.4s infinite", borderRadius: 6, marginBottom: 8, width: "70%" }} />
-                  <div style={{ height: 10, background: "linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.4s infinite", borderRadius: 6, width: "45%" }} />
-                </div>
+
+          {/* Ingredient chips row */}
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 20 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.08em", marginRight: 4, whiteSpace: "nowrap" }}>Your Ingredients:</span>
+            {chips.map(c => (
+              <div key={c} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "#33c738", color: "#fff", borderRadius: 99, fontSize: 13, fontWeight: 600 }}>
+                {c}
+                <button onClick={() => onRemoveChip(c)} style={{ background: "none", border: "none", cursor: "pointer", color: "#fff", display: "flex", padding: 0, opacity: 0.85 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 15 }}>close</span>
+                </button>
               </div>
             ))}
+            <IngInput chips={chips} onAdd={onAddChip} onRemove={onRemoveChip} placeholder="+ add more..." hideChips />
           </div>
-        ) : recipes.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "70px 20px", color: "#94a3b8" }}>
-            <Icon n="no_meals" size={52} color="#cbd5e1" />
-            <h3 style={{ fontSize: 18, fontWeight: 700, color: "#475569", margin: "14px 0 6px" }}>No matching recipes</h3>
-            <p style={{ fontSize: 13, margin: "0 0 16px" }}>Try adding more ingredients or switch to "All" cuisines.</p>
-            {cuisine !== "All" && <button onClick={() => onCuisineChange("All")} style={{ padding: "9px 22px", background: "#33c738", color: "#fff", border: "none", borderRadius: 99, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Show All Cuisines</button>}
+
+          {/* Source indicator */}
+          {!USE_MOCK && (
+            <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+              {apiError ? (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 99, fontSize: 12, fontWeight: 600, color: "#64748b" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 14, color: "#94a3b8" }}>menu_book</span>
+                  Showing from local library
+                </span>
+              ) : (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", background: "rgba(51,199,56,0.08)", border: "1px solid rgba(51,199,56,0.2)", borderRadius: 99, fontSize: 12, fontWeight: 600, color: "#15803d" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 14 }}>wifi</span>
+                  Live results
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Cuisine filter bar */}
+          <CuisineBar selected={cuisine} onChange={onCuisineChange} />
+
+          {/* Recipe grid */}
+          <div style={{ marginTop: 24 }}>
+            {loading ? (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 18 }}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} style={{ background: "rgba(255,255,255,0.8)", borderRadius: 16, overflow: "hidden", border: "1.5px solid rgba(51,199,56,0.15)" }}>
+                    <div style={{ aspectRatio: "4/3", background: "linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.4s infinite" }} />
+                    <div style={{ padding: 14 }}>
+                      <div style={{ height: 14, background: "linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.4s infinite", borderRadius: 6, marginBottom: 8, width: "70%" }} />
+                      <div style={{ height: 10, background: "linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.4s infinite", borderRadius: 6, width: "45%" }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : recipes.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "64px 20px", color: "#94a3b8" }}>
+                <Icon n="no_meals" size={52} color="#cbd5e1" />
+                <h3 style={{ fontSize: 18, fontWeight: 700, color: "#475569", margin: "14px 0 6px" }}>No matching recipes</h3>
+                <p style={{ fontSize: 13, margin: "0 0 16px" }}>Try adding more ingredients or switch to "All" cuisines.</p>
+                {cuisine !== "All" && <button onClick={() => onCuisineChange("All")} style={{ padding: "9px 22px", background: "#33c738", color: "#fff", border: "none", borderRadius: 99, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Show All Cuisines</button>}
+              </div>
+            ) : (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 18 }}>
+                  {visibleRecipes.map((r, i) => <RecipeCard key={r.id} recipe={r} onClick={() => onViewRecipe(r)} delay={i * 30} />)}
+                </div>
+                {visibleCount < recipes.length && (
+                  <div style={{ marginTop: 36, display: "flex", justifyContent: "center" }}>
+                    <button onClick={() => setVisibleCount(v => v + 12)}
+                      style={{ padding: "12px 32px", background: "#fff", border: "1.5px solid #e2e8f0", borderRadius: 14, color: "#374151", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit", boxShadow: "0 2px 8px rgba(0,0,0,0.07)", transition: "box-shadow 0.18s, border-color 0.18s" }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = "#33c738"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(51,199,56,0.15)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = "#e2e8f0"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.07)"; }}>
+                      View more recipes
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
-        ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 20 }}>
-            {recipes.map((r, i) => <RecipeCard key={r.id} recipe={r} onClick={() => onViewRecipe(r)} delay={i * 30} />)}
-          </div>
-        )}
-      </div>
     </div>
   );
 }
@@ -2822,27 +2866,53 @@ export default function App() {
 
   // ── 3. Logged in → show full app ───────────────────────────────────────
   return (
-    <div style={{ fontFamily: "'Plus Jakarta Sans', 'Segoe UI', sans-serif", minHeight: "100vh", background: "#f6f8f6", margin: 0, padding: 0 }}>
+    <div style={{ fontFamily: "'Plus Jakarta Sans', 'Segoe UI', sans-serif", minHeight: "100vh", position: "relative", margin: 0, padding: 0 }}>
       <style>{GLOBAL_STYLES}</style>
 
-      <NavBar view={view} setView={setView} user={user} onSignOut={handleSignOut} />
+      {/* Animated background layer */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none" }}>
+        <div className="bg-anim" style={{ position: "absolute", inset: 0, opacity: 0.7 }} />
+        <span className="material-symbols-outlined float1" style={{ position: "absolute", top: "10%", left: "5%", fontSize: 120, color: "rgba(51,199,56,0.08)", userSelect: "none" }}>eco</span>
+        <span className="material-symbols-outlined float2" style={{ position: "absolute", bottom: "15%", right: "10%", fontSize: 150, color: "rgba(51,199,56,0.08)", userSelect: "none" }}>potted_plant</span>
+        <span className="material-symbols-outlined float2d" style={{ position: "absolute", top: "40%", right: "5%", fontSize: 80, color: "rgba(249,115,22,0.08)", userSelect: "none" }}>grain</span>
+        <span className="material-symbols-outlined float1d" style={{ position: "absolute", bottom: "30%", left: "8%", fontSize: 100, color: "rgba(234,179,8,0.08)", userSelect: "none" }}>opacity</span>
+        <span className="material-symbols-outlined float1" style={{ position: "absolute", top: "70%", left: "50%", transform: "translateX(-50%)", fontSize: 200, color: "rgba(100,116,139,0.04)", userSelect: "none", animationDelay: "-8s" }}>restaurant</span>
+      </div>
 
-      {activeRecipe && <RecipeModal recipe={activeRecipe} onClose={() => setActiveRecipe(null)} />}
+      {/* App content */}
+      <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <NavBar view={view} setView={setView} user={user} onSignOut={handleSignOut} />
 
-      <PageTransition visible={view === "home"}>
-        <HomePage onSearch={handleSearch} />
-        <Footer />
-      </PageTransition>
+        {activeRecipe && <RecipeModal recipe={activeRecipe} onClose={() => setActiveRecipe(null)} />}
 
-      <PageTransition visible={view === "recipes"}>
-        <RecipesPage onViewRecipe={r => setActiveRecipe(r)} cuisine={browseCuisine} onCuisineChange={setBrowseCuisine} />
-        <Footer />
-      </PageTransition>
+        <PageTransition visible={view === "home"}>
+          <HomePage onSearch={handleSearch} />
+          <Footer />
+        </PageTransition>
 
-      <PageTransition visible={view === "results"}>
-        <ResultsPage chips={chips} onAddChip={handleAddChip} onRemoveChip={handleRemoveChip} onViewRecipe={r => setActiveRecipe(r)} cuisine={resultsCuisine} onCuisineChange={setResultsCuisine} />
-        <Footer />
-      </PageTransition>
+        <PageTransition visible={view === "recipes"}>
+          {/* Glass main wrapper matches HTML design */}
+          <div style={{ width: "100%", maxWidth: 1280, margin: "0 auto", padding: "0 16px 0" }}>
+            <div style={{ background: "rgba(255,255,255,0.60)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 28, border: "1px solid rgba(255,255,255,0.20)", boxShadow: "0 20px 60px rgba(0,0,0,0.10)", margin: "32px 0", overflow: "hidden" }}>
+              <RecipesPage onViewRecipe={r => setActiveRecipe(r)} cuisine={browseCuisine} onCuisineChange={setBrowseCuisine} />
+            </div>
+          </div>
+          <Footer />
+        </PageTransition>
+
+        <PageTransition visible={view === "results"}>
+          <div style={{ width: "100%", maxWidth: 1280, margin: "0 auto", padding: "0 16px 0" }}>
+            <div style={{ background: "rgba(255,255,255,0.60)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 28, border: "1px solid rgba(255,255,255,0.20)", boxShadow: "0 20px 60px rgba(0,0,0,0.10)", margin: "32px 0", overflow: "hidden" }}>
+              <ResultsPage chips={chips} onAddChip={handleAddChip} onRemoveChip={handleRemoveChip} onViewRecipe={r => setActiveRecipe(r)} cuisine={resultsCuisine} onCuisineChange={setResultsCuisine} />
+            </div>
+          </div>
+          <Footer />
+        </PageTransition>
+
+
+
+
+      </div>
     </div>
   );
 }
