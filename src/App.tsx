@@ -1758,6 +1758,790 @@ const ALL_RECIPES: Recipe[] = [
     ],
     proTip: "The syrup must be warm when you add the fried jamuns — cold syrup causes them to harden instead of soaking.",
   },
+  // ═══════════════════════════════════════════════════════════════════════════
+// 50 NEW INDIAN RECIPES  (IDs 211–260)
+//
+// ── WHERE TO PASTE ──────────────────────────────────────────────────────────
+//  1. Open App.tsx in VS Code
+//  2. Press Ctrl+F and search for:   id: 110
+//  3. Scroll DOWN past that recipe until you see the closing ];  of ALL_RECIPES
+//  4. Place your cursor on the line JUST BEFORE that ];
+//  5. Paste everything between the ═══ lines below
+//
+//  The array should look like this after pasting:
+//    ...
+//    { id: 110, title: "Gulab Jamun", ... },   ← existing last recipe
+//    { id: 111, ... },                          ← from previous file
+//    ...
+//    { id: 210, ... },                          ← last of previous file
+//    { id: 211, ... },                          ← START PASTING HERE
+//    ...
+//    { id: 260, ... },                          ← end of this file
+//  ];                                           ← closing bracket stays
+// ════════════════════════════════════════════════════════════════════════════
+
+  // ── NORTH INDIAN (211–235) ────────────────────────────────────────────────
+
+  {
+    id: 211, title: "Aloo Tamatar Sabzi", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 25, servings: 4, difficulty: "Easy",
+    tags: ["aloo tamatar", "potato tomato", "dhaba", "north indian", "everyday"],
+    description: "The simplest and most comforting everyday North Indian dish — potatoes cooked in a tangy, spiced tomato gravy. Found in every dhaba (roadside eatery) and home kitchen across North India. Pairs perfectly with puri or roti.",
+    ingredients: ["potato", "tomato", "onion", "garlic", "ginger", "cumin", "turmeric", "coriander powder", "ghee"],
+    missingIngredients: ["kasuri methi", "amchur powder"],
+    steps: [
+      { step: 1, title: "Fry the potatoes first", instruction: "Peel and cube 4 large potatoes into 2.5cm pieces. Heat 3 tbsp oil or ghee in a kadai on medium-high heat. Add potato cubes and fry, turning occasionally, for 8–10 minutes until golden on the outside and just cooked through. Remove and set aside. This frying step gives the potatoes a golden crust that holds up in the gravy without going mushy.", tip: "Frying the potatoes separately before adding to the gravy is the dhaba secret — it gives them a golden crust and prevents them from becoming soggy." },
+      { step: 2, title: "Build the tomato masala", instruction: "In the same pan, heat 1 tbsp ghee. Add 1 tsp cumin seeds — let them splutter for 10 seconds. Add 1 large finely chopped onion and cook on medium heat for 6–7 minutes until golden. Add 1 tbsp ginger-garlic paste and cook 2 minutes until the raw smell disappears. Add 3 large tomatoes (finely chopped or blended) along with 1 tsp coriander powder, 1/2 tsp turmeric, 1/2 tsp chilli powder and salt. Cook on medium heat for 8–10 minutes, stirring frequently, until the tomatoes are completely broken down and oil begins to separate from the masala at the edges of the pan." },
+      { step: 3, title: "Combine and simmer", instruction: "Add the fried potatoes back into the tomato masala. Add 1/2 cup water and mix gently so the potatoes are coated in the masala. Bring to a simmer, cover with a lid and cook on low heat for 8 minutes so the potatoes fully absorb the masala flavours. Add crushed kasuri methi and a pinch of amchur powder for tanginess. Garnish with fresh coriander leaves.", tip: "Adding a pinch of amchur (dried mango powder) at the end adds a brightness that balances the richness of the tomato masala." },
+    ],
+    proTip: "Use ripe, juicy red tomatoes for the most flavourful gravy. Underripe or pale tomatoes result in a thin, acidic masala.",
+  },
+  {
+    id: 212, title: "Kali Dal (Whole Black Lentils)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 60, servings: 4, difficulty: "Medium",
+    tags: ["kali dal", "whole urad", "punjabi", "north indian", "protein"],
+    description: "The whole black urad dal version — less rich than dal makhani but equally satisfying. Cooked until the lentils are completely tender, then seasoned with a simple ginger-garlic tadka. Earthy, nutty and deeply nourishing.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "cumin", "ghee", "turmeric", "coriander powder"],
+    missingIngredients: ["whole black urad dal", "kasuri methi"],
+    steps: [
+      { step: 1, title: "Soak and pressure cook", instruction: "Soak 1 cup whole black urad dal overnight — this is non-negotiable as whole black lentils are very dense and take forever to cook without soaking. Drain and pressure cook with 3.5 cups fresh water, 1/2 tsp turmeric, a pinch of asafoetida and salt for 20–25 minutes (6–7 whistles). The dal is done when you can crush a lentil easily between two fingers. Undercooked dal has an unpleasant grainy texture." },
+      { step: 2, title: "Make the tomato-onion masala", instruction: "Heat 2 tbsp ghee in a pan. Add 1 tsp cumin seeds. Add 1 large finely chopped onion and cook 8 minutes until deep golden — patience here builds flavour. Add 1 tbsp ginger-garlic paste and cook 2 minutes. Add 2 chopped tomatoes, 1 tsp coriander powder, 1/2 tsp chilli powder. Cook 10 minutes until the masala is thick and glossy and oil has separated." },
+      { step: 3, title: "Combine and finish", instruction: "Pour the cooked dal into the masala. Mix well and simmer together for 10 minutes on low heat so the dal absorbs the masala flavours. If the dal is too thick, add a splash of water. Crush kasuri methi between your palms and stir in. Finish with a squeeze of lemon and a final drizzle of ghee." },
+    ],
+    proTip: "Kali dal improves overnight — make it the evening before and reheat the next day for the deepest flavour.",
+  },
+  {
+    id: 213, title: "Aloo Gobi", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["aloo gobi", "potato cauliflower", "dry sabzi", "north indian", "everyday"],
+    description: "North India's most popular dry vegetable dish — potato and cauliflower florets stir-fried with cumin and fragrant spices until tender with slightly crispy edges. Absolutely delicious in its simplicity.",
+    ingredients: ["potato", "cauliflower", "onion", "garlic", "ginger", "cumin", "turmeric", "coriander powder", "ghee", "cilantro"],
+    missingIngredients: ["ajwain", "kasuri methi"],
+    steps: [
+      { step: 1, title: "Prep the vegetables", instruction: "Break 1 large cauliflower into medium florets — not too small or they disintegrate. Peel and cube 3 medium potatoes into 2cm pieces. Dry both vegetables thoroughly with a kitchen towel — excess moisture causes steaming instead of frying and makes the vegetables soft rather than lightly crispy." },
+      { step: 2, title: "Fry in batches", instruction: "Heat 3 tbsp oil or ghee in a wide kadai on medium-high heat. Add 1/2 tsp ajwain seeds and 1 tsp cumin seeds — wait for them to splutter. Add potatoes first and cook 5 minutes without stirring, letting them develop colour. Add cauliflower florets and toss everything together. Add 1/2 tsp turmeric, 1 tsp coriander powder, 1/2 tsp chilli powder and salt. Toss to coat." },
+      { step: 3, title: "Cover and cook on low", instruction: "Add 1 tbsp ginger-garlic paste. Toss. Reduce heat to low, cover with a lid and cook for 10–12 minutes, lifting the lid and tossing gently every 4 minutes. The vegetables cook in their own steam — do not add water. When potatoes are tender and cauliflower has some charred edges, the dish is done. Finish with crushed kasuri methi and fresh coriander.", tip: "Do NOT add water at any point. The vegetables release enough moisture to cook through on low heat. Water makes aloo gobi mushy." },
+    ],
+    proTip: "The ajwain (carom seeds) in this dish is non-negotiable — it adds a distinctive herby, thyme-like aroma specific to aloo gobi.",
+  },
+  {
+    id: 214, title: "Rajma Chawal", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 60, servings: 4, difficulty: "Medium",
+    tags: ["rajma chawal", "red kidney beans", "punjabi comfort", "north indian", "rice and beans"],
+    description: "Punjab's ultimate Sunday comfort food — thick, deeply spiced red kidney bean curry served over steamed basmati rice. Every Punjabi home has a slightly different recipe; this is the classic version.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "cumin", "coriander powder", "garam masala", "ghee", "rice"],
+    missingIngredients: ["red kidney beans", "bay leaf", "kasuri methi"],
+    steps: [
+      { step: 1, title: "Soak and pressure cook rajma", instruction: "Soak 1.5 cups dried red kidney beans overnight in plenty of water — they roughly double in size. Drain and rinse. Pressure cook with 4 cups fresh water, 2 bay leaves, a pinch of baking soda (speeds cooking) and salt for 20–25 minutes (8 whistles) until each bean is completely soft and you can crush it easily. Reserve all cooking liquid — it becomes the base of the curry." },
+      { step: 2, title: "Make the masala base", instruction: "Heat 3 tbsp ghee in a heavy pan. Add 1 tsp cumin seeds. Add 2 large onions (finely chopped) and cook on medium heat for 12–15 minutes, stirring regularly, until deep golden brown — this is the flavour foundation so do not rush it. Add 1 tbsp ginger-garlic paste, cook 2 minutes. Add 3 large blended tomatoes, 2 tsp coriander powder, 1 tsp cumin powder, 1/2 tsp chilli powder and 1/4 tsp turmeric. Cook stirring for 12 minutes until oil surfaces and the masala is thick and dark." },
+      { step: 3, title: "Add beans and slow simmer", instruction: "Add the cooked rajma along with ALL the reserved cooking liquid. Bring to a boil then reduce to a low simmer. Partially mash some beans against the side of the pot — this thickens the gravy naturally. Simmer uncovered for 15–20 minutes until the curry is thick, glossy and the beans are coated in the masala. Add garam masala, crushed kasuri methi and a knob of butter at the end." },
+    ],
+    proTip: "Mashing some beans against the pot is the technique that gives rajma its characteristic thick, velvety gravy without any thickeners.",
+  },
+  {
+    id: 215, title: "Shahi Paneer", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["shahi paneer", "mughal", "cashew gravy", "royal", "mild paneer"],
+    description: "The Mughal royal paneer dish — paneer in an ivory-white, mildly spiced cashew and cream gravy fragrant with cardamom and rose water. Shahi means 'royal' — this is the most delicate and sophisticated paneer curry.",
+    ingredients: ["paneer", "heavy cream", "cashews", "onion", "garlic", "ginger", "cardamom", "ghee", "milk"],
+    missingIngredients: ["rose water", "saffron", "kewra water"],
+    steps: [
+      { step: 1, title: "Make the white gravy base", instruction: "In a pot, gently cook 2 large roughly chopped onions, 15 cashews, 4 garlic cloves, 1 inch ginger, 4 green cardamom pods and 1 cup milk together on low-medium heat for 15 minutes until onion is completely soft. Do NOT brown — shahi paneer must remain pale and ivory-coloured. Cool completely and blend to a completely smooth, silky paste. Strain through a fine sieve." },
+      { step: 2, title: "Cook the gravy", instruction: "Heat 2 tbsp ghee in a pan. Add the strained white paste. Cook on medium heat, stirring continuously for 8–10 minutes until the paste thickens and the ghee surfaces at the edges. Add 1/2 tsp white pepper powder (not red chilli — this stays white), 1/2 tsp cardamom powder and salt. Add 1/2 cup water to adjust consistency." },
+      { step: 3, title: "Add cream and paneer", instruction: "Pour in 100ml cream and stir gently. Bring to a gentle simmer. Add 300g paneer cubes (gently pan-fried in butter until golden, optional). Simmer 5 minutes. Remove from heat and add a few drops of rose water and kewra water — just a drop or two of each, as they are intensely fragrant. Garnish with a pinch of saffron dissolved in warm milk.", tip: "Rose water and kewra water are very powerful — one or two drops is all you need. More will make the dish taste like perfume." },
+    ],
+    proTip: "Shahi paneer should taste mild, creamy and floral — not spicy. The spicing is intentionally gentle to let the cashew-cream base shine.",
+  },
+  {
+    id: 216, title: "Pindi Chana", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["pindi chana", "dry chana", "punjabi", "no gravy", "roadside"],
+    description: "Rawalpindi-style dry chickpeas — cooked with spices until completely dry, almost blackened from the masala. Unlike chana masala which has a thick gravy, pindi chana is entirely dry with intensely concentrated flavour.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "cumin", "coriander powder", "ghee", "lemon"],
+    missingIngredients: ["dried chickpeas", "pomegranate seeds", "chana masala powder", "bay leaf", "tea bag"],
+    steps: [
+      { step: 1, title: "Cook chickpeas with tea", instruction: "Soak 1.5 cups dried chickpeas overnight. Drain. Pressure cook with 4 cups fresh water, 2 bay leaves, 1 black cardamom, 1 cinnamon stick and 1 black tea bag (gives a dark colour). Cook 20 minutes until completely tender. Remove tea bag and whole spices. Drain chickpeas but save 1/2 cup cooking liquid." },
+      { step: 2, title: "Make the dry masala", instruction: "Heat 3 tbsp ghee in a heavy kadai until very hot. Add 1 tsp cumin seeds. Add 2 finely chopped onions and cook on high heat for 10 minutes until deep brown and slightly charred at edges. Add ginger-garlic paste, cook 2 minutes. Add finely chopped tomatoes, 2 tsp chole/chana masala powder, 1 tsp coriander powder, 1/2 tsp chilli powder. Cook on high heat 10 minutes, stirring continuously, until completely dry and deeply coloured." },
+      { step: 3, title: "Add chickpeas and dry roast", instruction: "Add cooked chickpeas to the masala. Add the reserved cooking liquid. Toss everything on high heat, cooking without a lid for 8–10 minutes until all liquid evaporates and the masala clings to every chickpea. Add crushed pomegranate seeds (anardana), a squeeze of lemon and fresh ginger juliennes. The chickpeas should look dark, sticky and dry." },
+    ],
+    proTip: "The tea bag is the traditional trick for giving pindi chana its characteristic deep mahogany colour without any food colouring.",
+  },
+  {
+    id: 217, title: "Pyaz Ki Kachori", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 60, servings: 8, difficulty: "Medium",
+    tags: ["pyaz ki kachori", "onion kachori", "rajasthani breakfast", "jodhpur", "street food"],
+    description: "Jodhpur's legendary breakfast — crispy fried pastry filled with a pungent, spiced caramelised onion filling. Sold from roadside shops since morning, eaten with green and tamarind chutneys.",
+    ingredients: ["flour", "onion", "fennel seeds", "coriander powder", "ginger", "ghee", "vegetable oil"],
+    missingIngredients: ["ajwain", "besan", "amchur powder", "nigella seeds"],
+    steps: [
+      { step: 1, title: "Make the filling", instruction: "Heat 2 tbsp oil in a pan. Add 1/2 tsp fennel seeds and 1/4 tsp nigella seeds. Add 3 large onions (very finely chopped) and cook on medium-high heat for 15 minutes, stirring, until deep golden and slightly charred — the caramelisation is what makes this filling special. Add 2 tbsp besan and toast for 2 minutes. Add 1 tsp coriander powder, 1/2 tsp chilli powder, 1/2 tsp amchur, 1 tsp finely grated ginger and salt. Mix well. Cool completely.", tip: "Toasting the besan in the filling serves two purposes — it absorbs moisture (preventing soggy pastry) and adds a nutty flavour." },
+      { step: 2, title: "Make pastry dough", instruction: "Mix 2 cups plain flour with 1/2 tsp ajwain, 1/2 tsp salt and 4 tbsp melted ghee. Rub the ghee in until the mixture resembles fine breadcrumbs — this creates the flaky texture. Add water gradually to make a stiff, firm dough. Do not over-knead. Rest covered for 20 minutes." },
+      { step: 3, title: "Fill and fry", instruction: "Take a lemon-sized ball of dough. Flatten into a small circle. Place 1.5 tsp filling in the centre. Bring edges up and seal tightly into a ball, making sure there are no gaps. Flatten gently into a thick round disc. Deep fry in oil at 160°C (low heat is key) for 10–12 minutes, turning, until evenly golden and crispy all over." },
+    ],
+    proTip: "Frying at low temperature (160°C not 180°C) is essential — slow frying allows the pastry to cook through and become crispy rather than burning outside while remaining raw inside.",
+  },
+  {
+    id: 218, title: "Dum Aloo (Kashmiri)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Medium",
+    tags: ["dum aloo", "kashmiri", "spiced baby potatoes", "fennel yogurt", "north indian"],
+    description: "Kashmir's elegant baby potato curry — whole fried baby potatoes cooked in a vivid red, fennel-scented yogurt gravy. The Kashmiri flavour profile of dried ginger, fennel and Kashmiri chilli is completely unlike any other Indian potato dish.",
+    ingredients: ["baby potatoes", "yogurt", "cumin", "ghee", "garlic"],
+    missingIngredients: ["kashmiri chilli powder", "fennel powder", "dried ginger powder", "black cardamom"],
+    steps: [
+      { step: 1, title: "Fry baby potatoes", instruction: "Boil 500g baby potatoes until just tender. Peel them. Prick each potato all over with a fork or toothpick — this allows the gravy to penetrate deeply. Heat generous oil in a pan and deep fry the pricked potatoes until golden-brown all over. Remove and set aside." },
+      { step: 2, title: "Make Kashmiri yogurt gravy", instruction: "Whisk 1 cup thick yogurt with 2 tsp Kashmiri chilli powder, 1 tsp fennel powder (saunf powder), 1/2 tsp dried ginger powder (sonth), 1/4 tsp turmeric and salt. This spiced yogurt is the entire sauce base. Heat 3 tbsp mustard oil to smoking, then reduce heat. Add the yogurt mixture all at once — stir vigorously to prevent curdling. Cook on medium heat, stirring continuously, for 8–10 minutes until the oil surfaces and the masala is thick and deep red." },
+      { step: 3, title: "Add potatoes and dum cook", instruction: "Add the fried potatoes to the yogurt gravy. Add 1/2 cup warm water. Stir gently. Cover with a tight lid and cook on the lowest possible heat for 15–20 minutes. The potatoes absorb the fragrant Kashmiri masala slowly. Finish with a pinch of garam masala.", tip: "The 'dum' (slow steam cooking under a sealed lid) is what makes this dish — the potatoes soak up the yogurt masala completely." },
+    ],
+    proTip: "Pricking the potatoes all over before frying is the step that makes dum aloo extraordinary — the masala penetrates every part of the potato.",
+  },
+  {
+    id: 219, title: "Amritsari Kulcha", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 90, servings: 4, difficulty: "Medium",
+    tags: ["amritsari kulcha", "stuffed kulcha", "punjabi", "north indian", "amritsar"],
+    description: "Amritsar's iconic stuffed bread — leavened kulcha stuffed with spiced potato and fried onion, cooked on a tawa and finished with an extraordinary amount of butter. Served with chole (chickpea curry) as the definitive Amritsari breakfast.",
+    ingredients: ["flour", "yogurt", "potato", "onion", "cumin", "coriander powder", "ginger", "ghee", "butter"],
+    missingIngredients: ["ajwain", "nigella seeds", "amchur powder", "pomegranate seeds"],
+    steps: [
+      { step: 1, title: "Make kulcha dough", instruction: "Mix 2 cups plain flour with 1/2 tsp baking powder, 1/4 tsp baking soda, 1 tsp sugar and 1/2 tsp salt. Add 4 tbsp yogurt and mix. Add warm water gradually to form a smooth, soft, slightly sticky dough. Knead for 5 minutes. Coat in oil, cover with a damp cloth and rest at room temperature for 1 hour — the resting develops the dough's softness." },
+      { step: 2, title: "Make the stuffing", instruction: "Boil and peel 3 medium potatoes. Mash completely smooth. Mix with 1 medium onion (very finely chopped), 1 tsp grated ginger, 2 green chillies (finely chopped), 1 tsp coriander powder, 1/2 tsp cumin powder, 1/2 tsp amchur, crushed pomegranate seeds (anardana), fresh coriander and salt. The stuffing must be completely dry and well-seasoned." },
+      { step: 3, title: "Stuff and cook", instruction: "Divide dough into 6 balls. Flatten each into a small disc. Place 2 tbsp filling in the centre. Seal into a ball. Sprinkle nigella seeds and ajwain on top. Gently roll into an oval, about 8mm thick. Cook on a very hot tawa with butter, pressing down gently. Cook 3 minutes per side until golden with charred spots. Apply a very generous amount of butter immediately when it comes off the tawa. Serve with chole and raw onion." },
+    ],
+    proTip: "The butter quantity on Amritsari kulcha is deliberately excessive — this is the authentic experience. Do not hold back.",
+  },
+  {
+    id: 220, title: "Baingan Bharta", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Easy",
+    tags: ["baingan bharta", "roasted eggplant", "smoky", "punjabi", "north indian"],
+    description: "The ultimate smoky Indian eggplant dish — whole brinjal charred directly over a flame until completely collapsed, then mixed with fried onions, tomatoes and spices. The smoke from charring is the dish's defining flavour.",
+    ingredients: ["eggplant", "onion", "tomato", "garlic", "ginger", "cumin", "coriander powder", "ghee", "cilantro"],
+    missingIngredients: ["mustard oil"],
+    steps: [
+      { step: 1, title: "Char the brinjal directly over flame", instruction: "Rub 1 large brinjal (baingan) with mustard oil all over — the oil protects the skin and adds flavour. Place the entire brinjal directly on the gas flame (or under the highest grill setting if using electric). Turn with tongs every 3–4 minutes for 15–20 minutes until the skin is completely charred and black and the brinjal has collapsed and feels completely soft when pressed. A knife inserted should meet no resistance. The heavy charring is essential — do not remove early.", tip: "The more charred the skin, the smokier the bharta. Do not be afraid of the black exterior — this is exactly correct." },
+      { step: 2, title: "Peel and mash the brinjal", instruction: "Place the charred brinjal in a bowl and cover with another bowl for 5 minutes — the steam loosens the skin. Peel off all the charred black skin under running water. Some small char bits staying in is fine and adds flavour. Roughly mash the flesh with a fork — keep it chunky, not smooth. Add 1 tsp mustard oil to the mashed brinjal." },
+      { step: 3, title: "Make the masala and combine", instruction: "Heat 2 tbsp mustard oil or ghee in a pan. Add 1 tsp cumin seeds. Add 2 medium onions (finely chopped) and cook on medium-high heat for 10 minutes until deep golden. Add 1 tbsp ginger-garlic paste and cook 2 minutes. Add 2 chopped tomatoes, 1 tsp coriander powder, 1/2 tsp chilli powder. Cook 8 minutes until oil surfaces. Add the mashed brinjal. Mix well and cook together for 5 minutes. Finish with fresh coriander and green chilli." },
+    ],
+    proTip: "Baingan bharta must be made with the largest brinjal available — the large globe variety (bharta brinjal) has fewer seeds and more flesh than other varieties.",
+  },
+  {
+    id: 221, title: "Moong Dal Halwa", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 60, servings: 6, difficulty: "Hard",
+    tags: ["moong dal halwa", "winter sweet", "ghee halwa", "rajasthani", "wedding sweet"],
+    description: "Rajasthan's spectacular winter dessert — split yellow moong dal roasted in ghee for 45 minutes until golden and nutty, then cooked with saffron-milk and sugar into a rich, crumbly halwa. Rich beyond imagination.",
+    ingredients: ["ghee", "sugar", "cardamom", "cashews", "milk", "saffron"],
+    missingIngredients: ["split yellow moong dal", "rose water"],
+    steps: [
+      { step: 1, title: "Soak and grind dal", instruction: "Soak 1 cup split yellow moong dal for 3 hours. Drain and grind with very little water (2 tbsp maximum) to a slightly coarse paste — not completely smooth. The coarse texture is intentional and gives the halwa its characteristic crumbly structure." },
+      { step: 2, title: "The long roast — patience required", instruction: "Heat 3/4 cup ghee in a heavy non-stick pan on medium-low heat. Add the dal paste. This is the most critical and demanding step: roast the dal continuously, stirring without stopping, for 35–45 minutes. The dal will initially splutter then gradually dry out, change colour from pale to golden to deep nutty-brown, and fill the kitchen with an extraordinary toasted, nutty fragrance. Do not increase heat — low and slow is the only way. If you stop stirring it burns instantly.", tip: "This roasting step cannot be rushed. Every minute of stirring builds flavour. Set a timer and commit — 40 minutes of stirring transforms the dal from raw to extraordinary." },
+      { step: 3, title: "Add milk and sugar", instruction: "Boil 1.5 cups milk with a pinch of saffron. When the dal is deep golden, carefully add the hot saffron milk — it will splutter dramatically. Stir vigorously. Add 3/4 cup sugar and stir continuously on medium heat for 8–10 minutes until the halwa comes together, leaves the pan sides and ghee starts to ooze from the edges. Add cardamom powder and fried cashews." },
+    ],
+    proTip: "The minimum roasting time is 35 minutes. Less than that and the raw dal taste remains. The deep golden colour tells you when it is ready.",
+  },
+  {
+    id: 222, title: "Mewa Pulao", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["mewa pulao", "dry fruit rice", "mughal", "festive", "nawabi"],
+    description: "A fragrant Mughal-era festive rice dish loaded with fried dry fruits and whole spices. Aromatic with saffron, cardamom and rose water — it is the vegetarian centrepiece of any celebratory meal.",
+    ingredients: ["rice", "ghee", "cardamom", "cashews", "cumin", "milk", "sugar"],
+    missingIngredients: ["basmati rice", "almonds", "pistachios", "raisins", "saffron", "kewra water", "whole spices"],
+    steps: [
+      { step: 1, title: "Fry the dry fruits", instruction: "Heat 4 tbsp ghee in a heavy pot. Add 2 tbsp each of cashews, blanched almonds and pistachios — fry until golden. Add 2 tbsp raisins — fry until they puff up. Remove with a slotted spoon and set aside. The fried dry fruits will be added both during cooking and as garnish." },
+      { step: 2, title: "Make saffron milk and cook rice", instruction: "Dissolve a generous pinch of saffron in 3 tbsp warm milk. Wash and soak 1.5 cups basmati rice for 30 minutes. In the same ghee, add whole spices (4 cardamom, 2 cloves, 1 inch cinnamon, 1 bay leaf, 1 star anise). Add drained rice and fry gently for 2 minutes. Add 2.5 cups hot water with salt and 1 tsp sugar. Bring to a boil, reduce heat to the lowest, cover tightly and cook 12 minutes." },
+      { step: 3, title: "Layer saffron and dry fruits", instruction: "Open the lid, drizzle saffron milk over the rice, scatter half the fried dry fruits and add a few drops of kewra water. Cover and cook on the lowest heat for 5 more minutes (dum). Fluff gently with a fork. Serve garnished with remaining dry fruits." },
+    ],
+    proTip: "The saffron milk drizzled over the top creates beautiful golden patches in the white rice — this contrast is the visual signature of mewa pulao.",
+  },
+  {
+    id: 223, title: "Bharwa Bhindi", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 30, servings: 3, difficulty: "Medium",
+    tags: ["bharwa bhindi", "stuffed okra", "north indian", "dry sabzi", "masala"],
+    description: "Whole okra (ladyfingers) slit and stuffed with a fragrant spice mixture, then pan-fried in mustard oil until tender and slightly crispy. One of North India's most elegant and distinctive vegetable dishes.",
+    ingredients: ["okra", "onion", "cumin", "coriander powder", "turmeric", "mustard oil", "lemon"],
+    missingIngredients: ["amchur powder", "fennel powder"],
+    steps: [
+      { step: 1, title: "Prepare the stuffing", instruction: "Mix together: 2 tsp coriander powder, 1 tsp cumin powder, 1 tsp fennel powder (saunf), 1 tsp amchur, 1/2 tsp chilli powder, 1/4 tsp turmeric and 1 tsp salt. This dry spice mixture is the stuffing. Add 1 finely chopped small onion to the spice mix and mix well." },
+      { step: 2, title: "Stuff the okra", instruction: "Select 400g fresh, firm okra of roughly equal size. Wash and dry completely — wet okra becomes slimy when cooked. Cut off both ends. Make a slit lengthwise through each okra without cutting all the way through — create a pocket. Using a small spoon or your fingers, stuff the spice mixture into each okra pocket, pressing firmly. Do not overfill or they will burst open while cooking." },
+      { step: 3, title: "Pan fry until tender", instruction: "Heat 3 tbsp mustard oil in a wide flat pan until smoking, then reduce heat to medium. Place stuffed okra in a single layer in the pan. Cook undisturbed for 4 minutes until the bottom is golden. Flip carefully. Cook another 4 minutes. Toss gently and cook a final 3–4 minutes until all sides are slightly crispy and the okra is tender but not mushy. Sprinkle a little extra amchur at the end.", tip: "Never cover okra while cooking — steam makes it slimy. Always cook uncovered on medium heat." },
+    ],
+    proTip: "Completely dry okra before cooking is non-negotiable. Even a drop of moisture creates sliminess that nothing can fix.",
+  },
+  {
+    id: 224, title: "Dahi Ke Kebab", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["dahi ke kebab", "yogurt kebab", "awadhi", "soft kebab", "north indian"],
+    description: "Lucknow's melt-in-the-mouth yogurt kebabs — hung curd mixed with paneer, cashews and aromatic spices, shaped into patties and shallow fried until golden. Delicate, sophisticated and utterly unique.",
+    ingredients: ["yogurt", "paneer", "cashews", "onion", "ginger", "cardamom", "garam masala", "ghee"],
+    missingIngredients: ["hung curd", "bread crumbs", "rose petals"],
+    steps: [
+      { step: 1, title: "Make hung curd", instruction: "Place 2 cups thick yogurt in a muslin cloth. Tie the top and hang over a bowl in the refrigerator for 4–6 hours or overnight. The whey drains out leaving hung curd — thick, creamy and almost cheese-like. You should end up with about 3/4 cup of hung curd. This drying step is what allows the kebab to hold its shape." },
+      { step: 2, title: "Make the kebab mixture", instruction: "Mix the hung curd with 100g grated paneer, 2 tbsp finely chopped cashews, 1 small onion (very finely chopped and squeezed dry), 1 tsp grated ginger, 1 chopped green chilli, 1/4 tsp cardamom powder, 1/2 tsp garam masala, 2 tbsp breadcrumbs (for binding) and salt. Mix well. Refrigerate the mixture for 30 minutes — cold mixture is much easier to shape." },
+      { step: 3, title: "Shape and shallow fry", instruction: "Take 2 tbsp of mixture and shape into a round patty. If it is too sticky to shape, add a little more breadcrumb. Shallow fry in ghee on medium heat for 3 minutes per side until golden. These are very delicate — handle gently when flipping. Serve immediately with mint chutney and pomegranate seeds on top." },
+    ],
+    proTip: "The colder the mixture before shaping, the easier it is to form patties. Work quickly with cold hands.",
+  },
+  {
+    id: 225, title: "Sindhi Kadhi", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Medium",
+    tags: ["sindhi kadhi", "besan curry", "sindhi food", "tangy", "north indian"],
+    description: "Sindhi cuisine's signature kadhi — made entirely from besan (no yogurt) with an extraordinary mix of vegetables in a tangy tamarind-based broth. Completely different from Punjabi kadhi and uniquely flavoured.",
+    ingredients: ["potato", "carrot", "eggplant", "onion", "tomato", "cumin", "mustard seeds", "turmeric", "ghee"],
+    missingIngredients: ["besan", "tamarind", "drumstick", "lotus stem", "curry leaves"],
+    steps: [
+      { step: 1, title: "Roast the besan", instruction: "Heat 3 tbsp ghee in a heavy pot. Add 3 tbsp besan and roast on medium heat, stirring continuously for 4–5 minutes until it turns golden and smells nutty. This roasting removes the raw flavour. Add 1 tsp cumin seeds and a pinch of asafoetida." },
+      { step: 2, title: "Add water and make the base", instruction: "Gradually add 4 cups water to the roasted besan while whisking continuously to prevent lumps. Add tamarind extract (3 tbsp), 1/4 tsp turmeric, chilli powder and salt. Bring to a boil, stirring frequently, until the broth thickens slightly from the besan." },
+      { step: 3, title: "Add vegetables and cook", instruction: "Add chopped vegetables — potato, carrot, drumstick pieces, lotus stem (if available) and eggplant. Bring to a boil then reduce heat and simmer covered for 20 minutes until all vegetables are completely tender. Taste and adjust sourness with more tamarind if needed." },
+      { step: 4, title: "Temper", instruction: "Heat 1 tbsp ghee. Add mustard seeds — pop. Add dried red chilli and curry leaves. Pour over the kadhi. Serve with steamed rice and papad." },
+    ],
+    proTip: "Sindhi kadhi uses tamarind (not yogurt) for sourness — this is what makes it completely different from other Indian kadhis.",
+  },
+  {
+    id: 226, title: "Methi Aloo", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 25, servings: 3, difficulty: "Easy",
+    tags: ["methi aloo", "fenugreek potato", "winter dish", "north indian", "dry sabzi"],
+    description: "A winter North Indian favourite — fresh fenugreek leaves stir-fried with potatoes and spices. The slightly bitter methi balances the earthy potatoes beautifully. Quick, nutritious and delicious.",
+    ingredients: ["potato", "onion", "garlic", "ginger", "cumin", "turmeric", "mustard oil"],
+    missingIngredients: ["fenugreek leaves", "ajwain"],
+    steps: [
+      { step: 1, title: "Prep methi leaves", instruction: "Pick 2 large bunches of fresh methi (fenugreek) leaves, discarding thick stems. Wash thoroughly. Finely chop all the leaves. Sprinkle with salt, rest 5 minutes then lightly squeeze out excess moisture — this reduces bitterness." },
+      { step: 2, title: "Cook potatoes first", instruction: "Heat 2 tbsp mustard oil until smoking, then reduce heat. Add 1/2 tsp ajwain seeds and 1 tsp cumin seeds. Add 3 medium potatoes (diced into 1.5cm cubes) with 1/4 tsp turmeric and salt. Cook covered on medium heat for 8 minutes, tossing occasionally, until potatoes are almost cooked." },
+      { step: 3, title: "Add methi and finish", instruction: "Add finely chopped onion, ginger-garlic paste and 1/2 tsp chilli powder. Cook 3 minutes. Add the chopped methi leaves. Toss well. Cook uncovered on medium-high heat for 5 minutes, stirring, until the methi wilts completely and the excess moisture evaporates. The dish should be dry." },
+    ],
+    proTip: "Salting and squeezing the methi leaves before cooking is a traditional technique to moderate their bitterness.",
+  },
+  {
+    id: 227, title: "Tilwale Aloo", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 25, servings: 3, difficulty: "Easy",
+    tags: ["tilwale aloo", "sesame potatoes", "north indian", "quick sabzi", "nutty"],
+    description: "Potatoes coated in a sesame-spice crust and pan-fried until golden and crunchy. The toasted sesame seeds add a nutty richness that elevates a simple potato dish to something special.",
+    ingredients: ["potato", "cumin", "coriander powder", "turmeric", "lemon", "ghee", "cilantro"],
+    missingIngredients: ["sesame seeds", "amchur powder"],
+    steps: [
+      { step: 1, title: "Par-boil and coat potatoes", instruction: "Boil 500g baby potatoes or cubed potatoes until almost cooked. Drain and cool. Mix together: 3 tbsp white sesame seeds, 1 tsp cumin seeds, 1/2 tsp coriander powder, 1/2 tsp turmeric, 1/2 tsp chilli powder, 1/2 tsp amchur and salt. Toss the parboiled potatoes in this mixture, coating evenly." },
+      { step: 2, title: "Pan fry until sesame is golden", instruction: "Heat 2 tbsp ghee in a flat pan on medium heat. Add the sesame-coated potatoes. Cook without stirring for 3–4 minutes until the sesame seeds on the bottom turn golden and nutty-fragrant. Toss gently. Cook another 3–4 minutes until all sides are golden and the sesame seeds are toasted. Do not burn — sesame burns quickly.", tip: "Medium heat is essential — sesame seeds go from golden to burnt in seconds on high heat." },
+      { step: 3, title: "Finish and serve", instruction: "Squeeze lemon juice over the potatoes and garnish with fresh coriander. Serve as a side dish or snack." },
+    ],
+    proTip: "The sesame seeds must be toasted to golden — pale sesame has almost no flavour, toasted sesame has an intense nutty fragrance.",
+  },
+  {
+    id: 228, title: "Arbi Fry (Colocasia)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 30, servings: 3, difficulty: "Easy",
+    tags: ["arbi fry", "colocasia", "taro", "north indian", "crispy", "ajwain"],
+    description: "Crispy pan-fried taro root with ajwain and amchur — one of North India's most loved root vegetable dishes. The ajwain (carom seeds) is essential as it aids digestion of the starchy taro.",
+    ingredients: ["garlic", "cumin", "turmeric", "mustard oil", "lemon"],
+    missingIngredients: ["arbi taro root", "ajwain", "amchur powder"],
+    steps: [
+      { step: 1, title: "Boil arbi carefully", instruction: "Wash 500g arbi (taro root). Boil in salted water for 12–15 minutes until just tender — a knife goes in but it should not be mushy. Drain and cool completely. Peel — the skin slides off easily after boiling. Cut into thick rounds (1.5cm). Handle with care as arbi can cause itching on hands for some people — use gloves or oil your hands first." },
+      { step: 2, title: "Shallow fry until crispy", instruction: "Heat 3 tbsp mustard oil in a flat pan until smoking hot, then reduce to medium. Add 1/2 tsp ajwain seeds — let them splutter for 10 seconds. Add arbi rounds in a single layer. Cook undisturbed for 4 minutes until the bottom is golden and crispy. Flip carefully and cook the other side 4 minutes." },
+      { step: 3, title: "Season and finish", instruction: "Add 1/2 tsp turmeric, 1/2 tsp chilli powder, 1/2 tsp amchur powder and salt. Toss gently to coat all pieces. Cook 2 more minutes. Squeeze lemon and garnish with cilantro." },
+    ],
+    proTip: "The golden crust develops only if the oil is hot enough before adding arbi. Test by adding a small piece — it should sizzle immediately.",
+  },
+  {
+    id: 229, title: "Bread Pakora", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 20, servings: 4, difficulty: "Easy",
+    tags: ["bread pakora", "street food", "north indian", "monsoon snack", "quick"],
+    description: "North India's favourite monsoon street snack — bread sandwiched with spiced potato filling, dipped in thick besan batter and deep fried until golden. Eaten with green chutney and chai.",
+    ingredients: ["bread", "potato", "onion", "cumin", "coriander powder", "ginger", "cilantro", "vegetable oil"],
+    missingIngredients: ["besan", "ajwain", "amchur powder"],
+    steps: [
+      { step: 1, title: "Make spiced potato filling", instruction: "Boil and mash 3 medium potatoes until smooth. Mix with 1 finely chopped small onion, 1 tsp grated ginger, 1 green chilli (finely chopped), 1/2 tsp cumin powder, 1/2 tsp amchur, 1/4 tsp chilli powder, chopped coriander and salt. The filling must be well-seasoned — it is the main flavour in the dish." },
+      { step: 2, title: "Make the pakora batter", instruction: "Mix 1.5 cups besan with 1/4 tsp ajwain, 1/4 tsp chilli powder, a pinch of baking soda and salt. Add water gradually, whisking to a smooth, thick batter — thick enough to coat the back of a spoon. Rest 10 minutes." },
+      { step: 3, title: "Assemble and fry", instruction: "Spread potato filling on one bread slice and cover with another slice. Optionally spread green chutney inside the sandwich. Cut into triangles or leave whole. Dip completely in batter ensuring all surfaces are coated. Deep fry in hot oil at 175°C for 3–4 minutes, turning, until deep golden on all sides. Serve immediately with green chutney and tamarind chutney." },
+    ],
+    proTip: "Bread pakora must be eaten the moment it comes out of the oil — it goes from crispy to soggy within 5 minutes.",
+  },
+  {
+    id: 230, title: "Lauki Ka Halwa", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 50, servings: 4, difficulty: "Medium",
+    tags: ["lauki halwa", "bottle gourd halwa", "north indian", "light dessert", "kheer"],
+    description: "North India's underrated dessert — grated bottle gourd (lauki) cooked in milk until soft and creamy, then sweetened and flavoured with cardamom and khoya. Lighter than other halwas but equally satisfying.",
+    ingredients: ["milk", "sugar", "ghee", "cardamom", "cashews"],
+    missingIngredients: ["bottle gourd", "khoya", "saffron"],
+    steps: [
+      { step: 1, title: "Grate and squeeze lauki", instruction: "Peel and grate 800g bottle gourd (lauki). Squeeze out as much water as possible with your hands — this is important as lauki has high water content. The squeezed water can be drunk (it is healthy) or discarded. You should have about 2 cups of squeezed grated lauki." },
+      { step: 2, title: "Cook in milk", instruction: "Heat 2 tbsp ghee in a heavy pan. Add grated lauki and fry on medium heat for 5 minutes, stirring, until the raw smell disappears. Add 2 cups full-fat milk. Cook on medium heat, stirring frequently, for 25–30 minutes until the milk is completely absorbed and the lauki mixture is thick and dry-ish." },
+      { step: 3, title: "Add khoya and sweeten", instruction: "Add 100g crumbled khoya (or mawa) to the cooked lauki. Cook stirring 5 minutes until the khoya is absorbed. Add sugar to taste (approximately 1/2 cup) and stir until dissolved. Add cardamom powder, saffron dissolved in milk, and fried cashews in ghee. Cook 3 more minutes until glossy. Serve warm or at room temperature." },
+    ],
+    proTip: "Squeezing out as much water as possible from the lauki before cooking significantly reduces cooking time and prevents a watery halwa.",
+  },
+  {
+    id: 231, title: "Karela Fry (Bitter Gourd)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=700",
+    readyInMinutes: 30, servings: 3, difficulty: "Easy",
+    tags: ["karela fry", "bitter gourd", "north indian", "diabetic friendly", "dry sabzi"],
+    description: "The art of making bitter gourd delicious — thin-sliced karela fried crispy with onions and spices. The bitterness is reduced by salting and the caramelisation makes it genuinely addictive.",
+    ingredients: ["onion", "garlic", "cumin", "turmeric", "coriander powder", "mustard oil"],
+    missingIngredients: ["bitter gourd karela", "ajwain", "amchur powder"],
+    steps: [
+      { step: 1, title: "Reduce bitterness", instruction: "Scrape the ridged skin of 300g karela lightly with a peeler. Slice into thin rounds (4–5mm). Sprinkle generously with salt and 1/2 tsp turmeric. Toss well and rest for 20–30 minutes. The salt draws out bitter juices. Squeeze out all liquid thoroughly with your hands. Rinse lightly and pat completely dry with a kitchen towel.", tip: "Squeezing out the liquid after salting is the traditional method to reduce bitterness — do not skip it." },
+      { step: 2, title: "Fry karela until crispy", instruction: "Heat 3 tbsp mustard oil until smoking, then reduce to medium. Add karela slices — do not crowd the pan, fry in two batches if needed. Fry on medium heat for 12–15 minutes, stirring occasionally, until the slices are dark, crispy and slightly shrunken. The longer they fry the crispier they become." },
+      { step: 3, title: "Add onion and spices", instruction: "Add 1 large onion (thinly sliced) to the fried karela. Cook 5 minutes until the onion is golden and slightly caramelised. Add 1/2 tsp cumin powder, 1/2 tsp coriander powder, 1/4 tsp chilli powder and amchur. Toss well. Serve with dal and rice." },
+    ],
+    proTip: "The darker the karela fries, the crisper and less bitter it becomes. Aim for a deep golden-brown, almost mahogany colour.",
+  },
+  {
+    id: 232, title: "Sabudana Khichdi", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Medium",
+    tags: ["sabudana khichdi", "sago", "fasting food", "maharashtrian", "navratri"],
+    description: "Maharashtra's beloved fasting dish — sago pearls (tapioca) stir-fried with potatoes, peanuts and curry leaves. Eaten during religious fasts when grains are not permitted. Light but incredibly satisfying.",
+    ingredients: ["potato", "peanuts", "cumin", "lemon", "cilantro", "ghee"],
+    missingIngredients: ["sabudana tapioca pearls", "curry leaves", "green chilli"],
+    steps: [
+      { step: 1, title: "Soak sabudana correctly", instruction: "Rinse 1.5 cups sabudana (tapioca pearls) in cold water until water runs clear. Soak in just enough water to cover them by 1cm — no more water than this. Soak for 4–6 hours. After soaking, each pearl should be soft and translucent and you should be able to crush it between your fingers easily. If still hard and chalky, soak 1–2 hours more. Correct soaking is the entire difference between good and bad sabudana khichdi.", tip: "Too much water during soaking = sticky, gummy sabudana that clumps together. Just enough water = separate, fluffy pearls." },
+      { step: 2, title: "Dry roast and crush peanuts", instruction: "Dry roast 1/2 cup peanuts until golden and crunchy. Cool and crush coarsely — some fine powder and some larger pieces. Mix peanuts with the soaked and drained sabudana, 1/2 tsp cumin powder and salt. The peanuts absorb excess moisture and add crunch." },
+      { step: 3, title: "Cook and toss", instruction: "Heat 2 tbsp ghee in a wide pan. Add 1 tsp cumin seeds. Add 2 medium potatoes (boiled and cubed), 1 slit green chilli and curry leaves. Toss potatoes for 2 minutes. Add the sabudana-peanut mixture. Toss gently on medium heat for 4–5 minutes until sabudana turns translucent — this means it is cooked. Do not over-cook or it becomes sticky and gummy. Add lemon juice and coriander." },
+    ],
+    proTip: "Sabudana is done when it turns completely translucent. White/opaque pearls are undercooked. Translucent and slightly sticky is correct.",
+  },
+  {
+    id: 233, title: "Hara Bhara Kebab", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 35, servings: 4, difficulty: "Easy",
+    tags: ["hara bhara kebab", "green kebab", "spinach potato", "north indian", "starter"],
+    description: "Vivid green tikki-style kebabs made from spinach, peas and potato — crispy outside, soft inside and packed with vegetables. The green colour comes entirely from fresh spinach and peas, making them as beautiful as they are nutritious.",
+    ingredients: ["spinach", "peas", "potato", "garlic", "ginger", "cumin", "coriander powder", "ghee"],
+    missingIngredients: ["besan", "chaat masala"],
+    steps: [
+      { step: 1, title: "Blanch greens", instruction: "Blanch 2 cups spinach in boiling salted water for 1 minute until wilted and bright green. Immediately transfer to ice cold water — this preserves the vivid green colour. Drain and squeeze out all water thoroughly. Blend to a smooth green paste. Boil 1 cup peas and lightly mash. The spinach must be completely squeezed dry before using." },
+      { step: 2, title: "Make the kebab mixture", instruction: "Boil and mash 2 large potatoes completely smooth. Mix with the spinach paste, mashed peas, 1 tsp grated ginger, 1 chopped green chilli, 1/2 tsp cumin powder, 1/2 tsp coriander powder, chaat masala and salt. Add 2 tbsp roasted besan to bind and absorb moisture. Mix well. Refrigerate 20 minutes." },
+      { step: 3, title: "Shape and shallow fry", instruction: "Shape into round, flat tikkis. Roll each tikki in breadcrumbs or extra besan for a crispy coating. Shallow fry in ghee on medium heat for 3 minutes per side until beautifully golden and crispy on the outside. The green interior will be revealed when cut. Serve with mint chutney." },
+    ],
+    proTip: "The ice-water bath for the blanched spinach is what keeps the kebabs brilliantly green even after cooking.",
+  },
+  {
+    id: 234, title: "Khoya Gulab Jamun", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 45, servings: 20, difficulty: "Hard",
+    tags: ["khoya gulab jamun", "mawa", "traditional", "festival sweet", "diwali", "north indian"],
+    description: "The original, traditional gulab jamun made entirely from khoya (reduced milk solids) — far superior to the modern milk powder version. Dense, rich and soaking in rose-scented sugar syrup.",
+    ingredients: ["ghee", "sugar", "cardamom", "milk"],
+    missingIngredients: ["khoya mawa", "maida", "rose water", "saffron"],
+    steps: [
+      { step: 1, title: "Make the dough", instruction: "Grate or crumble 250g soft khoya into a bowl. Add 2 tbsp plain flour (maida) and 1/4 tsp baking soda. Mix gently with your fingers until it comes together into a smooth, soft dough. Do not over-knead — too much kneading makes the gulab jamun hard. If the dough cracks, add 1 tsp warm milk at a time. Rest 10 minutes covered." },
+      { step: 2, title: "Make sugar syrup first", instruction: "Dissolve 2 cups sugar in 1.5 cups water. Bring to a boil, add a pinch of saffron and simmer 5 minutes until a very light, thin syrup forms (no string consistency). Add rose water and 1/4 tsp cardamom powder. Keep warm on the lowest heat — syrup must be warm when gulab jamuns are added." },
+      { step: 3, title: "Shape and fry", instruction: "Divide dough into 20 equal smooth balls with no cracks. Heat ghee or oil to 140°C — very low. Add a few balls and fry on very low heat for 8–10 minutes, gently stirring, until evenly deep golden-brown. The low heat allows the inside to cook before the outside browns. Immediately transfer hot gulab jamuns to the warm sugar syrup. They will swell as they soak." },
+    ],
+    proTip: "140°C oil temperature is correct — most people fry too hot and get gulab jamuns that are brown outside and raw inside.",
+  },
+  {
+    id: 235, title: "Nimbu Achar (Lemon Pickle)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 20, difficulty: "Easy",
+    tags: ["nimbu achar", "lemon pickle", "north indian", "condiment", "instant"],
+    description: "North India's essential lemon pickle — quartered lemons preserved in salt, spices and mustard oil. This instant version is ready to eat in a few days, unlike traditional pickles that take weeks.",
+    ingredients: ["lemon", "mustard seeds", "cumin", "turmeric", "mustard oil"],
+    missingIngredients: ["black salt", "fenugreek seeds", "fennel seeds", "asafoetida"],
+    steps: [
+      { step: 1, title: "Prepare lemons", instruction: "Take 10 firm, thin-skinned lemons. Wipe completely dry — even a drop of water causes moulds in pickles. Quarter each lemon but do not cut all the way through — keep the base attached so it stays in one piece. Stuff a pinch of salt deep inside each quartered lemon." },
+      { step: 2, title: "Make the masala", instruction: "Dry roast 1 tsp fenugreek seeds and 1 tsp fennel seeds until fragrant. Grind coarsely. Mix with 2 tsp salt, 1 tsp turmeric, 1 tsp red chilli powder, 1/2 tsp black salt and the ground fenugreek-fennel. This is the pickle masala." },
+      { step: 3, title: "Combine and preserve", instruction: "Pack the stuffed lemons tightly into a sterilised glass jar. Pour in the pickle masala and 3 tbsp raw mustard oil. Seal and keep in a sunny spot for 3–5 days, shaking the jar daily. The lemons will soften and the flavours will meld. Ready when the skin has softened." },
+    ],
+    proTip: "Every utensil, jar and hand that touches the pickle must be completely dry. Moisture is the enemy of any pickle.",
+  },
+
+  // ── SOUTH INDIAN (236–260) ────────────────────────────────────────────────
+
+  {
+    id: 236, title: "Pongal Vadai Combo", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Medium",
+    tags: ["pongal vada", "south indian breakfast", "combo", "temple food", "Tamil Nadu"],
+    description: "Tamil Nadu's classic temple-style breakfast combination — soft, peppery ven pongal served alongside crispy medu vadas with sambar and coconut chutney. The contrast of textures and temperatures is the entire experience.",
+    ingredients: ["rice", "ghee", "cumin", "black pepper", "ginger", "cashews", "curry leaves", "mustard seeds"],
+    missingIngredients: ["moong dal", "urad dal", "asafoetida"],
+    steps: [
+      { step: 1, title: "Make ven pongal base", instruction: "Dry roast 1/2 cup moong dal until lightly golden and fragrant. Wash with 1 cup raw rice. Pressure cook together with 4 cups water, 1/2 tsp turmeric and salt for 4–5 whistles until completely mushy. Mash to a creamy, porridge-like consistency. Season generously with salt." },
+      { step: 2, title: "Make pongal tempering", instruction: "Heat 3 tbsp ghee until very hot. Add 1 tsp cumin seeds and 1 tsp coarsely cracked black pepper — these two together are the defining flavour. Add a pinch of asafoetida, 10 fresh curry leaves (they will splutter), 1 tsp grated ginger and 12 cashews. Fry until cashews are golden. Pour over pongal and mix." },
+      { step: 3, title: "Make medu vadas", instruction: "Grind soaked urad dal with minimal water to a light, fluffy batter that floats in water. Season with salt, green chilli, curry leaves and black pepper. Deep fry in circular doughnut shape at 175°C until golden. The pongal and vada should be served together while both are hot." },
+    ],
+    proTip: "Pongal must be eaten immediately — it thickens into a solid mass within 10 minutes of cooling.",
+  },
+  {
+    id: 237, title: "Chana Dal Sundal", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["sundal", "chana dal", "navratri", "beach snack", "south indian", "protein"],
+    description: "South India's protein-packed beach and festival snack — cooked chana dal tossed with coconut, curry leaves and mustard seeds. Sold on Chennai's Marina Beach and prepared as naivedyam (offering) during Navratri.",
+    ingredients: ["coconut", "mustard seeds", "cumin", "curry leaves", "lemon", "garlic"],
+    missingIngredients: ["chana dal", "urad dal", "dried red chilli", "asafoetida"],
+    steps: [
+      { step: 1, title: "Cook chana dal perfectly", instruction: "Soak 1 cup chana dal for 2 hours. Pressure cook with just enough water to cover, salt and a pinch of turmeric for 2–3 whistles. The dal should be cooked through but each grain must remain separate — not mushy. Drain any excess water. Overcooked sundal is not sundal." },
+      { step: 2, title: "Make the tempering", instruction: "Heat 2 tbsp oil in a pan. Add 1 tsp mustard seeds — let pop completely. Add 1 tsp urad dal — fry golden. Add 1 dried red chilli, a generous pinch of asafoetida and a generous bunch of fresh curry leaves. They will splutter dramatically." },
+      { step: 3, title: "Toss and finish", instruction: "Add the cooked chana dal to the tempering. Toss on high heat for 2 minutes. Remove from heat. Add 3 tbsp fresh grated coconut, 2 tsp lemon juice, salt to taste. Toss well. Serve warm or at room temperature." },
+    ],
+    proTip: "Sundal is all about the textural contrast — each grain firm and separate. Never overcook the lentils.",
+  },
+  {
+    id: 238, title: "Avial", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 35, servings: 5, difficulty: "Medium",
+    tags: ["avial", "onam sadya", "mixed vegetables", "kerala", "coconut yogurt"],
+    description: "Kerala's magnificent mixed vegetable dish — up to 11 different vegetables cooked in a thick coconut-cumin paste and finished with yogurt and fresh curry leaves. The Onam sadya's centrepiece vegetable preparation.",
+    ingredients: ["carrot", "potato", "eggplant", "peas", "drumstick", "yogurt", "coconut", "cumin", "turmeric", "curry leaves"],
+    missingIngredients: ["raw banana", "ash gourd", "yam", "coconut oil", "raw mango"],
+    steps: [
+      { step: 1, title: "Cut and cook vegetables", instruction: "The beauty of avial is the variety — use any combination of at least 5 different vegetables. Classic choices: carrot, raw banana, yam, ash gourd, drumstick, potato, eggplant and raw mango. Cut all into uniform 5cm long, 1cm wide baton shapes so they cook at the same rate. Cook in a pot with 1/2 cup water, 1/4 tsp turmeric and salt on medium heat for 8–10 minutes until just tender but still firm." },
+      { step: 2, title: "Make coconut-cumin paste", instruction: "Grind 3/4 cup fresh grated coconut with 1 tsp cumin seeds, 3 green chillies and a pinch of turmeric to a coarse, thick paste. Add to the cooked vegetables. Cook together 5 minutes, mixing gently so the paste coats every piece of vegetable." },
+      { step: 3, title: "Add yogurt and finish with curry leaves", instruction: "Remove from heat. Add 1/2 cup slightly sour yogurt and mix gently. Return to very low heat for 2 minutes — do not cook the yogurt. Add a generous bunch of fresh curry leaves and 2 tbsp raw coconut oil — the uncooked coconut oil adds a distinct freshness. Mix gently. The avial should be thick and creamy." },
+    ],
+    proTip: "Never boil avial after adding yogurt — it curdles and separates. Remove from heat first, then add yogurt.",
+  },
+  {
+    id: 239, title: "Kozhi Varutharacha Curry", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=700",
+    readyInMinutes: 55, servings: 4, difficulty: "Hard",
+    tags: ["varutharacha curry", "roasted coconut chicken", "kerala", "special occasion"],
+    description: "Kerala's most flavourful chicken curry — made with a deeply roasted coconut paste (varutharacha means 'roasted and ground'). The coconut is roasted until almost black, giving the curry a uniquely smoky, intense flavour impossible to achieve any other way.",
+    ingredients: ["chicken", "onion", "garlic", "ginger", "coconut", "turmeric", "black pepper", "curry leaves", "coconut oil"],
+    missingIngredients: ["whole spices", "shallots", "kashmiri chilli"],
+    steps: [
+      { step: 1, title: "Make the roasted coconut paste — the heart of this dish", instruction: "Heat a dry pan on medium heat. Add 1 cup fresh grated coconut with 5 shallots (halved) and 5 garlic cloves. Roast, stirring constantly, for 10–15 minutes until the coconut turns deep mahogany-brown — almost black at some edges. The colour should alarm you slightly — this is correct. Add 1 tsp coriander seeds and 1/2 tsp black pepper and roast 1 more minute. Cool and blend with a little water to a fine paste.", tip: "The deep brown to almost black colour is the goal. Pale roasted coconut makes a pale curry. Dark roasted coconut makes a dark, extraordinarily flavourful curry." },
+      { step: 2, title: "Build the curry base", instruction: "Heat 3 tbsp coconut oil. Add whole spices (cardamom, cloves, cinnamon). Add sliced onions and cook 10 minutes until golden. Add ginger-garlic paste and curry leaves. Add 2 tsp Kashmiri chilli powder and 1/4 tsp turmeric. Cook 2 minutes." },
+      { step: 3, title: "Add chicken and roasted coconut paste", instruction: "Add chicken pieces and brown on all sides. Add the roasted coconut paste and mix to coat all the chicken. Add 1.5 cups warm water. Simmer covered 25 minutes until chicken is completely tender. Uncover and cook on high heat 5 minutes to thicken the gravy. Temper with fresh curry leaves in coconut oil." },
+    ],
+    proTip: "This curry improves dramatically the next day as the roasted coconut paste flavours fully infuse the gravy.",
+  },
+  {
+    id: 240, title: "Parippu Curry (Kerala Dal)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 25, servings: 4, difficulty: "Easy",
+    tags: ["parippu curry", "moong dal", "kerala", "onam sadya", "first course"],
+    description: "Kerala's simple yellow moong dal — served as the first course on an Onam sadya banana leaf, poured over rice with a drizzle of ghee. Mild, comforting and always the first thing served at every Kerala feast.",
+    ingredients: ["coconut", "cumin", "garlic", "turmeric", "mustard seeds", "curry leaves", "ghee"],
+    missingIngredients: ["moong dal", "shallots", "coconut oil"],
+    steps: [
+      { step: 1, title: "Cook moong dal", instruction: "Pressure cook 1 cup yellow moong dal with 2.5 cups water and 1/2 tsp turmeric for 3 whistles until completely soft and creamy. Whisk smooth. It should be liquid enough to pour over rice." },
+      { step: 2, title: "Add coconut paste", instruction: "Grind 1/2 cup fresh coconut with 1/2 tsp cumin and 1 garlic clove to a smooth paste. Add to the cooked dal with salt. Simmer together on low heat 5 minutes until well combined." },
+      { step: 3, title: "Make Kerala tadka", instruction: "Heat 2 tbsp coconut oil. Add mustard seeds — pop. Add 2–3 shallots (halved, not chopped) and fry until golden. Add dried red chilli and curry leaves. Pour over the dal. Add a drizzle of raw coconut oil on top. Serve with a spoon of ghee over rice." },
+    ],
+    proTip: "Onam parippu curry is intentionally mild and liquid — it is the gentle beginning of the feast, not a bold statement.",
+  },
+  {
+    id: 241, title: "Sambar Sadam (Sambar Rice)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700",
+    readyInMinutes: 30, servings: 3, difficulty: "Easy",
+    tags: ["sambar sadam", "sambar rice", "one pot", "south indian", "comfort food"],
+    description: "Sambar rice — rice and sambar cooked together into one comforting dish, topped with ghee. The simplest, most satisfying South Indian meal.",
+    ingredients: ["rice", "tomato", "onion", "garlic", "mustard seeds", "turmeric", "ghee", "curry leaves"],
+    missingIngredients: ["toor dal", "tamarind", "sambar powder", "asafoetida"],
+    steps: [
+      { step: 1, title: "Make a quick sambar", instruction: "Cook 1/2 cup toor dal with 1.5 cups water until soft. In a pot, cook 1 onion, 2 tomatoes, drumstick (if available) and mixed vegetables with tamarind extract and 2 cups water for 10 minutes. Add the cooked dal, 2 tsp sambar powder, turmeric and salt. Simmer 10 minutes." },
+      { step: 2, title: "Combine with rice", instruction: "Cook 1.5 cups rice and cool slightly. Mix the hot sambar into the rice — the rice should absorb most of the sambar liquid and the consistency should be semi-dry and porridge-like." },
+      { step: 3, title: "Temper and finish", instruction: "Heat 2 tbsp ghee. Add mustard seeds, curry leaves and asafoetida. Pour over the sambar rice. Mix and serve topped with more ghee. Serve with papad and pickle." },
+    ],
+    proTip: "Sambar sadam should be slightly wetter than plain rice — it will absorb the remaining moisture as it rests.",
+  },
+  {
+    id: 242, title: "Nei Payasam", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Medium",
+    tags: ["nei payasam", "ghee payasam", "kerala", "jaggery rice", "onam"],
+    description: "Kerala's intensely ghee-rich rice payasam cooked in jaggery — similar to ada pradhaman but made with rice instead of ada. The name 'nei' means ghee — a generous amount is used.",
+    ingredients: ["rice", "ghee", "cardamom", "cashews"],
+    missingIngredients: ["jaggery", "raisins", "coconut milk"],
+    steps: [
+      { step: 1, title: "Fry rice in ghee", instruction: "Heat 3 tbsp ghee in a heavy pot. Add 1/2 cup washed raw rice. Fry stirring on medium heat for 3–4 minutes until the rice turns slightly golden and fragrant. This toasting step adds a nutty depth to the payasam." },
+      { step: 2, title: "Cook rice in jaggery syrup", instruction: "Dissolve 1.5 cups jaggery in 2 cups water and strain. Add the strained jaggery syrup to the fried rice. Cook covered on medium heat for 15 minutes until rice is completely soft and has absorbed the jaggery syrup. The mixture will turn a beautiful dark amber colour from the jaggery." },
+      { step: 3, title: "Add coconut milk and ghee", instruction: "Add 1 cup thin coconut milk and simmer 5 minutes. Add 1/2 cup thick coconut milk and stir — immediately lower heat. Add cardamom powder. Fry cashews and raisins in 2 tbsp ghee and pour over. The ghee drizzled over the top gives this payasam its characteristic rich gleam." },
+    ],
+    proTip: "Use the darkest jaggery available — the deeper the colour of the jaggery, the more complex and caramel-like the payasam will taste.",
+  },
+  {
+    id: 243, title: "Gothsu (Raw Mango Curry)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 25, servings: 4, difficulty: "Easy",
+    tags: ["gothsu", "raw mango curry", "Tamil Nadu", "pongal side", "tangy"],
+    description: "Tamil Nadu's tangy, spicy raw mango relish — the traditional companion to ven pongal. Raw mango cooked with onion, tomato and spices into a thick, jammy sauce. Bold, sour and the perfect contrast to mild pongal.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "mustard seeds", "turmeric", "curry leaves", "ghee"],
+    missingIngredients: ["raw mango", "tamarind", "urad dal", "asafoetida"],
+    steps: [
+      { step: 1, title: "Pressure cook raw mango", instruction: "Peel and cut 1 large raw mango into rough pieces. Pressure cook with 1/2 cup water for 2 whistles until completely soft and mashable. Cool and mash completely — skin and flesh together into a rough pulp." },
+      { step: 2, title: "Make the masala base", instruction: "Heat 2 tbsp oil. Add mustard seeds — pop. Add urad dal — golden. Add curry leaves and asafoetida. Add 1 medium onion (finely chopped) and cook 6 minutes. Add ginger-garlic paste, 2 tomatoes and all dry spices. Cook 8 minutes until oil surfaces." },
+      { step: 3, title: "Add mango and simmer", instruction: "Add the mashed raw mango to the masala. Add 1/4 cup water and salt. Simmer together 8 minutes, stirring, until the gothsu is thick and jammy. Adjust tanginess — add a little tamarind if the mango is not sour enough. Serve with ven pongal." },
+    ],
+    proTip: "The sourness of gothsu should be assertive — it is meant to cut through the mild richness of pongal.",
+  },
+  {
+    id: 244, title: "Vendakkai Mor Kuzhambu", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["okra curry", "mor kuzhambu", "Tamil Nadu", "yogurt curry", "okra"],
+    description: "Pan-fried okra in a tangy yogurt-coconut curry — the combination of the slightly crispy fried okra and the sour cooling yogurt curry is extraordinary. A Tamil Nadu home-cooking staple.",
+    ingredients: ["okra", "yogurt", "coconut", "cumin", "turmeric", "mustard seeds", "curry leaves"],
+    missingIngredients: ["toor dal", "green chilli", "asafoetida", "coconut oil"],
+    steps: [
+      { step: 1, title: "Fry the okra separately", instruction: "Cut 300g okra into 2cm pieces. Dry completely. Heat oil in a pan and fry okra on medium-high heat for 8–10 minutes until slightly crispy and cooked through. Do not cover — steam makes okra slimy. Set aside." },
+      { step: 2, title: "Make the mor kuzhambu", instruction: "Grind 1/4 cup coconut, 1 tsp cumin, 1 tsp coriander seeds, 1/2 tsp turmeric and 2 green chillies with a little water to a smooth paste. Beat 1.5 cups thick yogurt smooth. Mix in the coconut paste, salt and a pinch of sugar. Heat on LOW, stirring, until just warm — never boil." },
+      { step: 3, title: "Combine and temper", instruction: "Add the fried okra to the yogurt curry. Mix gently. Temper with mustard seeds, urad dal, dried red chilli and curry leaves in coconut oil. Pour over the curry. Serve immediately with steamed rice." },
+    ],
+    proTip: "The okra must be fried separately before adding to the yogurt — otherwise it will become slimy and unpleasant in the dairy.",
+  },
+  {
+    id: 245, title: "Vazhaithandu Kootu (Banana Stem)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 35, servings: 3, difficulty: "Medium",
+    tags: ["vazhaithandu", "banana stem", "kootu", "Kerala", "Tamil Nadu", "digestive"],
+    description: "A unique South Indian preparation using banana stem — a fibre-rich ingredient highly valued for digestive health. Cooked with lentils and coconut into a nutritious, mildly flavoured kootu.",
+    ingredients: ["coconut", "cumin", "mustard seeds", "turmeric", "garlic", "curry leaves"],
+    missingIngredients: ["banana stem", "chana dal", "urad dal", "coconut oil"],
+    steps: [
+      { step: 1, title: "Prepare banana stem", instruction: "Peeling banana stem requires patience. Remove the outer tough layers until you reach the white, tender core. As you slice, thread-like fibres appear — pull them out and discard (they are tough and stringy). Dice the cleaned white core into small pieces. Immediately place in salted water with a pinch of turmeric to prevent browning." },
+      { step: 2, title: "Cook with dal", instruction: "Pressure cook chana dal with 1.5 cups water until soft. Drain banana stem pieces, cook in a separate pot with 1/4 tsp turmeric and salt until tender, about 10 minutes. Combine dal and banana stem." },
+      { step: 3, title: "Add coconut paste and temper", instruction: "Grind 1/2 cup coconut with 1 tsp cumin, a garlic clove and 1/4 tsp black pepper to a coarse paste. Add to the dal-banana stem mixture. Cook together 5 minutes. Temper with mustard seeds, urad dal, dried red chilli and curry leaves in coconut oil." },
+    ],
+    proTip: "The threading fibres in banana stem must ALL be removed — even a single remaining thread ruins the entire dish with its tough, stringy texture.",
+  },
+  {
+    id: 246, title: "Raw Jackfruit Curry", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 45, servings: 4, difficulty: "Medium",
+    tags: ["jackfruit curry", "kathal", "vegetarian meat", "south indian", "Kerala"],
+    description: "Young green jackfruit cooked in a spiced coconut curry — the texture of jackfruit is remarkably meat-like, making this a favourite vegetarian dish that satisfies even confirmed meat-eaters. A Kerala and Tamil Nadu staple.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "coconut", "cumin", "coriander powder", "turmeric", "curry leaves"],
+    missingIngredients: ["raw jackfruit", "coconut oil", "whole spices"],
+    steps: [
+      { step: 1, title: "Prepare raw jackfruit", instruction: "Oil your hands and knife before handling raw jackfruit — it exudes a very sticky latex. Cut 500g raw jackfruit into 3cm chunks. Boil in salted water with 1/4 tsp turmeric for 15–20 minutes until tender. The jackfruit is done when you can pierce it easily with a fork. Drain and set aside. The boiling removes some of the stickiness and ensures even cooking." },
+      { step: 2, title: "Make coconut masala", instruction: "In a pan, heat 2 tbsp coconut oil. Add sliced onions and cook until golden. Add ginger-garlic paste, tomatoes and all dry spices. Cook 10 minutes until masala is thick. Separately grind 1/2 cup coconut with 1 tsp cumin to a paste and add to the masala. Cook 3 more minutes." },
+      { step: 3, title: "Add jackfruit and simmer", instruction: "Add the boiled jackfruit pieces to the masala. Add 1 cup water. Toss to coat all pieces in the masala. Simmer covered 15 minutes, tossing occasionally. The jackfruit absorbs the masala flavours and its texture becomes almost meaty. Add curry leaves tempered in coconut oil as a final topping." },
+    ],
+    proTip: "Oiling your hands and the knife before cutting raw jackfruit is essential — the latex is extremely sticky and difficult to remove without oil.",
+  },
+  {
+    id: 247, title: "Poori Masala", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Medium",
+    tags: ["poori masala", "south indian breakfast", "potato kurma", "Tamil Nadu", "weekend"],
+    description: "South India's beloved weekend breakfast — fluffy puffed fried bread (puri) with a mildly spiced potato masala yellowed with turmeric. Different from North Indian aloo sabzi — this South Indian version uses coconut and curry leaves.",
+    ingredients: ["flour", "potato", "onion", "mustard seeds", "turmeric", "curry leaves", "ginger", "ghee"],
+    missingIngredients: ["urad dal", "chana dal", "dried red chilli", "asafoetida"],
+    steps: [
+      { step: 1, title: "Make poori dough", instruction: "Mix 2 cups whole wheat flour with 1/4 tsp salt and 1 tbsp oil. Add water gradually to make a stiff, firm dough — stiffer than roti. Over-kneading makes puris absorb more oil; knead just until smooth. Rest 15 minutes covered. Divide into 12 equal balls." },
+      { step: 2, title: "Make the South Indian masala", instruction: "Heat 2 tbsp oil. Add mustard seeds — pop. Add urad dal and chana dal — golden. Add curry leaves, dried red chilli and asafoetida. Add 2 medium onions (thinly sliced) — cook 6 minutes until translucent. Add grated ginger and 1–2 green chillies. Add 1/2 tsp turmeric. Add 4 boiled and roughly mashed potatoes. Mix well. Add 1/4 cup water and cook 5 minutes. The masala should be semi-dry and bright yellow." },
+      { step: 3, title: "Fry pooris and serve", instruction: "Roll each ball into a thin circle (about 3mm). Deep fry in hot oil (180°C). The puri puffs up immediately — gently press down with a slotted spoon to help it puff evenly, then flip after 30 seconds. Fry 30 seconds more. Drain. Serve immediately — pooris deflate within 5 minutes of frying." },
+    ],
+    proTip: "Oil in the dough reduces gluten development and is what makes puris puff. Do not skip the oil in the dough.",
+  },
+  {
+    id: 248, title: "Kolhapuri Misal", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["kolhapuri misal", "maharashtrian", "spicy", "moth beans", "street food"],
+    description: "Maharashtra's punishingly spicy sprouted moth bean curry topped with farsan, raw onion, tomato and lime. Kolhapuri misal is famous for its extraordinary heat level — not for the faint-hearted.",
+    ingredients: ["onion", "tomato", "garlic", "ginger", "cumin", "coriander powder", "coconut", "mustard seeds"],
+    missingIngredients: ["moth beans", "kolhapuri masala", "farsan", "pav bread"],
+    steps: [
+      { step: 1, title: "Sprout moth beans", instruction: "Soak 1 cup moth beans overnight. Drain and tie in a damp cloth. Rest in a warm place for 1.5–2 days until small sprouts appear. Sprouted beans have better nutrition and texture. Boil sprouted beans until just tender." },
+      { step: 2, title: "Make the gravy (kat)", instruction: "Heat 3 tbsp oil. Add 1/2 tsp mustard seeds. Add 1 large onion (finely chopped) and cook 10 minutes until deep golden. Add ginger-garlic paste and tomatoes. Add 2 tsp Kolhapuri masala (or a combination of chilli powder, coriander powder, cumin, garam masala and roasted coconut paste). Cook until oil surfaces and the masala is dark and thick. Add 2 cups water and simmer 8 minutes to make the spicy gravy." },
+      { step: 3, title: "Assemble", instruction: "Pour hot gravy into a bowl. Add cooked sprouted beans. Top with a generous handful of farsan (crunchy mixture), finely diced raw onion, diced tomato and a squeeze of lime. Serve with buttered pav bread. The combination of hot spicy curry, crunchy farsan and cold raw onion is the whole experience." },
+    ],
+    proTip: "Kolhapuri misal is supposed to be very, very spicy. Reducing the chilli makes it a completely different dish.",
+  },
+  {
+    id: 249, title: "Muringakka Theeyal", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 40, servings: 4, difficulty: "Medium",
+    tags: ["theeyal", "drumstick", "Kerala", "roasted coconut", "tamarind"],
+    description: "Kerala's spectacular roasted-coconut curry — drumstick pieces in a deep, dark, smoky gravy made from coconut roasted to a near-black colour and tamarind. The roasted coconut is the defining flavour.",
+    ingredients: ["coconut", "onion", "garlic", "cumin", "turmeric", "mustard seeds", "curry leaves"],
+    missingIngredients: ["drumstick", "tamarind", "shallots", "coconut oil"],
+    steps: [
+      { step: 1, title: "Roast coconut to dark brown", instruction: "Heat a dry pan on medium heat. Add 3/4 cup fresh grated coconut with 4 shallots and 3 garlic cloves. Roast stirring continuously for 12–15 minutes until the coconut turns deep dark brown — much darker than for most dishes. Add 1 tsp coriander seeds, 1/2 tsp cumin and 3 dried red chillies for the last 2 minutes. Cool completely and grind with water to a smooth, dark paste." },
+      { step: 2, title: "Cook drumstick in tamarind", instruction: "Cut 2 drumsticks into 5cm pieces. Cook in a pot with 2 cups water, 1/4 tsp turmeric, salt and 3 tbsp tamarind extract for 10–12 minutes until drumstick is tender." },
+      { step: 3, title: "Combine and simmer", instruction: "Add the roasted coconut paste to the drumstick pot. Stir well. Simmer 10 minutes until the curry is thick and dark. Temper with mustard seeds, shallots and curry leaves in coconut oil. The finished theeyal should be dark brown and intensely flavourful." },
+    ],
+    proTip: "The nearly black roasted coconut is what makes theeyal extraordinary — it is irreplaceable and cannot be substituted with raw coconut.",
+  },
+  {
+    id: 250, title: "Ammini Kozhukattai", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 30, servings: 3, difficulty: "Easy",
+    tags: ["ammini kozhukattai", "mini rice balls", "Tamil Nadu", "evening snack", "tempered"],
+    description: "Small, plain steamed rice flour balls tempered with mustard seeds, coconut and curry leaves — a popular Tamil Nadu evening snack and tiffin item. Simple, satisfying and completely addictive.",
+    ingredients: ["coconut", "mustard seeds", "cumin", "curry leaves", "ghee"],
+    missingIngredients: ["rice flour", "urad dal", "dried red chilli", "asafoetida"],
+    steps: [
+      { step: 1, title: "Make rice flour dough", instruction: "Boil 2 cups water with 1 tsp oil and salt. Remove from heat. Add 2 cups rice flour all at once and stir quickly with a spoon. Knead when slightly cool into a smooth, soft, pliable dough — no cracks. The dough should be soft enough to roll into smooth balls." },
+      { step: 2, title: "Shape and steam", instruction: "Pinch small marble-sized balls from the dough, rolling smooth between your palms. Place on greased steamer plates without touching each other. Steam 8–10 minutes until the balls turn slightly translucent. Cool slightly." },
+      { step: 3, title: "Temper and toss", instruction: "Heat 2 tbsp coconut oil in a pan. Add mustard seeds — pop. Add urad dal — golden. Add dried red chillies, curry leaves and asafoetida. Add the steamed rice balls and toss gently on high heat for 2 minutes. Add fresh grated coconut and mix. Serve warm." },
+    ],
+    proTip: "The balls must be fully steamed before tempering — remove from steamer only when they feel firm and look slightly translucent.",
+  },
+  {
+    id: 251, title: "Paal Kozhukattai", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["paal kozhukattai", "milk rice balls", "Tamil dessert", "coconut milk", "Ganesh Chaturthi"],
+    description: "Small rice flour dumplings cooked in a sweetened coconut milk — a gentle, comforting Tamil dessert made during festivals. The rice balls float in fragrant, cardamom-scented coconut milk.",
+    ingredients: ["coconut milk", "sugar", "cardamom", "ghee"],
+    missingIngredients: ["rice flour"],
+    steps: [
+      { step: 1, title: "Make and shape rice dumplings", instruction: "Make rice flour dough as in ammini kozhukattai. Shape into small smooth balls. Do not steam yet — these will be cooked directly in the coconut milk." },
+      { step: 2, title: "Cook in thin coconut milk", instruction: "Bring 2 cups thin coconut milk to a simmer in a wide pan. Add the raw rice balls carefully. Cook on medium heat for 8–10 minutes until the balls are cooked through — they will float to the surface when done. Stir gently occasionally to prevent sticking." },
+      { step: 3, title: "Add sugar and thick coconut milk", instruction: "Add sugar to taste (approximately 3 tbsp) and stir until dissolved. Add 1/2 cup thick coconut milk and 1/4 tsp cardamom powder. Stir gently and remove from heat immediately. The coconut milk should be sweet, fragrant and creamy. Serve warm." },
+    ],
+    proTip: "The rice balls will continue to swell in the coconut milk after cooking — the sauce will thicken as it cools.",
+  },
+  {
+    id: 252, title: "Chow Chow Kootu", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 3, difficulty: "Easy",
+    tags: ["chow chow", "chayote", "kootu", "Tamil Nadu", "south indian"],
+    description: "A mild, comforting South Indian vegetable and lentil dish using chow chow (chayote squash) — subtle in flavour but deeply satisfying. A staple of Tamil Brahmin cooking.",
+    ingredients: ["coconut", "cumin", "mustard seeds", "turmeric", "curry leaves", "garlic"],
+    missingIngredients: ["chayote chow chow", "chana dal", "urad dal", "asafoetida"],
+    steps: [
+      { step: 1, title: "Cook chow chow and dal", instruction: "Peel and dice 2 chow chow into 2cm cubes. Pressure cook chana dal until soft. Cook chow chow in 1/2 cup water with turmeric and salt for 8–10 minutes until tender." },
+      { step: 2, title: "Add coconut paste", instruction: "Grind 1/2 cup coconut with cumin, 1 garlic clove and 1 green chilli to a coarse paste. Combine cooked chow chow and dal. Add the coconut paste. Cook together 5 minutes." },
+      { step: 3, title: "Temper and serve", instruction: "Heat 1 tbsp coconut oil. Add mustard seeds — pop. Add urad dal, curry leaves, dried red chilli and asafoetida. Pour over the kootu." },
+    ],
+    proTip: "Chow chow has a mild flavour that absorbs the coconut masala beautifully — do not over-spice it.",
+  },
+  {
+    id: 253, title: "Milagai Bajji (Chilli Fritter)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Easy",
+    tags: ["milagai bajji", "chilli bajji", "south indian", "street food", "monsoon snack"],
+    description: "South India's spicy street snack — large green chillies dipped in a seasoned besan batter and deep fried until crispy. The mildly spiced batter complements the heat of the chilli. Best eaten during monsoon with coconut chutney.",
+    ingredients: ["vegetable oil", "cumin", "garlic", "ginger"],
+    missingIngredients: ["banana peppers or bhavnagri chillies", "besan", "rice flour", "ajwain"],
+    steps: [
+      { step: 1, title: "Prepare chillies", instruction: "Select 8–10 large, thick-walled green chillies (Bhavnagri or banana peppers work best — they are mildly hot). Slit each chilli lengthwise on one side without cutting through. Remove seeds to reduce heat level. Optional: stuff a tiny pinch of salt and amchur inside the slit." },
+      { step: 2, title: "Make the batter", instruction: "Mix 1 cup besan with 2 tbsp rice flour (makes it crispier), 1/4 tsp ajwain, 1/4 tsp turmeric, 1/4 tsp chilli powder, a pinch of baking soda and salt. Add water gradually to make a smooth, medium-thick batter that coats the back of a spoon." },
+      { step: 3, title: "Dip and fry", instruction: "Heat oil to 175°C. Dip each chilli completely in batter, holding by the stem. Slide into oil. Fry 3–4 minutes, turning, until the batter is golden and crispy all over. Drain on paper. Serve immediately with coconut chutney." },
+    ],
+    proTip: "Rice flour in the batter is the key to a crispy bajji — pure besan batter alone is softer. The 1:4 rice flour to besan ratio is the secret.",
+  },
+  {
+    id: 254, title: "Paniyaram (Spicy)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 20, servings: 3, difficulty: "Easy",
+    tags: ["paniyaram", "kuzhi paniyaram", "south indian", "dosa batter", "crispy balls"],
+    description: "South India's charming round savoury balls made from fermented dosa batter in a special appe/paniyaram pan. Crispy outside and pillowy inside, with a spicy onion-mustard seed filling.",
+    ingredients: ["onion", "mustard seeds", "ginger", "curry leaves", "cumin", "cilantro"],
+    missingIngredients: ["dosa batter", "coconut oil", "green chilli"],
+    steps: [
+      { step: 1, title: "Make the seasoning", instruction: "Heat 1 tbsp oil. Add mustard seeds — pop. Add 1 medium onion (finely diced), 2 green chillies and grated ginger. Cook 4 minutes until onion is soft. Add curry leaves and chopped cilantro. Cool and mix into 2 cups dosa batter. The batter should be well-fermented and slightly sour." },
+      { step: 2, title: "Heat the paniyaram pan", instruction: "Heat the paniyaram/appe pan on medium heat. Add 1/2 tsp coconut oil in each well. Let the oil heat until it shimmers — the pan must be hot before adding batter." },
+      { step: 3, title: "Fill and cook", instruction: "Pour seasoned batter into each well to 3/4 full. Cover and cook on medium heat for 3 minutes until the bottoms are golden. Use a thin skewer or spoon to flip each paniyaram. Cook uncovered 2 more minutes until the other side is equally golden. Serve with coconut and tomato chutneys." },
+    ],
+    proTip: "The paniyaram pan must be well-seasoned and hot before adding batter — poorly seasoned or cold wells cause the paniyaram to stick.",
+  },
+  {
+    id: 255, title: "Kara Kuzhambu (Spicy Gravy)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Medium",
+    tags: ["kara kuzhambu", "spicy gravy", "Tamil Nadu", "tamarind curry", "brinjal"],
+    description: "Tamil Nadu's bold, dark, intensely spiced tamarind-based gravy — usually made with brinjal or drumstick or pearl onions. It is the bolder, spicier cousin of sambar — richer in oil, darker in colour, more intense in flavour.",
+    ingredients: ["eggplant", "onion", "tomato", "garlic", "mustard seeds", "cumin", "turmeric", "curry leaves"],
+    missingIngredients: ["tamarind", "kuzhambu milagai thool", "shallots", "gingelly oil"],
+    steps: [
+      { step: 1, title: "Fry the vegetables", instruction: "Cube 3 small brinjals or use pearl onions. Heat 3 tbsp gingelly oil in a heavy pan. Fry the vegetables until golden and slightly softened. Remove. In the same oil, add mustard seeds, curry leaves and 8–10 shallots — cook until the shallots are deep golden." },
+      { step: 2, title: "Build the masala", instruction: "Add 2 tsp kuzhambu milagai thool (a special Tamil spice powder — substitute with a mix of coriander powder, cumin and extra chilli powder). Add tomatoes and cook until oil surfaces. Add thick tamarind extract (4 tbsp) and 1 cup water. Simmer 8 minutes until the raw tamarind smell disappears." },
+      { step: 3, title: "Add vegetables and thicken", instruction: "Add the fried vegetables to the gravy. Simmer 8–10 minutes until the curry is dark, thick and the oil floats on top. Kara kuzhambu must have oil floating on the surface — this is correct and intended. Serve with rice and a simple kootu." },
+    ],
+    proTip: "The floating oil in kara kuzhambu is a sign of correct cooking, not excess — it seals the surface and intensifies the flavour.",
+  },
+  {
+    id: 256, title: "Kai Murukku", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?w=700",
+    readyInMinutes: 50, servings: 6, difficulty: "Hard",
+    tags: ["kai murukku", "hand murukku", "rice flour", "Tamil Nadu", "festival", "skill snack"],
+    description: "The most skilful murukku of all — shaped entirely by hand into a perfectly round coil without any press. A traditional skill passed down through generations, requiring practice but producing a uniquely textured, hand-crafted snack.",
+    ingredients: ["cumin", "sesame oil", "salt"],
+    missingIngredients: ["rice flour", "urad dal flour", "butter", "sesame seeds"],
+    steps: [
+      { step: 1, title: "Make the dough", instruction: "Dry roast and grind 1/4 cup urad dal to a fine flour. Mix 2 cups rice flour with the urad dal flour, 1 tsp cumin seeds, 1 tsp sesame seeds, 1/4 tsp asafoetida and salt. Rub in 2 tbsp butter — this gives crispiness. Add warm water gradually to a smooth, pliable, non-sticky dough." },
+      { step: 2, title: "The hand technique", instruction: "This is the skill step. Take a large portion of dough. Roll into a long, thin rope (about 1cm diameter) between your palms and a flat surface using light even pressure. The rope must be smooth and even. Coil the rope around your fingers into a round spiral, pressing the end firmly to seal. Each murukku should be a perfect flat coil. This takes practice.", tip: "If the rope cracks while rolling, the dough is too dry. Add a tiny amount of water and knead again." },
+      { step: 3, title: "Fry slowly", instruction: "Gently slide the shaped murukku into oil at 160°C. Fry on medium-low heat for 5–6 minutes turning carefully until golden all over. The slow fry gives an even colour and ensures the inside cooks completely. Drain and cool." },
+    ],
+    proTip: "Kai murukku is a skill that improves with practice. The first batch may look imperfect — the shape improves quickly.",
+  },
+  {
+    id: 257, title: "Kozhi Rasam", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 30, servings: 4, difficulty: "Easy",
+    tags: ["chicken rasam", "kozhi rasam", "Tamil Nadu", "cold remedy", "pepper broth"],
+    description: "Chicken-enriched pepper broth — an elevated rasam made with bone broth from chicken instead of just water. Deeply nourishing, peppery and warming. Traditional cold and fever remedy in Tamil homes.",
+    ingredients: ["chicken", "garlic", "cumin", "black pepper", "turmeric", "ghee", "curry leaves", "cilantro"],
+    missingIngredients: ["tamarind", "rasam powder"],
+    steps: [
+      { step: 1, title: "Make chicken broth", instruction: "Boil 300g bone-in chicken pieces with 4 cups water, 4 garlic cloves, 1 tsp black pepper, 1/4 tsp turmeric and salt for 20 minutes until chicken is cooked. Remove chicken, shred the meat finely. Keep the broth — this is the base of the rasam." },
+      { step: 2, title: "Build the rasam", instruction: "Add to the chicken broth: 2 chopped tomatoes, tamarind extract (2 tbsp), 1.5 tsp rasam powder, 1/2 tsp cumin powder and more black pepper. Simmer 8 minutes. Add the shredded chicken back." },
+      { step: 3, title: "Temper and serve", instruction: "Heat 1 tsp ghee. Add mustard seeds, dried red chilli and curry leaves. Pour over rasam. Garnish with cilantro. Serve hot — either drunk from a glass or poured over rice." },
+    ],
+    proTip: "The chicken bone broth makes this rasam deeply nourishing. The longer the chicken bones simmer initially, the more flavourful the broth.",
+  },
+  {
+    id: 258, title: "Thenga Choru (Coconut Rice — Kerala)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=700",
+    readyInMinutes: 25, servings: 3, difficulty: "Easy",
+    tags: ["thenga choru", "coconut rice", "kerala", "travel food", "banana leaf rice"],
+    description: "Kerala's distinctive coconut rice — different from South Karnataka's version, this uses grated coconut fried with shallots, curry leaves and mustard seeds in coconut oil. A popular travel food and temple offering.",
+    ingredients: ["rice", "coconut", "mustard seeds", "curry leaves", "cumin"],
+    missingIngredients: ["shallots", "dried red chilli", "urad dal", "coconut oil"],
+    steps: [
+      { step: 1, title: "Cook and cool rice", instruction: "Cook 2 cups rice until perfectly done — each grain separate. Spread on a wide tray to cool. Drizzle 1 tsp coconut oil over cooled rice and separate the grains with a fork." },
+      { step: 2, title: "Fry the coconut with shallots", instruction: "Heat 2 tbsp coconut oil in a pan. Add mustard seeds — pop. Add urad dal — fry golden. Add 6–8 shallots (sliced) and 2 dried red chillies. Fry until shallots are deep golden. Add curry leaves. Add 1 cup fresh grated coconut and fry on medium heat, stirring, for 3–4 minutes until the coconut is lightly toasted and fragrant but not browned." },
+      { step: 3, title: "Mix and serve", instruction: "Add cooled rice to the coconut mixture. Toss gently until every grain is coated in the fragrant coconut. Adjust salt. Serve wrapped in banana leaf for the authentic Kerala experience." },
+    ],
+    proTip: "The shallots must be fried to deep golden — they add a sweetness and depth that regular onions cannot replicate in this dish.",
+  },
+  {
+    id: 259, title: "Kothu Parotta", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700",
+    readyInMinutes: 25, servings: 2, difficulty: "Medium",
+    tags: ["kothu parotta", "shredded parotta", "Tamil Nadu street food", "egg kothu", "loud food"],
+    description: "Tamil Nadu's most theatrical street food — flaky parottas hacked into small pieces on a hot griddle and tossed with eggs, onion, tomato and spices to the rhythmic clang of metal spatulas. The sound is as distinctive as the food.",
+    ingredients: ["eggs", "onion", "tomato", "garlic", "ginger", "cumin", "turmeric", "curry leaves", "butter"],
+    missingIngredients: ["kerala parotta", "salna curry sauce"],
+    steps: [
+      { step: 1, title: "Prepare parotta pieces", instruction: "Heat 2–3 ready-made Kerala parottas on a griddle until hot. Using two spatulas or a heavy edge, chop the parottas into rough 1–2cm pieces directly on the griddle. This is the kothu (chopping) step — the parottas are shredded into small, irregular pieces." },
+      { step: 2, title: "Build the masala on the griddle", instruction: "Push parotta pieces to the side. Add oil to the hot griddle. Add 1 small onion (finely diced), 2 green chillies and grated ginger-garlic. Cook 2 minutes on high heat. Add 1 diced tomato and all spices. Cook 2 more minutes." },
+      { step: 3, title: "Add eggs and kothu everything", instruction: "Beat 2–3 eggs and pour over the masala. Immediately add the parotta pieces back. Using the two spatulas, chop and toss everything together continuously on high heat for 3–4 minutes until the egg coats every piece of parotta and everything is well combined. Add a splash of salna (curry sauce) if available. The constant chopping and tossing motion is what gives kothu its unique texture." },
+    ],
+    proTip: "High heat throughout is essential — kothu is all about the caramelisation and slight char that comes from cooking on a very hot griddle.",
+  },
+  {
+    id: 260, title: "Moru Kachiyathu (Seasoned Buttermilk)", cuisine: "Indian",
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700",
+    readyInMinutes: 10, servings: 4, difficulty: "Easy",
+    tags: ["moru kachiyathu", "buttermilk", "Kerala", "digestive", "onam sadya", "last course"],
+    description: "Kerala's final sadya course — thin, spiced warm buttermilk tempered with mustard seeds and curry leaves. Served to aid digestion after the rich Onam feast. Simple, cooling and perfectly functional.",
+    ingredients: ["yogurt", "ginger", "garlic", "turmeric", "mustard seeds", "curry leaves"],
+    missingIngredients: ["coconut oil", "green chilli", "shallots"],
+    steps: [
+      { step: 1, title: "Make the buttermilk", instruction: "Whisk 1 cup yogurt with 2 cups water until completely smooth and lump-free. It should be thin — more water than yogurt. Add 1/4 tsp turmeric, a pinch of salt and 1/2 tsp grated ginger." },
+      { step: 2, title: "Heat gently", instruction: "Pour into a pot. Heat on very low heat, stirring, until just warm to touch — this should take about 2 minutes. Never allow it to boil. The moment it begins to steam very gently, remove from heat." },
+      { step: 3, title: "Temper and serve", instruction: "Heat 1 tsp coconut oil. Add mustard seeds — pop. Add 1 slit green chilli, a few shallot slices and curry leaves. Pour over the warm moru. Serve immediately as the final course of the sadya, poured over the remaining rice on the leaf." },
+    ],
+    proTip: "Moru kachiyathu is the deliberate final course of Onam sadya — its gentle spices and thin consistency are meant to settle the stomach after the feast.",
+  },
+
+// ════════════════════════════════════════════════════════════════════════════
+// END OF 50 RECIPES (IDs 211–260)
+// Paste the block above (from id: 211 down to id: 260) just before the
+// closing ];  of your ALL_RECIPES array in App.tsx
+// ════════════════════════════════════════════════════════════════════════════
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -2475,7 +3259,7 @@ function NavBar({ view, setView, user, onSignOut }: { view: ViewName; setView: (
   }, []);
 
   const navLinks = [
-    { label: "Recipes", v: "recipes" as ViewName },
+    { label: "🍽️ Explore all Recipes", v: "recipes" as ViewName },
   ];
 
   return (
@@ -2496,16 +3280,30 @@ function NavBar({ view, setView, user, onSignOut }: { view: ViewName; setView: (
           <nav className="nb-links" style={{ display: "flex", gap: 24, alignItems: "center" }}>
             {navLinks.map(({ label, v }) => (
               <button key={label} onClick={() => setView(v)}
-                style={{
-                  background: "none", border: "none", cursor: "pointer", fontFamily: "inherit",
-                  fontSize: 13.5, fontWeight: 500, padding: "4px 0",
-                  color: (label === "Recipes" && view === "recipes") ? "#33c738" : "#475569",
-                  transition: "color 0.18s",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#33c738")}
-                onMouseLeave={e => { if (!((label === "Recipes" && view === "recipes"))) e.currentTarget.style.color = "#475569"; }}>
-                {label}
-              </button>
+              style={{
+                background: label === "🍽️ Explore all Recipes"
+                  ? "linear-gradient(135deg, #ff6b35, #f7931e)"
+                  : "none",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                fontSize: label === "🍽️ Explore all Recipes" ? 13.5 : 13.5,
+                fontWeight: label === "🍽️ Explore all Recipes" ? 700 : 500,
+                padding: label === "🍽️ Explore all Recipes" ? "8px 18px" : "4px 0",
+                borderRadius: label === "🍽️ Explore all Recipes" ? "20px" : "0",
+                color: label === "🍽️ Explore all Recipes"
+                  ? "white"
+                  : (view === v ? "#33c738" : "#475569"),
+                boxShadow: label === "🍽️ Explore all Recipes"
+                  ? "0 4px 15px rgba(255,107,53,0.45)"
+                  : "none",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={e => { if (label !== "🍽️ Explore all Recipes") e.currentTarget.style.color = "#33c738"; }}
+              onMouseLeave={e => { if (label !== "🍽️ Explore all Recipes" && view !== v) e.currentTarget.style.color = "#475569"; }}
+            >
+              {label}
+            </button>
             ))}
           </nav>
         </div>
